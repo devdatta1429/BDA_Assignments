@@ -255,3 +255,106 @@ merge(df1,df2, by="Name", all.x = T)
 #4  Suyash ProjectMgmt       B      <NA>    <NA>
 #5 Vaibhav  Statistics       B Six Sigma       A
 #6   Vinod          AI       B        AI       C
+
+
+#####################################=====================###########################
+
+install.packages('dplyr')
+install.packages('tidyr')
+
+
+library(tidyr)
+library(dplyr)
+
+head(mtcars)
+
+mean(mtcars$wt)
+
+mean(mtcars$mpg)
+
+##summarise(mt )
+
+str(t1)
+
+unique(mtcars$gear)
+
+filter(mtcars,mpg>=20)
+
+filter(mtcars,mpg>=20,gear==4)
+
+sample_frac(mtcars,0.1)
+
+sample_n(mtcars,5)
+
+select(mtcars,mpg,wt)
+
+select(mtcars,-mpg,-wt)
+
+df1= mutate(mtcars, Eff=mpg/wt)
+df1$Eff = round(df1$Eff, 2)
+df1
+
+
+###########=================########################
+
+library(tidyr)
+
+
+df = read_excel ('CDAC_DataBookk.xlsx', sheet ='Health')
+df
+
+# A tibble: 12 × 5
+#   Country Disease      `2019` `2020` `2021`
+#   <chr>   <chr>         <dbl>  <dbl>  <dbl>
+# 1 India   Cancer           12     94     35
+# 2 UK      Cancer           95     19     84
+# 3 US      Cancer           98     19     53
+# 4 Japan   Cancer           89     52     14
+# 5 India   Covid            38     19     62
+# 6 UK      Covid            69     73     35
+# 7 US      Covid            87     97     35
+# 8 Japan   Covid            14     12     90
+# 9 India   Heart Attack     84     10     98
+#10 UK      Heart Attack     44     17     24
+#11 US      Heart Attack     34     40     54
+#12 Japan   Heart Attack     11     43     75
+
+df1 = gather(df,Year,Cases,c('2019','2020','2021'))
+df1
+
+dim(df1)
+# [1] 36  4
+
+df2= spread(df1, Disease,Cases)
+df2
+# A tibble: 12 × 5
+#    Country Year  Cancer Covid `Heart Attack`
+#   <chr>   <chr>  <dbl> <dbl>          <dbl>
+# 1 India   2019      12    38             84
+# 2 India   2020      94    19             10
+# 3 India   2021      35    62             98
+# 4 Japan   2019      89    14             11
+# 5 Japan   2020      52    12             43
+# 6 Japan   2021      14    90             75
+# 7 UK      2019      95    69             44
+# 8 UK      2020      19    73             17
+# 9 UK      2021      84    35             24
+#10 US      2019      98    87             34
+#11 US      2020      19    97             40
+#12 US      2021      53    35             54
+
+
+df3 = spread(df1,Country,Cases)
+df3
+# A tibble: 9 × 6
+#   Disease      Year  India Japan    UK    US
+#   <chr>        <chr> <dbl> <dbl> <dbl> <dbl>
+# 1 Cancer       2019     12    89    95    98
+# 2 Cancer       2020     94    52    19    19
+# 3 Cancer       2021     35    14    84    53
+# 4 Covid        2019     38    14    69    87
+# 5 Covid        2020     19    12    73    97
+# 6 Covid        2021     62    90    35    35
+# 7 Heart Attack 2019     84    11    44    34
+# 8 Heart Attack 2020     10    43    17    40
+# 9 Heart Attack 2021     98    75    24    54
