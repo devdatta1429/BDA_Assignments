@@ -62,3 +62,278 @@ ubuntu@ubuntu:~/third$ cd 3rd
 ubuntu@ubuntu:~/third/3rd$ cd ..
 ubuntu@ubuntu:~/third$ ^C
 ubuntu@ubuntu:~/third$
+
+
+
+##########################################################
+
+
+
+ubuntu@ubuntu:~/third$ cd ..
+ubuntu@ubuntu:~$ cd ..
+ubuntu@ubuntu:/home$ cd
+ubuntu@ubuntu:~$ echo "2nd file" >> two.txt
+ubuntu@ubuntu:~$ cp -n two.txt one.txt
+cp: warning: behavior of -n is non-portable and may change in future; use --update=none instead
+ubuntu@ubuntu:~$ cp -n two.txt third.txt
+cp: warning: behavior of -n is non-portable and may change in future; use --update=none instead
+ubuntu@ubuntu:~$ ls
+Desktop    Downloads  Pictures  Templates  bd          ds.sh  first.txtfnfnnf  myfirst.sh  second  third      two.txt
+Documents  Music      Public    Videos     copyex.txt  first  five.sh          one.txt     snap    third.txt
+ubuntu@ubuntu:~$ cat third.txt
+2nd file
+ubuntu@ubuntu:~$ cp -r a c
+cp: cannot stat 'a': No such file or directory
+ubuntu@ubuntu:~$ mkdir a
+ubuntu@ubuntu:~$ mkdir b
+ubuntu@ubuntu:~$ mkdir c
+ubuntu@ubuntu:~$ cd first
+ubuntu@ubuntu:~/first$ ls
+1st.txt
+ubuntu@ubuntu:~/first$ cp 1st.txt /home/ubuntu/a
+ubuntu@ubuntu:~/first$ cd ..
+ubuntu@ubuntu:~$ cp -r a c
+ubuntu@ubuntu:~$ cd c
+ubuntu@ubuntu:~/c$ ls
+a
+ubuntu@ubuntu:~/c$ cd a
+ubuntu@ubuntu:~/c/a$ cp -r a first
+cp: cannot stat 'a': No such file or directory
+ubuntu@ubuntu:~/c/a$ cd ..
+ubuntu@ubuntu:~/c$ cd ..
+ubuntu@ubuntu:~$ cp -r a first
+ubuntu@ubuntu:~$ cp first
+cp: missing destination file operand after 'first'
+Try 'cp --help' for more information.
+ubuntu@ubuntu:~$ cd first
+ubuntu@ubuntu:~/first$ ls
+1st.txt  a
+ubuntu@ubuntu:~/first$ cd a
+ubuntu@ubuntu:~/first/a$ ls
+1st.txt
+ubuntu@ubuntu:~/first/a$ cd ..
+ubuntu@ubuntu:~/first$ cd ..
+
+ubuntu@ubuntu:~$ date --help | grep "week"
+  %a   locale's abbreviated weekday name (e.g., Sun)
+  %A   locale's full weekday name (e.g., Sunday)
+  %g   last two digits of year of ISO week number (see %G)
+  %G   year of ISO week number (see %V); normally useful only with %V
+  %u   day of week (1..7); 1 is Monday
+  %U   week number of year, with Sunday as first day of week (00..53)
+  %V   ISO week number, with Monday as first day of week (01..53)
+  %w   day of week (0..6); 0 is Sunday
+  %W   week number of year, with Monday as first day of week (00..53)
+ubuntu@ubuntu:~$ cp -a two.txt third.txt
+ubuntu@ubuntu:~$ ls -l
+total 32
+drwxr-xr-x 2 ubuntu ubuntu  60 Mar 12 06:36 Desktop
+drwxr-xr-x 2 ubuntu ubuntu  40 Mar 12 06:37 Documents
+drwxr-xr-x 2 ubuntu ubuntu  40 Mar 12 06:37 Downloads
+drwxr-xr-x 2 ubuntu ubuntu  40 Mar 12 06:37 Music
+drwxr-xr-x 2 ubuntu ubuntu  40 Mar 12 06:37 Pictures
+drwxr-xr-x 2 ubuntu ubuntu  40 Mar 12 06:37 Public
+drwxr-xr-x 2 ubuntu ubuntu  40 Mar 12 06:37 Templates
+drwxr-xr-x 2 ubuntu ubuntu  40 Mar 12 06:37 Videos
+drwxrwxr-x 2 ubuntu ubuntu  60 Mar 12 09:26 a
+drwxrwxr-x 2 ubuntu ubuntu  40 Mar 12 09:25 b
+drwxrwxr-x 3 ubuntu ubuntu  60 Mar 12 09:26 c
+-rw-rw-r-- 1 ubuntu ubuntu  36 Mar 12 08:24 copyex.txt
+drwxrwxr-x 2 ubuntu ubuntu  60 Mar 12 06:59 d
+-rw-rw-r-- 1 ubuntu ubuntu  13 Mar 12 07:27 ds.sh
+drwxrwxr-x 3 ubuntu ubuntu  80 Mar 12 09:27 first
+-rw-rw-r-- 1 ubuntu ubuntu  10 Mar 12 07:46 first.txtfnfnnf
+-rw-rw-r-- 1 ubuntu ubuntu  48 Mar 12 07:21 five.sh
+-rw-rw-r-- 1 ubuntu ubuntu 154 Mar 12 06:55 myfirst.sh
+-rw-rw-r-- 1 ubuntu ubuntu  55 Mar 12 08:29 one.txt
+drwxrwxr-x 2 ubuntu ubuntu  60 Mar 12 08:39 second
+drwx------ 6 ubuntu ubuntu 120 Mar 12 09:03 snap
+drwxrwxr-x 3 ubuntu ubuntu  60 Mar 12 08:52 third
+-rw-rw-r-- 1 ubuntu ubuntu   9 Mar 12 09:20 third.txt
+-rw-rw-r-- 1 ubuntu ubuntu   9 Mar 12 09:20 two.txt
+ubuntu@ubuntu:~$ ls
+Desktop    Downloads  Pictures  Templates  a  c           d      first            five.sh     one.txt  snap   third.txt
+Documents  Music      Public    Videos     b  copyex.txt  ds.sh  first.txtfnfnnf  myfirst.sh  second   third  two.txt
+ubuntu@ubuntu:~$ mv myfirst.sh scrap
+ubuntu@ubuntu:~$ ls
+Desktop    Downloads  Pictures  Templates  a  c           d      first      five.sh  scrap   snap   third.txt
+Documents  Music      Public    Videos     b  copyex.txt  ds.sh  first.txt  one.txt  second  third  two.txt
+ubuntu@ubuntu:~$ mv five.sh scrap
+ubuntu@ubuntu:~$ mv ds.sh scrap
+ubuntu@ubuntu:~$ ls
+Desktop    Downloads  Pictures  Templates  a  c           d      first.txt  scrap   snap   third.txt
+Documents  Music      Public    Videos     b  copyex.txt  first  one.txt    second  third  two.txt
+ubuntu@ubuntu:~$ mv copyex.txt one.txt
+ubuntu@ubuntu:~$ ls
+Desktop    Downloads  Pictures  Templates  a  c  first      one.txt  second  third      two.txt
+Documents  Music      Public    Videos     b  d  first.txt  scrap    snap    third.txt
+ubuntu@ubuntu:~$ cat one.txt
+i am learning copy using cp command
+ubuntu@ubuntu:~$ cat first.txt
+hdfdasddd
+ubuntu@ubuntu:~$ mv first.txt one.txt
+ubuntu@ubuntu:~$ cat one.txt
+hdfdasddd
+ubuntu@ubuntu:~$ cat first.txt
+cat: first.txt: No such file or directory
+ubuntu@ubuntu:~$ ls a
+1st.txt
+ubuntu@ubuntu:~$ ls b
+ubuntu@ubuntu:~$ ls c
+a
+ubuntu@ubuntu:~$ ls c a
+a:
+1st.txt
+
+c:
+a
+ubuntu@ubuntu:~$ ls c 
+1st.txt
+ubuntu@ubuntu:~$ ls c 
+asc
+ubuntu@ubuntu:~$ ls c/a
+ls: cannot access 'c/a': No such file or directory
+ubuntu@ubuntu:~$ ls c/asc
+1st.txt
+ubuntu@ubuntu:~$ mv -n /home/ubuntu/asc /home/ubuntu/c
+mv: cannot stat '/home/ubuntu/asc': No such file or directory
+ubuntu@ubuntu:~$ mv -n /home/ubuntu/a /home/ubuntu/c
+ubuntu@ubuntu:~$ cd a
+bash: cd: a: No such file or directory
+ubuntu@ubuntu:~$ ls
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos  b  c  d  first  one.txt  scrap  second  snap  third  third.txt  two.txt
+ubuntu@ubuntu:~$ cd b
+ubuntu@ubuntu:~/b$ echo "message warning" >>checkwithwarning.txt
+ubuntu@ubuntu:~/b$ cat checkwithwarning.txt
+message warning
+ubuntu@ubuntu:~/b$ echo "message warning" >>checkattri.txt
+ubuntu@ubuntu:~/b$ cat checkattri.txt
+message warning
+ubuntu@ubuntu:~/b$ echo "to test attribute" >>checkattri.txt
+ubuntu@ubuntu:~/b$ cat checkattri.txt
+message warning
+to test attribute
+ubuntu@ubuntu:~/b$ cat checkattri.txt
+to test attribute
+ubuntu@ubuntu:~/b$ mv -i checkwithwarning.txt checkattri.txt
+mv: overwrite 'checkattri.txt'? yes
+ubuntu@ubuntu:~/b$ cat checkattri.txt
+message warning
+ubuntu@ubuntu:~/b$ ls
+checkattri.txt
+ubuntu@ubuntu:~/b$ touch arv.sh dev.sh sak.sh bhav.sh
+ubuntu@ubuntu:~/b$ ls
+arv.sh  bhav.sh  checkattri.txt  dev.sh  sak.sh
+ubuntu@ubuntu:~/b$ rename "s/\.txt$/.md/" *.txt
+Command 'rename' not found, but can be installed with:
+sudo apt install rename
+ubuntu@ubuntu:~/b$ sudo apt install rename
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  rename
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 20.3 kB of archives.
+After this operation, 63.5 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble/universe amd64 rename all 2.02-1 [20.3 kB]
+Fetched 20.3 kB in 1s (25.5 kB/s)
+Selecting previously unselected package rename.
+(Reading database ... 214828 files and directories currently installed.)
+Preparing to unpack .../archives/rename_2.02-1_all.deb ...
+Unpacking rename (2.02-1) ...
+Setting up rename (2.02-1) ...
+update-alternatives: using /usr/bin/file-rename to provide /usr/bin/rename (rename) in auto mode
+Processing triggers for man-db (2.12.0-4build2) ...
+ubuntu@ubuntu:~/b$ rename "s/\.txt$/.md/" *.txt
+ubuntu@ubuntu:~/b$ ls
+arv.sh  bhav.sh  checkattri.md  dev.sh  sak.sh
+ubuntu@ubuntu:~/b$ rename "s/\.md$/.txt/" *.txt
+ubuntu@ubuntu:~/b$ ls
+arv.sh  bhav.sh  checkattri.md  dev.sh  sak.sh
+ubuntu@ubuntu:~/b$ rename "s/\.md$/.txt/" *.md
+ubuntu@ubuntu:~/b$ ls
+arv.sh  bhav.sh  checkattri.txt  dev.sh  sak.sh
+ubuntu@ubuntu:~/b$ rename "s/\.sh$/.txt/" *.sh
+ubuntu@ubuntu:~/b$ ls
+arv.txt  bhav.txt  checkattri.txt  dev.txt  sak.txt
+ubuntu@ubuntu:~/b$ cd ..
+ubuntu@ubuntu:~$ ls
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos  b  c  d  first  one.txt  scrap  second  snap  third  third.txt  two.txt
+ubuntu@ubuntu:~$ cd b
+ubuntu@ubuntu:~/b$ rename 's/\.txt$/_backup.txt/' *
+ubuntu@ubuntu:~/b$ ls
+arv_backup.txt  bhav_backup.txt  checkattri_backup.txt  dev_backup.txt  sak_backup.txt
+ubuntu@ubuntu:~/b$ renmae 'y/a-z/A-Z' *
+Command 'renmae' not found, did you mean:
+  command 'rename' from deb rename (2.02-1)
+Try: sudo apt install <deb name>
+ubuntu@ubuntu:~/b$ rename 'y/a-z/A-Z' *
+Transliteration replacement not terminated at line 1, in:
+y/a-z/A-Z
+ubuntu@ubuntu:~/b$ ls
+arv_backup.txt  bhav_backup.txt  checkattri_backup.txt  dev_backup.txt  sak_backup.txt
+ubuntu@ubuntu:~/b$ rename 'y/a-z/A-Z/' *
+ubuntu@ubuntu:~/b$ ls
+ARV_BACKUP.TXT  BHAV_BACKUP.TXT  CHECKATTRI_BACKUP.TXT  DEV_BACKUP.TXT  SAK_BACKUP.TXT
+ubuntu@ubuntu:~/b$ rename 'y/A-Z/a-z/' *
+ubuntu@ubuntu:~/b$ ls
+arv_backup.txt  bhav_backup.txt  checkattri_backup.txt  dev_backup.txt  sak_backup.txt
+ubuntu@ubuntu:~/b$ ^C
+ubuntu@ubuntu:~/b$ rename 's/\.TXT$/-$(date).txt/' *.TXT
+Can't rename *.TXT *-1000 4 24 27 30 46 100 114 124 1000date).txt: No such file or directory
+ubuntu@ubuntu:~/b$ rename 's/\.TXT$/_$(date).txt/' *.TXT
+Can't rename *.TXT *_1000 4 24 27 30 46 100 114 124 1000date).txt: No such file or directory
+ubuntu@ubuntu:~/b$ rename 's/\.TXT$/_$(date).txt/' *.TXT
+Can't rename *.TXT *_1000 4 24 27 30 46 100 114 124 1000date).txt: No such file or directory
+ubuntu@ubuntu:~/b$ rename 's/\.txt$/_$(date).txt/' *.txt
+ubuntu@ubuntu:~/b$ ls
+'arv_backup_1000 4 24 27 30 46 100 114 124 1000date).txt'         'dev_backup_1000 4 24 27 30 46 100 114 124 1000date).txt'
+'bhav_backup_1000 4 24 27 30 46 100 114 124 1000date).txt'        'sak_backup_1000 4 24 27 30 46 100 114 124 1000date).txt'
+'checkattri_backup_1000 4 24 27 30 46 100 114 124 1000date).txt'
+ubuntu@ubuntu:~/b$ cd ..
+ubuntu@ubuntu:~$ echo "123" >> a.txt
+ubuntu@ubuntu:~$ echo "456" >> b.txt
+ubuntu@ubuntu:~$ echo "789" >> c.txt
+ubuntu@ubuntu:~$ echo "101112" >> d.txt
+ubuntu@ubuntu:~$ ls
+Desktop    Downloads  Pictures  Templates  a.txt  b.txt  c.txt  d.txt  one.txt  second  third      two.txt
+Documents  Music      Public    Videos     b      c      d      first  scrap    snap    third.txt
+ubuntu@ubuntu:~$ cp a.txt b.txt
+ubuntu@ubuntu:~$ ls
+Desktop    Downloads  Pictures  Templates  a.txt  b.txt  c.txt  d.txt  one.txt  second  third      two.txt
+Documents  Music      Public    Videos     b      c      d      first  scrap    snap    third.txt
+ubuntu@ubuntu:~$ cp a.txt
+cp: missing destination file operand after 'a.txt'
+Try 'cp --help' for more information.
+ubuntu@ubuntu:~$ cp b.txt
+cp: missing destination file operand after 'b.txt'
+Try 'cp --help' for more information.
+ubuntu@ubuntu:~$ cat a.txt
+123
+ubuntu@ubuntu:~$ cat b.txt
+123
+ubuntu@ubuntu:~$ mv a.txt b.txt
+ubuntu@ubuntu:~$ cat a.txt
+cat: a.txt: No such file or directory
+ubuntu@ubuntu:~$ cat b.txt
+123
+ubuntu@ubuntu:~$ ls
+Desktop    Downloads  Pictures  Templates  b      c      d      first    scrap   snap   third.txt
+Documents  Music      Public    Videos     b.txt  c.txt  d.txt  one.txt  second  third  two.txt
+ubuntu@ubuntu:~$ cd ~
+ubuntu@ubuntu:~$ echo 'example of rsync' red.txt
+example of rsync red.txt
+ubuntu@ubuntu:~$ echo 'example of rsync' >>  red.txt
+ubuntu@ubuntu:~$ ls
+Desktop    Downloads  Pictures  Templates  b      c      d      first    red.txt  second  third      two.txt
+Documents  Music      Public    Videos     b.txt  c.txt  d.txt  one.txt  scrap    snap    third.txt
+ubuntu@ubuntu:~$ rsync red.txt b
+ubuntu@ubuntu:~$ ls
+Desktop    Downloads  Pictures  Templates  b      c      d      first    red.txt  second  third      two.txt
+Documents  Music      Public    Videos     b.txt  c.txt  d.txt  one.txt  scrap    snap    third.txt
+ubuntu@ubuntu:~$ ls b
+'arv_backup_1000 4 24 27 30 46 100 114 124 1000date).txt'         'dev_backup_1000 4 24 27 30 46 100 114 124 1000date).txt'
+'bhav_backup_1000 4 24 27 30 46 100 114 124 1000date).txt'         red.txt
+'checkattri_backup_1000 4 24 27 30 46 100 114 124 1000date).txt'  'sak_backup_1000 4 24 27 30 46 100 114 124 1000date).txt'
+ubuntu@ubuntu:~$
