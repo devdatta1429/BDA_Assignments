@@ -8246,3 +8246,647 @@ ubuntu@ubuntu:~$ ls -l soft.txt exsoft.txt
 ls: cannot access 'soft.txt': No such file or directory
 lrwxrwxrwx 1 ubuntu ubuntu 8 Mar 16 13:03 exsoft.txt -> soft.txt
 ubuntu@ubuntu:~$
+
+
+ubuntu@ubuntu:~$ getfacl -m g:home/ubuntu/ubuntu room1
+getfacl: invalid option -- 'm'
+Usage: getfacl [-aceEsRLPtpndvh] file ...
+Try `getfacl --help' for more information.
+ubuntu@ubuntu:~$ getfacl foort1
+getfacl: foort1: No such file or directory
+ubuntu@ubuntu:~$ getfacl room1
+getfacl: room1: No such file or directory
+ubuntu@ubuntu:~$ getfacl room1
+getfacl: room1: No such file or directory
+ubuntu@ubuntu:~$ setfacl -m u:all_users:rwx root_dir
+setfacl: Option -m: Invalid argument near character 3
+ubuntu@ubuntu:~$ setfacl -m u:user1:rwx root_dir
+setfacl: root_dir: No such file or directory
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ setfacl -x g:all_users root_dir
+setfacl: root_dir: No such file or directory
+ubuntu@ubuntu:~$ mkdir root_dir
+ubuntu@ubuntu:~$ setfacl -x g:all_users root_dir
+ubuntu@ubuntu:~$ getfacl root_dir
+# file: root_dir
+# owner: ubuntu
+# group: ubuntu
+user::rwx
+group::rwx
+other::r-x
+
+ubuntu@ubuntu:~$ chmod 777 data.txt
+chmod: cannot access 'data.txt': No such file or directory
+ubuntu@ubuntu:~$ chmod 777 data1.txt
+ubuntu@ubuntu:~$ ls -l
+total 48
+drwxr-xr-x 2 ubuntu ubuntu   80 Mar 14 09:08  Desktop
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Documents
+drwxr-xr-x 2 ubuntu ubuntu   80 Mar 14 09:07  Downloads
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Music
+drwxr-xr-x 3 ubuntu ubuntu   60 Mar 14 04:11  Pictures
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Public
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Templates
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Videos
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:09  a
+drwxrwxr-x 2 ubuntu ubuntu   60 Mar 14 07:03  b
+drwxrwxr-x 4 ubuntu ubuntu  100 Mar 14 04:55  backup
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:01  c
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:01  d
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 09:31 'data .txt'
+-rwxrwxrwx 1 ubuntu ubuntu 1047 Mar 14 09:31  data1.txt
+-rw-rw-r-- 1 ubuntu ubuntu 1444 Mar 14 09:58  del.txt
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:09  e
+-rw-rw-r-- 1 ubuntu ubuntu 2107 Mar 14 07:41  file.txt
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 05:16  new.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new1.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new2.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new3.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new4.txt
+-rw-rw-r-- 1 ubuntu ubuntu 4214 Mar 14 08:08  one.txt
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 05:16  renmaed_file.txt
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 14:19  root_dir
+drwx------ 6 ubuntu ubuntu  120 Mar 14 06:00  snap
+-rw-rw-r-- 1 ubuntu ubuntu  145 Mar 14 08:10  soham.txt
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 08:10 'the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham'
+-rw-rw-r-- 1 ubuntu ubuntu 2107 Mar 14 10:08  uni.txt
+-rw-rw-r-- 1 ubuntu ubuntu 2107 Mar 14 10:08  uniq.txt
+ubuntu@ubuntu:~$ chmod 000  data1.txt
+ubuntu@ubuntu:~$ ls -l
+total 48
+drwxr-xr-x 2 ubuntu ubuntu   80 Mar 14 09:08  Desktop
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Documents
+drwxr-xr-x 2 ubuntu ubuntu   80 Mar 14 09:07  Downloads
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Music
+drwxr-xr-x 3 ubuntu ubuntu   60 Mar 14 04:11  Pictures
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Public
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Templates
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Videos
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:09  a
+drwxrwxr-x 2 ubuntu ubuntu   60 Mar 14 07:03  b
+drwxrwxr-x 4 ubuntu ubuntu  100 Mar 14 04:55  backup
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:01  c
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:01  d
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 09:31 'data .txt'
+---------- 1 ubuntu ubuntu 1047 Mar 14 09:31  data1.txt
+-rw-rw-r-- 1 ubuntu ubuntu 1444 Mar 14 09:58  del.txt
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:09  e
+-rw-rw-r-- 1 ubuntu ubuntu 2107 Mar 14 07:41  file.txt
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 05:16  new.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new1.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new2.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new3.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new4.txt
+-rw-rw-r-- 1 ubuntu ubuntu 4214 Mar 14 08:08  one.txt
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 05:16  renmaed_file.txt
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 14:19  root_dir
+drwx------ 6 ubuntu ubuntu  120 Mar 14 06:00  snap
+-rw-rw-r-- 1 ubuntu ubuntu  145 Mar 14 08:10  soham.txt
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 08:10 'the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham'
+-rw-rw-r-- 1 ubuntu ubuntu 2107 Mar 14 10:08  uni.txt
+-rw-rw-r-- 1 ubuntu ubuntu 2107 Mar 14 10:08  uniq.txt
+ubuntu@ubuntu:~$ chmod u=rx,g=r,o=r data1.txt
+ubuntu@ubuntu:~$ ls -l
+total 48
+drwxr-xr-x 2 ubuntu ubuntu   80 Mar 14 09:08  Desktop
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Documents
+drwxr-xr-x 2 ubuntu ubuntu   80 Mar 14 09:07  Downloads
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Music
+drwxr-xr-x 3 ubuntu ubuntu   60 Mar 14 04:11  Pictures
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Public
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Templates
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Videos
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:09  a
+drwxrwxr-x 2 ubuntu ubuntu   60 Mar 14 07:03  b
+drwxrwxr-x 4 ubuntu ubuntu  100 Mar 14 04:55  backup
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:01  c
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:01  d
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 09:31 'data .txt'
+-r-xr--r-- 1 ubuntu ubuntu 1047 Mar 14 09:31  data1.txt
+-rw-rw-r-- 1 ubuntu ubuntu 1444 Mar 14 09:58  del.txt
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:09  e
+-rw-rw-r-- 1 ubuntu ubuntu 2107 Mar 14 07:41  file.txt
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 05:16  new.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new1.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new2.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new3.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new4.txt
+-rw-rw-r-- 1 ubuntu ubuntu 4214 Mar 14 08:08  one.txt
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 05:16  renmaed_file.txt
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 14:19  root_dir
+drwx------ 6 ubuntu ubuntu  120 Mar 14 06:00  snap
+-rw-rw-r-- 1 ubuntu ubuntu  145 Mar 14 08:10  soham.txt
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 08:10 'the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham'
+-rw-rw-r-- 1 ubuntu ubuntu 2107 Mar 14 10:08  uni.txt
+-rw-rw-r-- 1 ubuntu ubuntu 2107 Mar 14 10:08  uniq.txt
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ chmod  u+rx,g-w,o+w data1.txt
+ubuntu@ubuntu:~$ ls -l
+total 48
+drwxr-xr-x 2 ubuntu ubuntu   80 Mar 14 09:08  Desktop
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Documents
+drwxr-xr-x 2 ubuntu ubuntu   80 Mar 14 09:07  Downloads
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Music
+drwxr-xr-x 3 ubuntu ubuntu   60 Mar 14 04:11  Pictures
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Public
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Templates
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06  Videos
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:09  a
+drwxrwxr-x 2 ubuntu ubuntu   60 Mar 14 07:03  b
+drwxrwxr-x 4 ubuntu ubuntu  100 Mar 14 04:55  backup
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:01  c
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:01  d
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 09:31 'data .txt'
+-r-xr--rw- 1 ubuntu ubuntu 1047 Mar 14 09:31  data1.txt
+-rw-rw-r-- 1 ubuntu ubuntu 1444 Mar 14 09:58  del.txt
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:09  e
+-rw-rw-r-- 1 ubuntu ubuntu 2107 Mar 14 07:41  file.txt
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 05:16  new.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new1.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new2.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new3.txt
+-rw-rw-r-- 1 ubuntu ubuntu   21 Mar 14 08:12  new4.txt
+-rw-rw-r-- 1 ubuntu ubuntu 4214 Mar 14 08:08  one.txt
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 05:16  renmaed_file.txt
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 14:19  root_dir
+drwx------ 6 ubuntu ubuntu  120 Mar 14 06:00  snap
+-rw-rw-r-- 1 ubuntu ubuntu  145 Mar 14 08:10  soham.txt
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 08:10 'the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham'
+-rw-rw-r-- 1 ubuntu ubuntu 2107 Mar 14 10:08  uni.txt
+-rw-rw-r-- 1 ubuntu ubuntu 2107 Mar 14 10:08  uniq.txt
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ sudo chown user1 data.txt
+chown: cannot access 'data.txt': No such file or directory
+ubuntu@ubuntu:~$ touch data.txt
+ubuntu@ubuntu:~$ ls -l
+total 16
+drwxr-xr-x 2 ubuntu ubuntu   80 Mar 14 09:08 Desktop
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06 Documents
+drwxr-xr-x 2 ubuntu ubuntu   80 Mar 14 09:07 Downloads
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06 Music
+drwxr-xr-x 3 ubuntu ubuntu   60 Mar 14 04:11 Pictures
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06 Public
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06 Templates
+drwxr-xr-x 2 ubuntu ubuntu   40 Mar 14 04:06 Videos
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:09 a
+drwxrwxr-x 2 ubuntu ubuntu   60 Mar 14 07:03 b
+drwxrwxr-x 4 ubuntu ubuntu  100 Mar 14 04:55 backup
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:01 c
+drwxrwxr-x 2 ubuntu ubuntu  260 Mar 14 14:52 d
+-rw-rw-r-- 1 ubuntu ubuntu    0 Mar 14 14:53 data.txt
+-r-xr--rw- 1 ubuntu ubuntu 1047 Mar 14 09:31 data1.txt
+-rw-rw-r-- 1 ubuntu ubuntu 1444 Mar 14 09:58 del.txt
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 07:09 e
+drwxrwxr-x 2 ubuntu ubuntu   40 Mar 14 14:19 root_dir
+drwx------ 6 ubuntu ubuntu  120 Mar 14 06:00 snap
+-rw-rw-r-- 1 ubuntu ubuntu  145 Mar 14 08:10 soham.txt
+-rw-rw-r-- 1 ubuntu ubuntu 2107 Mar 14 10:08 uniq.txt
+ubuntu@ubuntu:~$ sudo chown user1 data.txt
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ ls -l data.txt
+-rw-rw-r-- 1 user1 ubuntu 0 Mar 14 14:53 data.txt
+ubuntu@ubuntu:~$ sudo chown user1:all_users data.txt
+ubuntu@ubuntu:~$ ls -l data.txt
+-rw-rw-r-- 1 user1 all_users 0 Mar 14 14:53 data.txt
+ubuntu@ubuntu:~$ sudo chown :all_users data1.txt
+ubuntu@ubuntu:~$ ls -l
+total 16
+drwxr-xr-x 2 ubuntu ubuntu      80 Mar 14 09:08 Desktop
+drwxr-xr-x 2 ubuntu ubuntu      40 Mar 14 04:06 Documents
+drwxr-xr-x 2 ubuntu ubuntu      80 Mar 14 09:07 Downloads
+drwxr-xr-x 2 ubuntu ubuntu      40 Mar 14 04:06 Music
+drwxr-xr-x 3 ubuntu ubuntu      60 Mar 14 04:11 Pictures
+drwxr-xr-x 2 ubuntu ubuntu      40 Mar 14 04:06 Public
+drwxr-xr-x 2 ubuntu ubuntu      40 Mar 14 04:06 Templates
+drwxr-xr-x 2 ubuntu ubuntu      40 Mar 14 04:06 Videos
+drwxrwxr-x 2 ubuntu ubuntu      40 Mar 14 07:09 a
+drwxrwxr-x 2 ubuntu ubuntu      60 Mar 14 07:03 b
+drwxrwxr-x 4 ubuntu ubuntu     100 Mar 14 04:55 backup
+drwxrwxr-x 2 ubuntu ubuntu      40 Mar 14 07:01 c
+drwxrwxr-x 2 ubuntu ubuntu     260 Mar 14 14:52 d
+-rw-rw-r-- 1 user1  all_users    0 Mar 14 14:53 data.txt
+-r-xr--rw- 1 ubuntu all_users 1047 Mar 14 09:31 data1.txt
+-rw-rw-r-- 1 ubuntu ubuntu    1444 Mar 14 09:58 del.txt
+drwxrwxr-x 2 ubuntu ubuntu      40 Mar 14 07:09 e
+drwxrwxr-x 2 ubuntu ubuntu      40 Mar 14 14:19 root_dir
+drwx------ 6 ubuntu ubuntu     120 Mar 14 06:00 snap
+-rw-rw-r-- 1 ubuntu ubuntu     145 Mar 14 08:10 soham.txt
+-rw-rw-r-- 1 ubuntu ubuntu    2107 Mar 14 10:08 uniq.txt
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ sudo chown :all_users data1.txt
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ sudo chown :all_users root_dir && chmod ugo=rwx uniq.txt
+ubuntu@ubuntu:~$ ls -l
+total 16
+drwxr-xr-x 2 ubuntu ubuntu      80 Mar 14 09:08 Desktop
+drwxr-xr-x 2 ubuntu ubuntu      40 Mar 14 04:06 Documents
+drwxr-xr-x 2 ubuntu ubuntu      80 Mar 14 09:07 Downloads
+drwxr-xr-x 2 ubuntu ubuntu      40 Mar 14 04:06 Music
+drwxr-xr-x 3 ubuntu ubuntu      60 Mar 14 04:11 Pictures
+drwxr-xr-x 2 ubuntu ubuntu      40 Mar 14 04:06 Public
+drwxr-xr-x 2 ubuntu ubuntu      40 Mar 14 04:06 Templates
+drwxr-xr-x 2 ubuntu ubuntu      40 Mar 14 04:06 Videos
+drwxrwxr-x 2 ubuntu ubuntu      40 Mar 14 07:09 a
+drwxrwxr-x 2 ubuntu ubuntu      60 Mar 14 07:03 b
+drwxrwxr-x 4 ubuntu ubuntu     100 Mar 14 04:55 backup
+drwxrwxr-x 2 ubuntu ubuntu      40 Mar 14 07:01 c
+drwxrwxr-x 2 ubuntu ubuntu     260 Mar 14 14:52 d
+-rw-rw-r-- 1 user1  all_users    0 Mar 14 14:53 data.txt
+-r-xr--rw- 1 ubuntu all_users 1047 Mar 14 09:31 data1.txt
+-rw-rw-r-- 1 ubuntu ubuntu    1444 Mar 14 09:58 del.txt
+drwxrwxr-x 2 ubuntu ubuntu      40 Mar 14 07:09 e
+drwxrwxr-x 2 ubuntu all_users   40 Mar 14 14:19 root_dir
+drwx------ 6 ubuntu ubuntu     120 Mar 14 06:00 snap
+-rw-rw-r-- 1 ubuntu ubuntu     145 Mar 14 08:10 soham.txt
+-rwxrwxrwx 1 ubuntu ubuntu    2107 Mar 14 10:08 uniq.txt
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ mkdir dev
+ubuntu@ubuntu:~$ cd dev
+ubuntu@ubuntu:~/dev$ mkdir arv
+ubuntu@ubuntu:~/dev$ ls -l
+total 0
+drwxrwxr-x 2 ubuntu ubuntu 40 Mar 14 15:03 arv
+ubuntu@ubuntu:~/dev$
+ubuntu@ubuntu:~/dev$
+ubuntu@ubuntu:~/dev$ echo "devdatta eknath thorat and i am fine" me.txtq
+devdatta eknath thorat and i am fine me.txtq
+ubuntu@ubuntu:~/dev$ ls -l
+total 0
+drwxrwxr-x 2 ubuntu ubuntu 40 Mar 14 20:33 arv
+ubuntu@ubuntu:~/dev$ cd ..
+ubuntu@ubuntu:~$ echo "devdatta eknath thorat and i am fine" me.txt
+devdatta eknath thorat and i am fine me.txt
+ubuntu@ubuntu:~$ cat me.txt
+cat: me.txt: No such file or directory
+ubuntu@ubuntu:~$ echo "devdatta eknath thorat and i am fine" >>me.txt
+ubuntu@ubuntu:~$ cat me.txt
+devdatta eknath thorat and i am fine
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ ls
+Desktop    Downloads  Pictures  Templates  a  backup  d         data1.txt  dev  me.txt    snap       uniq.txt
+Documents  Music      Public    Videos     b  c       data.txt  del.txt    e    root_dir  soham.txt
+ubuntu@ubuntu:~$ echo "devdatta thorat" soft.txt
+devdatta thorat soft.txt
+ubuntu@ubuntu:~$ echo "devdatta thorat" >> soft.txt
+ubuntu@ubuntu:~$ echo "devdatta thorat mmazza" >> soft.txt
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ cat soft.txt
+devdatta thorat
+devdatta thorat mmazza
+ubuntu@ubuntu:~$ ln -s soft.txt exsoft.txt
+ubuntu@ubuntu:~$ ln -l soft.txt exsoft.txt
+ln: invalid option -- 'l'
+Try 'ln --help' for more information.
+ubuntu@ubuntu:~$ ls -l soft.txt exsoft.txt
+lrwxrwxrwx 1 ubuntu ubuntu  8 Mar 16 13:03 exsoft.txt -> soft.txt
+-rw-rw-r-- 1 ubuntu ubuntu 39 Mar 16 13:01 soft.txt
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ echo "devdatta thorat coco" >> soft.txt
+ubuntu@ubuntu:~$ ls -l soft.txt exsoft.txt
+lrwxrwxrwx 1 ubuntu ubuntu  8 Mar 16 13:03 exsoft.txt -> soft.txt
+-rw-rw-r-- 1 ubuntu ubuntu 60 Mar 16 13:04 soft.txt
+ubuntu@ubuntu:~$ cat  soft.txt exsoft.txt
+devdatta thorat
+devdatta thorat mmazza
+devdatta thorat coco
+devdatta thorat
+devdatta thorat mmazza
+devdatta thorat coco
+ubuntu@ubuntu:~$ ls -li soft.txt exsoft.txt
+31296 lrwxrwxrwx 1 ubuntu ubuntu  8 Mar 16 13:03 exsoft.txt -> soft.txt
+31289 -rw-rw-r-- 1 ubuntu ubuntu 60 Mar 16 13:04 soft.txt
+ubuntu@ubuntu:~$ rm soft.txt
+ubuntu@ubuntu:~$ ls -l soft.txt exsoft.txt
+ls: cannot access 'soft.txt': No such file or directory
+lrwxrwxrwx 1 ubuntu ubuntu 8 Mar 16 13:03 exsoft.txt -> soft.txt
+ubuntu@ubuntu:~$
+
+tbuntu@ubuntu:~$ touch data1.txt
+ubuntu@ubuntu:~$ touch data11.txt
+ubuntu@ubuntu:~$ grep head -5 | data11.txt
+data11.txt: command not found
+
+
+^C
+ubuntu@ubuntu:~$ head -n 5 data11.txt
+OrderID,CustomerName,City,Product,Category,Quantity,Price
+1001,Amit Sharma,Mumbai,Laptop,Electronics,1,75000
+1002,Neha Patil,Pune,Mobile,Electronics,2,25000
+1003,Rahul Verma,Delhi,Chair,Furniture,4,3000
+1004,Sneha Iyer,Bangalore,Laptop,Electronics,1,72000
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ tail -n 5 data11.txt
+1016,Anita Reddy,Bangalore,Laptop,Electronics,1,72000
+1017,Ramesh Yadav,Mumbai,Mobile,Electronics,2,28000
+1018,Sunita Das,Delhi,Chair,Furniture,3,3000
+1019,Akash Patil,Pune,Tablet,Electronics,1,32000
+1020,Priya Sharma,Mumbai,Sofa,Furniture,1,45000
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ wc -l data11.txt
+21 data11.txt
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ tail -n 1 data11.txt
+1020,Priya Sharma,Mumbai,Sofa,Furniture,1,45000
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ head -n 1 data11.txt
+OrderID,CustomerName,City,Product,Category,Quantity,Price
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ grep "Mumbai" data11.txt
+1001,Amit Sharma,Mumbai,Laptop,Electronics,1,75000
+1005,Kiran Deshmukh,Mumbai,Tablet,Electronics,2,32000
+1009,Arjun Mehta,Mumbai,Mobile,Electronics,3,28000
+1012,Riya Kapoor,Mumbai,Laptop,Electronics,1,75000
+1017,Ramesh Yadav,Mumbai,Mobile,Electronics,2,28000
+1020,Priya Sharma,Mumbai,Sofa,Furniture,1,45000
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ grep "Furniture" data11.txt
+1003,Rahul Verma,Delhi,Chair,Furniture,4,3000
+1006,Anjali Gupta,Delhi,Sofa,Furniture,1,45000
+1008,Meena Nair,Bangalore,Table,Furniture,1,12000
+1010,Pooja Kulkarni,Pune,Chair,Furniture,2,3000
+1014,Deepa Joshi,Pune,Sofa,Furniture,1,45000
+1015,Kunal Jain,Delhi,Table,Furniture,1,12000
+1018,Sunita Das,Delhi,Chair,Furniture,3,3000
+1020,Priya Sharma,Mumbai,Sofa,Furniture,1,45000
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ grep "laptop" data11.txt
+ubuntu@ubuntu:~$ grep "Laptop" data11.txt
+1001,Amit Sharma,Mumbai,Laptop,Electronics,1,75000
+1004,Sneha Iyer,Bangalore,Laptop,Electronics,1,72000
+1007,Rohit Singh,Pune,Laptop,Electronics,1,70000
+1012,Riya Kapoor,Mumbai,Laptop,Electronics,1,75000
+1016,Anita Reddy,Bangalore,Laptop,Electronics,1,72000
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ grep "Electronics" data11.txt
+1001,Amit Sharma,Mumbai,Laptop,Electronics,1,75000
+1002,Neha Patil,Pune,Mobile,Electronics,2,25000
+1004,Sneha Iyer,Bangalore,Laptop,Electronics,1,72000
+1005,Kiran Deshmukh,Mumbai,Tablet,Electronics,2,32000
+1007,Rohit Singh,Pune,Laptop,Electronics,1,70000
+1009,Arjun Mehta,Mumbai,Mobile,Electronics,3,28000
+1011,Vikas Shah,Delhi,Tablet,Electronics,1,32000
+1012,Riya Kapoor,Mumbai,Laptop,Electronics,1,75000
+1013,Sahil Khan,Bangalore,Mobile,Electronics,2,25000
+1016,Anita Reddy,Bangalore,Laptop,Electronics,1,72000
+1017,Ramesh Yadav,Mumbai,Mobile,Electronics,2,28000
+1019,Akash Patil,Pune,Tablet,Electronics,1,32000
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ cut -d "," -f2,3 data11.txt
+CustomerName,City
+Amit Sharma,Mumbai
+Neha Patil,Pune
+Rahul Verma,Delhi
+Sneha Iyer,Bangalore
+Kiran Deshmukh,Mumbai
+Anjali Gupta,Delhi
+Rohit Singh,Pune
+Meena Nair,Bangalore
+Arjun Mehta,Mumbai
+Pooja Kulkarni,Pune
+Vikas Shah,Delhi
+Riya Kapoor,Mumbai
+Sahil Khan,Bangalore
+Deepa Joshi,Pune
+Kunal Jain,Delhi
+Anita Reddy,Bangalore
+Ramesh Yadav,Mumbai
+Sunita Das,Delhi
+Akash Patil,Pune
+Priya Sharma,Mumbai
+ubuntu@ubuntu:~$ cut -d "-" -f4,6 data11.txt
+OrderID,CustomerName,City,Product,Category,Quantity,Price
+1001,Amit Sharma,Mumbai,Laptop,Electronics,1,75000
+1002,Neha Patil,Pune,Mobile,Electronics,2,25000
+1003,Rahul Verma,Delhi,Chair,Furniture,4,3000
+1004,Sneha Iyer,Bangalore,Laptop,Electronics,1,72000
+1005,Kiran Deshmukh,Mumbai,Tablet,Electronics,2,32000
+1006,Anjali Gupta,Delhi,Sofa,Furniture,1,45000
+1007,Rohit Singh,Pune,Laptop,Electronics,1,70000
+1008,Meena Nair,Bangalore,Table,Furniture,1,12000
+1009,Arjun Mehta,Mumbai,Mobile,Electronics,3,28000
+1010,Pooja Kulkarni,Pune,Chair,Furniture,2,3000
+1011,Vikas Shah,Delhi,Tablet,Electronics,1,32000
+1012,Riya Kapoor,Mumbai,Laptop,Electronics,1,75000
+1013,Sahil Khan,Bangalore,Mobile,Electronics,2,25000
+1014,Deepa Joshi,Pune,Sofa,Furniture,1,45000
+1015,Kunal Jain,Delhi,Table,Furniture,1,12000
+1016,Anita Reddy,Bangalore,Laptop,Electronics,1,72000
+1017,Ramesh Yadav,Mumbai,Mobile,Electronics,2,28000
+1018,Sunita Das,Delhi,Chair,Furniture,3,3000
+1019,Akash Patil,Pune,Tablet,Electronics,1,32000
+1020,Priya Sharma,Mumbai,Sofa,Furniture,1,45000
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ cut -d "," -f4,6 data11.txt
+Product,Quantity
+Laptop,1
+Mobile,2
+Chair,4
+Laptop,1
+Tablet,2
+Sofa,1
+Laptop,1
+Table,1
+Mobile,3
+Chair,2
+Tablet,1
+Laptop,1
+Mobile,2
+Sofa,1
+Table,1
+Laptop,1
+Mobile,2
+Chair,3
+Tablet,1
+Sofa,1
+ubuntu@ubuntu:~$ cut -d "," -f4,5,7 data11.txt
+Product,Category,Price
+Laptop,Electronics,75000
+Mobile,Electronics,25000
+Chair,Furniture,3000
+Laptop,Electronics,72000
+Tablet,Electronics,32000
+Sofa,Furniture,45000
+Laptop,Electronics,70000
+Table,Furniture,12000
+Mobile,Electronics,28000
+Chair,Furniture,3000
+Tablet,Electronics,32000
+Laptop,Electronics,75000
+Mobile,Electronics,25000
+Sofa,Furniture,45000
+Table,Furniture,12000
+Laptop,Electronics,72000
+Mobile,Electronics,28000
+Chair,Furniture,3000
+Tablet,Electronics,32000
+Sofa,Furniture,45000
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ cut -d "," -f2 data11.txt | sort | uniq | wc -l
+21
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ nano one.txt
+ubuntu@ubuntu:~$ nano one.txt
+ubuntu@ubuntu:~$ bash one.txt
+one.txt: line 1: !/bin/sh: No such file or directory
+hello bda sudents
+one.txt: line 5: rohit: command not found
+Name : , age: 20
+one.txt: line 10: syntax error near unexpected token `$PATH'
+one.txt: line 10: `echo ($PATH)'
+ubuntu@ubuntu:~$ nano one.txt
+ubuntu@ubuntu:~$ bash one.txt
+hello bda sudents
+one.txt: line 5: rohit: command not found
+Name : , age: 20
+one.txt: line 10: syntax error near unexpected token `$PATH'
+one.txt: line 10: `echo ($PATH)'
+ubuntu@ubuntu:~$ nano one.txt
+ubuntu@ubuntu:~$ bash one.txt
+hello bda sudents
+one.txt: line 5: rohit: command not found
+Name : , age: 20
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
+one.txt: line 13: readonly: `=': not a valid identifier
+one.txt: line 13: readonly: `10': not a valid identifier
+read-only variable :
+one.txt: line 15: MY_VAR: command not found
+read-only variable :
+ubuntu@ubuntu:~$ nano one.txt
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ nano two.txt
+ubuntu@ubuntu:~$ bash two.sh
+File nmae: two.sh
+First Parameter :
+2nd para :
+qouted values :
+qouted values :
+Total number of parameters : 0
+ubuntu@ubuntu:~$ bash two.sh 10 20 30 40 50
+File nmae: two.sh
+First Parameter : 10
+2nd para : 20
+qouted values :10 20 30 40 50
+qouted values :10 20 30 40 50
+Total number of parameters : 5
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ nano three.sh
+ubuntu@ubuntu:~$ bash three.sh
+what is your nmae? dev
+hi there is dev
+welcome to cdac!
+ubuntu@ubuntu:~$ nano three.sh
+ubuntu@ubuntu:~$ bash three.sh
+what is your nmae? dev
+hi there is dev
+welcome to cdac!
+18
+you are  old
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ nano three.sh
+ubuntu@ubuntu:~$ nano three.sh
+ubuntu@ubuntu:~$ bash three.sh
+what is your nmae? dev
+hi there is dev
+welcome to cdac!
+age13
+you are 13 old
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ nano four.sh
+ubuntu@ubuntu:~$ bash four.sh
+{letters 0:2}
+ubuntu@ubuntu:~$ nano four.sh
+ubuntu@ubuntu:~$ bash four.sh
+{letters:0:2}
+ubuntu@ubuntu:~$ nano four.sh
+ubuntu@ubuntu:~$ bash four.sh
+AB
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ nano five.sh
+ubuntu@ubuntu:~$ bash five.sh 10 20
+-p Enter your number num
+-p enter your 2nd  num2
+five.sh: line 6: +: command not found
+the addition is
+five.sh: line 9: sub: command not found
+the subtraction is
+ the multiplication is sum*sum2
+ubuntu@ubuntu:~$ nano four.sh
+ubuntu@ubuntu:~$ nano four.sh
+ubuntu@ubuntu:~$ nano three.sh
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ nano five.sh
+ubuntu@ubuntu:~$ bash five.sh
+-p Enter your number num
+-p enter your 2nd  num2
+the addition is +num2
+the subtraction is -num2
+ the multiplication is *num2
+ubuntu@ubuntu:~$ nano five.sh
+ubuntu@ubuntu:~$ bash five.sh 10 20
+-p Enter your number num
+-p enter your 2nd  num2
+the addition is num+num2
+the subtraction is num-num2
+ the multiplication is num*num2
+ubuntu@ubuntu:~$ nano five.sh
+ubuntu@ubuntu:~$ bash five.sh 10 20
+Enter your number10
+enter your 2nd 20
+the addition is num+num2
+the subtraction is num-num2
+ the multiplication is num*num2
+ubuntu@ubuntu:~$ nano five.sh
+ubuntu@ubuntu:~$ bash five.sh
+Enter your number10
+enter your 2nd 20
+the addition is 10+20
+the subtraction is 10-20
+ the multiplication is 10*20
+ubuntu@ubuntu:~$ nano five.sh
+ubuntu@ubuntu:~$ nano four.sh
+ubuntu@ubuntu:~$ nano five.sh
+ubuntu@ubuntu:~$ bash five.sh
+Enter your number10
+enter your 2nd 20
+the addition is 30
+the subtraction is
+ the multiplication is
+ubuntu@ubuntu:~$ nano five.sh
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ nano five.sh
+ubuntu@ubuntu:~$ bash five.sh
+Enter your number10
+enter your 2nd 20
+the addition is 30
+the subtraction is -10
+ the multiplication is 200
+ubuntu@ubuntu:~$
