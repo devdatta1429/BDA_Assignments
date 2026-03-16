@@ -1,1 +1,375 @@
+ubuntu@ubuntu:~$ cat new.file
+cat: new.file: No such file or directory
+ubuntu@ubuntu:~$ cat newfile.txt
+devdatta
+eknath
+thorat
+i am good boy
+Iran,[b] officially the Islamic Republic of Iran,[c] and also known as Persia,[d] is a country in West Asia. It borders Iraq to the west, Turkey, Azerbaijan, and Armenia to the northwest, the Caspian Sea to the north, Turkmenistan to the northeast, Afghanistan to the east, Pakistan to the southeast, and the Gulf of Oman and the Persian Gulf to the south. With a population of over 92 million, Iran ranks 17th globally in both geographic size and population and is the sixth-largest country in Asia. It is divided into five regions with 31 provinces. Tehran is the nation's capital, largest city, and financial center.
+ubuntu@ubuntu:~$ grep -r "It" newfile.txt
+Iran,[b] officially the Islamic Republic of Iran,[c] and also known as Persia,[d] is a country in West Asia. It borders Iraq to the west, Turkey, Azerbaijan, and Armenia to the northwest, the Caspian Sea to the north, Turkmenistan to the northeast, Afghanistan to the east, Pakistan to the southeast, and the Gulf of Oman and the Persian Gulf to the south. With a population of over 92 million, Iran ranks 17th globally in both geographic size and population and is the sixth-largest country in Asia. It is divided into five regions with 31 provinces. Tehran is the nation's capital, largest city, and financial center.
+ubuntu@ubuntu:~$ echo "^[[200~Iran's government is a theocratic Islamic republic governed by elected and unelected institutions, with ultimate authority vested in the supreme leader. While it holds elections, key offices, including the head of state and military, are not subject to public vote. The Iranian government is an authoritarian regime which has been widely criticized internationally due to its poor human rights record, including restrictions on freedom of assembly, expression, and the press, as well as its treatment of women, ethnic minorities, and political dissidents. International observers have raised concerns over the fairness of its electoral processes, especially the vetting of candidates by unelected bodies such as the Guardian Council. Iran maintains a centrally planned economy with significant state ownership in key sectors, though private enterprise exists alongside this. It is a middle power, due to its large reserves of fossil fuels (including the world's second largest natural gas supply and third largest proven oil reserves), its geopolitically significant location, and its role as the world's focal point of Shia Islam. Iran is a threshold state with one of the most scrutinized nuclear programs, which it claims is solely for civilian purposes; however, the IAEA, a United Nations (UN) agency tasked with monitoring the production of nuclear weapons, has on two occasions found Iran to be non-compliant with its safeguards ~" >> newfile.txt
+ubuntu@ubuntu:~$ cat newfile.txt
+devdatta
+eknath
+thorat
+i am good boy
+Iran,[b] officially the Islamic Republic of Iran,[c] and also known as Persia,[d] is a country in West Asia. It borders Iraq to the west, Turkey, Azerbaijan, and Armenia to the northwest, the Caspian Sea to the north, Turkmenistan to the northeast, Afghanistan to the east, Pakistan to the southeast, and the Gulf of Oman and the Persian Gulf to the south. With a population of over 92 million, Iran ranks 17th globally in both geographic size and population and is the sixth-largest country in Asia. It is divided into five regions with 31 provinces. Tehran is the nation's capital, largest city, and financial center.
+Iran's government is a theocratic Islamic republic governed by elected and unelected institutions, with ultimate authority vested in the supreme leader. While it holds elections, key offices, including the head of state and military, are not subject to public vote. The Iranian government is an authoritarian regime which has been widely criticized internationally due to its poor human rights record, including restrictions on freedom of assembly, expression, and the press, as well as its treatment of women, ethnic minorities, and political dissidents. International observers have raised concerns over the fairness of its electoral processes, especially the vetting of candidates by unelected bodies such as the Guardian Council. Iran maintains a centrally planned economy with significant state ownership in key sectors, though private enterprise exists alongside this. It is a middle power, due to its large reserves of fossil fuels (including the world's second largest natural gas supply and third largest proven oil reserves), its geopolitically significant location, and its role as the world's focal point of Shia Islam. Iran is a threshold state with one of the most scrutinized nuclear programs, which it claims is solely for civilian purposes; however, the IAEA, a United Nations (UN) agency tasked with monitoring the production of nuclear weapons, has on two occasions found Iran to be non-compliant with its safeguards ~
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ grep -w "it" newfile.txt
+Iran's government is a theocratic Islamic republic governed by elected and unelected institutions, with ultimate authority vested in the supreme leader. While it holds elections, key offices, including the head of state and military, are not subject to public vote. The Iranian government is an authoritarian regime which has been widely criticized internationally due to its poor human rights record, including restrictions on freedom of assembly, expression, and the press, as well as its treatment of women, ethnic minorities, and political dissidents. International observers have raised concerns over the fairness of its electoral processes, especially the vetting of candidates by unelected bodies such as the Guardian Council. Iran maintains a centrally planned economy with significant state ownership in key sectors, though private enterprise exists alongside this. It is a middle power, due to its large reserves of fossil fuels (including the world's second largest natural gas supply and third largest proven oil reserves), its geopolitically significant location, and its role as the world's focal point of Shia Islam. Iran is a threshold state with one of the most scrutinized nuclear programs, which it claims is solely for civilian purposes; however, the IAEA, a United Nations (UN) agency tasked with monitoring the production of nuclear weapons, has on two occasions found Iran to be non-compliant with its safeguards ~
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ grep -w "it" newfile.txt two.sh
+newfile.txt:Iran's government is a theocratic Islamic republic governed by elected and unelected institutions, with ultimate authority vested in the supreme leader. While it holds elections, key offices, including the head of state and military, are not subject to public vote. The Iranian government is an authoritarian regime which has been widely criticized internationally due to its poor human rights record, including restrictions on freedom of assembly, expression, and the press, as well as its treatment of women, ethnic minorities, and political dissidents. International observers have raised concerns over the fairness of its electoral processes, especially the vetting of candidates by unelected bodies such as the Guardian Council. Iran maintains a centrally planned economy with significant state ownership in key sectors, though private enterprise exists alongside this. It is a middle power, due to its large reserves of fossil fuels (including the world's second largest natural gas supply and third largest proven oil reserves), its geopolitically significant location, and its role as the world's focal point of Shia Islam. Iran is a threshold state with one of the most scrutinized nuclear programs, which it claims is solely for civilian purposes; however, the IAEA, a United Nations (UN) agency tasked with monitoring the production of nuclear weapons, has on two occasions found Iran to be non-compliant with its safeguards ~
+grep: two.sh: No such file or directory
+ubuntu@ubuntu:~$ grep "^T" newfile.txt
+ubuntu@ubuntu:~$ grep "^I" newfile.txt
+ubuntu@ubuntu:~$ grep "^d" newfile.txt
+devdatta
+ubuntu@ubuntu:~$ cat newfile.txt | head -n 5
+devdatta
+eknath
+thorat
+i am good boy
+Iran,[b] officially the Islamic Republic of Iran,[c] and also known as Persia,[d] is a country in West Asia. It borders Iraq to the west, Turkey, Azerbaijan, and Armenia to the northwest, the Caspian Sea to the north, Turkmenistan to the northeast, Afghanistan to the east, Pakistan to the southeast, and the Gulf of Oman and the Persian Gulf to the south. With a population of over 92 million, Iran ranks 17th globally in both geographic size and population and is the sixth-largest country in Asia. It is divided into five regions with 31 provinces. Tehran is the nation's capital, largest city, and financial center.
+ubuntu@ubuntu:~$ cat newfile.txt | head -n 1
+devdatta
+ubuntu@ubuntu:~$ cat newfile.txt | head -n 3
+devdatta
+eknath
+thorat
+ubuntu@ubuntu:~$ cat newfile.txt | head -n 4
+devdatta
+eknath
+thorat
+i am good boy
+ubuntu@ubuntu:~$ cat newfile.txt | head -n 6
+devdatta
+eknath
+thorat
+i am good boy
+Iran,[b] officially the Islamic Republic of Iran,[c] and also known as Persia,[d] is a country in West Asia. It borders Iraq to the west, Turkey, Azerbaijan, and Armenia to the northwest, the Caspian Sea to the north, Turkmenistan to the northeast, Afghanistan to the east, Pakistan to the southeast, and the Gulf of Oman and the Persian Gulf to the south. With a population of over 92 million, Iran ranks 17th globally in both geographic size and population and is the sixth-largest country in Asia. It is divided into five regions with 31 provinces. Tehran is the nation's capital, largest city, and financial center.
+Iran's government is a theocratic Islamic republic governed by elected and unelected institutions, with ultimate authority vested in the supreme leader. While it holds elections, key offices, including the head of state and military, are not subject to public vote. The Iranian government is an authoritarian regime which has been widely criticized internationally due to its poor human rights record, including restrictions on freedom of assembly, expression, and the press, as well as its treatment of women, ethnic minorities, and political dissidents. International observers have raised concerns over the fairness of its electoral processes, especially the vetting of candidates by unelected bodies such as the Guardian Council. Iran maintains a centrally planned economy with significant state ownership in key sectors, though private enterprise exists alongside this. It is a middle power, due to its large reserves of fossil fuels (including the world's second largest natural gas supply and third largest proven oil reserves), its geopolitically significant location, and its role as the world's focal point of Shia Islam. Iran is a threshold state with one of the most scrutinized nuclear programs, which it claims is solely for civilian purposes; however, the IAEA, a United Nations (UN) agency tasked with monitoring the production of nuclear weapons, has on two occasions found Iran to be non-compliant with its safeguards ~
+ubuntu@ubuntu:~$ grep -i "the" newfile.txt | wc -l
+2
+ubuntu@ubuntu:~$ grep -i "the" newfile.txt | wc -l
+2
+ubuntu@ubuntu:~$ grep -i "as" newfile.txt | wc -l
+2
+ubuntu@ubuntu:~$ grep -i "a" newfile.txt | wc -l
+6
+ubuntu@ubuntu:~$ cat newfile.txt >> one.txt
+ubuntu@ubuntu:~$ one.txt
+one.txt: command not found
+ubuntu@ubuntu:~$ cat newfile.txt >> one.txt
+ubuntu@ubuntu:~$ cat one.txt
+devdatta
+eknath
+thorat
+i am good boy
+Iran,[b] officially the Islamic Republic of Iran,[c] and also known as Persia,[d] is a country in West Asia. It borders Iraq to the west, Turkey, Azerbaijan, and Armenia to the northwest, the Caspian Sea to the north, Turkmenistan to the northeast, Afghanistan to the east, Pakistan to the southeast, and the Gulf of Oman and the Persian Gulf to the south. With a population of over 92 million, Iran ranks 17th globally in both geographic size and population and is the sixth-largest country in Asia. It is divided into five regions with 31 provinces. Tehran is the nation's capital, largest city, and financial center.
+Iran's government is a theocratic Islamic republic governed by elected and unelected institutions, with ultimate authority vested in the supreme leader. While it holds elections, key offices, including the head of state and military, are not subject to public vote. The Iranian government is an authoritarian regime which has been widely criticized internationally due to its poor human rights record, including restrictions on freedom of assembly, expression, and the press, as well as its treatment of women, ethnic minorities, and political dissidents. International observers have raised concerns over the fairness of its electoral processes, especially the vetting of candidates by unelected bodies such as the Guardian Council. Iran maintains a centrally planned economy with significant state ownership in key sectors, though private enterprise exists alongside this. It is a middle power, due to its large reserves of fossil fuels (including the world's second largest natural gas supply and third largest proven oil reserves), its geopolitically significant location, and its role as the world's focal point of Shia Islam. Iran is a threshold state with one of the most scrutinized nuclear programs, which it claims is solely for civilian purposes; however, the IAEA, a United Nations (UN) agency tasked with monitoring the production of nuclear weapons, has on two occasions found Iran to be non-compliant with its safeguards ~
+devdatta
+eknath
+thorat
+i am good boy
+Iran,[b] officially the Islamic Republic of Iran,[c] and also known as Persia,[d] is a country in West Asia. It borders Iraq to the west, Turkey, Azerbaijan, and Armenia to the northwest, the Caspian Sea to the north, Turkmenistan to the northeast, Afghanistan to the east, Pakistan to the southeast, and the Gulf of Oman and the Persian Gulf to the south. With a population of over 92 million, Iran ranks 17th globally in both geographic size and population and is the sixth-largest country in Asia. It is divided into five regions with 31 provinces. Tehran is the nation's capital, largest city, and financial center.
+Iran's government is a theocratic Islamic republic governed by elected and unelected institutions, with ultimate authority vested in the supreme leader. While it holds elections, key offices, including the head of state and military, are not subject to public vote. The Iranian government is an authoritarian regime which has been widely criticized internationally due to its poor human rights record, including restrictions on freedom of assembly, expression, and the press, as well as its treatment of women, ethnic minorities, and political dissidents. International observers have raised concerns over the fairness of its electoral processes, especially the vetting of candidates by unelected bodies such as the Guardian Council. Iran maintains a centrally planned economy with significant state ownership in key sectors, though private enterprise exists alongside this. It is a middle power, due to its large reserves of fossil fuels (including the world's second largest natural gas supply and third largest proven oil reserves), its geopolitically significant location, and its role as the world's focal point of Shia Islam. Iran is a threshold state with one of the most scrutinized nuclear programs, which it claims is solely for civilian purposes; however, the IAEA, a United Nations (UN) agency tasked with monitoring the production of nuclear weapons, has on two occasions found Iran to be non-compliant with its safeguards ~
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ touch "the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham" >> soham.txt
+ubuntu@ubuntu:~$ cat soham.txt
+ubuntu@ubuntu:~$ echo "the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham" >> soham.txt
+ubuntu@ubuntu:~$ cat soham.txt
+the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ echo "insid the new file 1" >> new1.txt
+ubuntu@ubuntu:~$ echo "insid the new file 2" >> new2.txt
+ubuntu@ubuntu:~$ echo "insid the new file 3" >> new3.txt
+ubuntu@ubuntu:~$ echo "insid the new file 4" >> new4.txt
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ ls | grep new
+new.txt
+new1.txt
+new2.txt
+new3.txt
+new4.txt
+newfile.txt
+ubuntu@ubuntu:~$ who | wc -l
+2
+ubuntu@ubuntu:~$ users | wc -l
+1
+ubuntu@ubuntu:~$ ls -a
+ .
+ ..
+ .bash_history
+ .bash_logout
+ .bashrc
+ .cache
+ .config
+ .gnupg
+ .gvfs
+ .lesshst
+ .local
+ .profile
+ .ssh
+ .sudo_as_admin_successful
+ Desktop
+ Documents
+ Downloads
+ Music
+ Pictures
+ Public
+ Templates
+ Videos
+ a
+ b
+ backup
+ c
+ d
+ e
+ new.txt
+ new1.txt
+ new2.txt
+ new3.txt
+ new4.txt
+ newfile.txt
+ one.txt
+ renmaed_file.txt
+ snap
+ soham.txt
+'the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham'
+ubuntu@ubuntu:~$ ls -a~ | grep ^\.
+ls: invalid option -- '~'
+Try 'ls --help' for more information.
+ubuntu@ubuntu:~$ ls -a ~ | grep ^\.
+.
+..
+.bash_history
+.bash_logout
+.bashrc
+.cache
+.config
+.gnupg
+.gvfs
+.lesshst
+.local
+.profile
+.ssh
+.sudo_as_admin_successful
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+a
+b
+backup
+c
+d
+e
+new.txt
+new1.txt
+new2.txt
+new3.txt
+new4.txt
+newfile.txt
+one.txt
+renmaed_file.txt
+snap
+soham.txt
+the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham
+ubuntu@ubuntu:~$ ls -a | grep ^\.
+.
+..
+.bash_history
+.bash_logout
+.bashrc
+.cache
+.config
+.gnupg
+.gvfs
+.lesshst
+.local
+.profile
+.ssh
+.sudo_as_admin_successful
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+a
+b
+backup
+c
+d
+e
+new.txt
+new1.txt
+new2.txt
+new3.txt
+new4.txt
+newfile.txt
+one.txt
+renmaed_file.txt
+snap
+soham.txt
+the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham
+ubuntu@ubuntu:~$ ls -a | grep ^\.
+.
+..
+.bash_history
+.bash_logout
+.bashrc
+.cache
+.config
+.gnupg
+.gvfs
+.lesshst
+.local
+.profile
+.ssh
+.sudo_as_admin_successful
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+a
+b
+backup
+c
+d
+e
+new.txt
+new1.txt
+new2.txt
+new3.txt
+new4.txt
+newfile.txt
+one.txt
+renmaed_file.txt
+snap
+soham.txt
+the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham
+ubuntu@ubuntu:~$ ls -a ~ | grep ^\.
+.
+..
+.bash_history
+.bash_logout
+.bashrc
+.cache
+.config
+.gnupg
+.gvfs
+.lesshst
+.local
+.profile
+.ssh
+.sudo_as_admin_successful
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+a
+b
+backup
+c
+d
+e
+new.txt
+new1.txt
+new2.txt
+new3.txt
+new4.txt
+newfile.txt
+one.txt
+renmaed_file.txt
+snap
+soham.txt
+the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham
+ubuntu@ubuntu:~$ `
+> ^C
+ubuntu@ubuntu:~$ ls -a | grep ^\.
+.
+..
+.bash_history
+.bash_logout
+.bashrc
+.cache
+.config
+.gnupg
+.gvfs
+.lesshst
+.local
+.profile
+.ssh
+.sudo_as_admin_successful
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+a
+b
+backup
+c
+d
+e
+new.txt
+new1.txt
+new2.txt
+new3.txt
+new4.txt
+newfile.txt
+one.txt
+renmaed_file.txt
+snap
+soham.txt
+the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham
+ubuntu@ubuntu:~$ ls -a ~ | grep "^\."
+.
+..
+.bash_history
+.bash_logout
+.bashrc
+.cache
+.config
+.gnupg
+.gvfs
+.lesshst
+.local
+.profile
+.ssh
+.sudo_as_admin_successful
 
