@@ -2,7 +2,7 @@
 
 import java.util.Scanner;
 
-public class Palindrome{
+public class Pyramid{
     public static void main(String[] args){
         Scanner scn = new Scanner(System.in);
 
