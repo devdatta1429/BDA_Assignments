@@ -1,3 +1,5 @@
+// Write a program to print a pyramid with given height.
+
 import java.util.Scanner;
 
 public class Palindrome{
