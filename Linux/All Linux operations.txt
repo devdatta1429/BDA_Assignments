@@ -1,0 +1,230 @@
+1. uname: os name
+2. uname -r : kernel type
+3. uname -a : all basic details of systems
+4. uname -s : os name
+5. uname -v : time architechture of kernel and dynamic
+6. uname -m : architecture of machine
+7. uname -n : system name or host name
+8. hostname : name of system
+9. hostname -I : ip address
+10. hostnamectl set-hostname Kali-Linux : to set new hostname
+11. whoami : gives current user
+12. echo $USER: $ store the value in user or system
+13. w : details and wake up time
+14. who : who have login and terminal time
+15. who -q : how many users are present
+16. who -r : give run level of system
+17. who -a : system boot, run level, process time
+18. who -b : system boot time
+19. who -u : login user and idle time of user
+20. clear : to clear terminal
+
+run level: 0-6 level of process if 5 is shown then multi user run level is operating
+0 : init(start of process or terminal)
+5 : multimode user
+6 : reboot
+
+21. date : give date
+22. date +%T : time
+23. date +%U : 
+24. date +%A : day
+25. date +%u : 
+26. cal : calender
+27. ncal : current month calender
+28. pwd : current working directory
+29. mkdir : create directory
+30. ls : list of directory
+31. cd : change directory (cd ~, cd ..)
+32. cd / : move to root
+33. cd ~<dir_name> : change user
+34. touch : to create empty txt file
+35. echo "3. Hello, worlds" >> empty.txt : append in the file
+36. >> : for append wont overwrite the present content
+37. > : to overwrite the file
+38. nano : to open shell editor
+39. bash : to run file (bash filename.sh)
+40. cat : to see the content
+41. vi : new text editor
+ - insert -> i
+ - esc -> shift+; -> wq -> save and exits
+42. vim : new text editor
+ - insert -> i
+ - esc -> shift+; -> wq -> save and exits
+ - copy: in esc mode, 'yy' and then paste: p/P
+ - cut: in esc mode, 'dd' and then paste: p/P
+ - undo: esc+u
+ - redo: esc+r
+43. ls -l : new files created logs
+   _  rwx  rwx  rwx
+   ^   ^    ^    ^
+   |   |    |    |
+   d  rwx  rwx  rwx
+
+ dire user group  others
+ ctory
+  ls -a : to get hidden files
+44. ls -it : hidden directory/file  shows inote number(unique number to directory/file)
+45. ls -S : sort according to file size
+46. ls -n : give numeric for user id and group id
+47. ls * : list down all the file that is present in the directory 
+48. ls sh* : specific extention
+49. ls -i/-I : hidden directory/file  shows inote number(unique number to directory/file)
+50. ls -r : shows the file/directory reversed order by name
+51. ls -d*/ , ls -l / : list of directory
+52. ls -l /home/omkar : for specific directory
+53. rm <filename.ex> : remove/delete files from directory not other directory
+54. rmdir <directory> : remove/delete directory
+55. rm -r <directory> : recursily delete directory if its not empty
+56. rm -rf <directory> : forcely delete
+57. cp <sourcefile_name> <destination_name> : copy content of source file and paste in destination file
+58. cp <sourcefile_path> <destination_path> : does the same thing as above
+59. cp -n <sourcefile> <destinationfile> : create new file if not present and append it to the destination file
+60. cp -r <dir1> <dir2> : copy directory to destination directory
+61. cp -a attr.txt tocheckattr.txt : to create the backups
+62. mv attr.txt attribute.txt : copy the content and paste in destination and source file will be deleted or not present (ex. cut and paste)
+63. mv copyex.txt a : move to directory 'a'
+64. mv -n /home/omkar/om/a /home/omkar/om/totest : move or overwrite the directory 
+65. mv -i checkwarning.txt attribute.txt : overwrite
+66. rename 's/\.txt$/.md/' *.txt : rename files with same extention or file name with RegEx
+67. rename 's/^a/new-/' * : rename everything where a is occured
+68. rename 's/\.sh$/_backup.txt/' * : rename .sh extension with _backup.txt 
+69. rename 'y/a-z/A-Z/' *. : capitalize everything with 'y'
+70. rename 's/\.TXT$/_$(date).txt/' *.TXT : rename with date
+
+   mv vs rename
+- mv : cut and paste, rename, not allowed to use RegEx
+- rename: bulk modification and use of RegEx
+
+71. rsync file1.txt totest(dir) : backup to totest and file also avalaible in original directory.
+72. rsync -av <sourcedir> <destinationdir> : transfer file using archieve mode to the destination dir
+73. wc -l wc_ex.txt : give the same number of character from the file.
+74. wc -L <> : get the longest length of line
+75. wc -w <> : give word count
+76. wc -l *.txt : get all file with extention txt
+77. wc -m <> : gives charecter
+78. grep is used to read the pattern 
+    grep 'US' wc_ex.txt : will highlight the US in the txt file.
+79. grep -n 'US' wc_ex.txt : gives line numbers 
+80. grep -c 'US' <> : reduce to the number of pattern whic are present in the file 
+81. grep -i 'US' <> : case get insensitive and read the pattern 
+82. grep -r 'the' /home/omkar/om : searches in the entire directory 
+83. grep -o 'the' /home/omkar/om : give the word wherever the matches without file name
+84. grep -n 'the' <> <> : search in the both files 
+85. grep -A 1 'energy' <> : after the key word line will displayed. 1 it means how much line will be provided after/before the keyword
+-B: before -> give the line before the matched keyword
+-C: context -> give a line before and after the matched keyword
+86. grep '^T' <> : give the line with the start of T.
+87. pipe separator( | ) : command1 | command2
+			   output --> input
+    ls | tail -n 5 : 5 lines of the ls will displayed
+88. ls | tail -n 5
+89. ls *.txt | wc -L                                                                                                                                              
+90. ls *.txt | wc -c
+91. ls *.txt | wc 
+92. ls *.txt | wc -w
+93. cat wc_ex.txt >> new.txt : read and copy it to the new file
+94. ls -a | grep '^\.'
+
+SED editor : can't save file, its temperory
+95. sed 's/and/also/g' new-ttribute.txt : to replace the value in the first string 
+96. sed '4,10s/yavatmal/wani/g' new-ttribute.txt : range mein changes 
+97. sed '1s/yavatmal/wani/g' new-ttribute.txt : single line will affected
+98. sed '4,10s/yavatmal/wani/g' new-ttribute.txt >> new-trribute.txt : save the file 
+99. sed '2i\Hello' new.txt : insert a line in 1st line
+100. uniq new.txt | wc : to get unique character, word and lines
+101. sort uniq.txt | uniq : only unique value will be provided in ascending order
+102. sort new-ttribute.txt | uniq -c : number of occurance
+103. find . : will iterate though all the directory
+104. find ~ type d : search for directory
+105. find ~ type f : iterate through file
+106. find / new.txt : search from root dir
+107. find . new : find in current dir
+108. find ~ type d mtime-10 : home dir check modify in 10 days
+109. find ~ type d size+1M : search with size
+110. find ~ type d empty : search empty dir
+111. locate -r / <filename> : current location of file is showed not iteration 
+
+find vs locate 
+1. find is bit slower than locate , locate doesn't iterate through all the files
+2. if is not present, find command will not extract the location but locate will still give you location
+
+---Create user----
+112. sudo useradd -m <username> : create user 
+113. getent passwd : log of users created, dddd is userID
+114. cat /etc/passwd : same as above
+115. sudo passwd <username> : set password
+
+---Create group---
+116. sudo groupadd <groupname> : create group
+117. cat /etc/group
+118. sudo useradd -m -G <groupname> <username> : new user get added to existing group
+119. sudo usermod -aG <groupname> <user> : existing user get added in the group
+120. sudo usermod -aG <groupname>,<groupname> <user> : multiple group me add 
+121. sudo gpasswd -M <username>,<username> <groupname> : add multiple user in group
+
+----Ownership----
+122. getfacl <absolute path of dir> : gives the owner detail and permission
+123. getfacl -R <path of dir> : details of recursive files are present
+124. setfacl -m u:<user1>:<rwx> <directory/file name>: set permissions to directory/file name by user1 
+125. setfacl -m g:cdac:rwx /home/omkar : set permissions to cdac by omkar user
+126. setfacl -b <directory> : remove permission from directory
+127. setfacl -x u:<user> <directory/file> : remove user or group
+128. setfacl -m u:<user>:rx <directory/file> : modify permission
+129. setfacl -x g:<groupname> <directory/file> : particular group will get remove.
+130. chmod 350 overwrite.txt : to change the permissions
+131. chmod u=rw,g=w,o=r <filename> : usual way
+132. chmod u+x,g-w,o+w <filename> : additional way
+133. sudo chown <username> <filename> : change the owner of file
+134. sudo chown <username>:<groupname> <filename> : change the group of file
+135. sudo chown :<groupname> <directory> : to only change the group of the directory
+136. sudo chown :<groupname> <dir> && chmod ugo=rwx <dir> : 
+137. sudo chgrp <groupname> <dir> : individually change the ownership of group 
+
+chmod: for file permission e.g. r w x , 077, u+rw, u-w, g=w   
+chown: change the owner and group    
+chgrp: change the group 
+umask: default permission file:  6 6 6  directory: 7 7 7
+
+-----shell scripting-----
+without giving spaces
+138. #!bin/sh : to know shell that file is sh file
+139. <var> : number --> int
+140. <var> : "string" ---> str 
+
+141. 
+#!/bin/sh
+echo "file name: $0"
+echo "first parameter: $1"
+echo "second parameter: $2"
+echo "Quoted Values: $@"
+echo "Quoted Values: $*"
+echo "Total Number of Parameter: $#"
+
+142. 
+#!/bin/sh
+read -p "What is your name: " name
+echo "Hi, there $name"
+echo "Welcome to CDAC!"
+read name
+echo "Hi, there $name"
+
+143. 
+letter=("A""B""C""D""E")
+echo ${letter:0:3}
+echo ${letter[@]} #for iterating over input like *kwargs in python
+echo $letter #show the same result as above
+
+144. 
+
+
+
+
+
+
+
+
+
+
+
+
+
