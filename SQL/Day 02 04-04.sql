@@ -276,4 +276,16 @@ gender char(10) check(gender in ("male","female","other")),
 check(age>21 and length(s_name)>1),
 check(m_num regexp '[0-9]')
 );
+  
+-- ---------------------------------------------------------------------------
 
+
+create table const_ex8(
+zipcode int,
+s_name varchar(30) not null,
+address varchar(100),
+primary key(zipcode, address) # composite key
+);
+
+desc const_ex8;
+show index from const_ex8;
