@@ -84,7 +84,6 @@ age int generated always as (datediff(today,dob)) virtual
 insert into to_virtual1(f_name,l_name,dob) values("Devdatta","Thorat","2003-06-29");
 select * from to_virtual1;
 
-
 -- ======================================lunch uploaad========================================
 
 create table to_virtual2(
@@ -141,4 +140,140 @@ insert into json_new (f_name,l_name,skills_set) values ("arv","sonakr",'{"tv":["
 
 select f_name,skills_set ->> '$.tv[1]' as tv ,skills_set ->> '$.laptop[0]' as luptup from json_new;
 
+
+#===========================================================================================
+create table const_ex(
+s_id int primary key,
+S_name varchar(30) not null
+);
+
+
+insert into const_ex values(1,"abc");
+insert into const_ex(s_id) values (1);
+# Error Code: 1364. Field 'S_name' doesn't have a default value	0.016 sec
+-- ---------------------------------------------------------------------
+create table const_ex1(
+s_id int auto_increment primary key,
+s_name varchar(30) not null,
+c_name varchar(50) default "BDA"
+);
+
+insert into const_ex1(s_name) values("abc");
+select * from const_ex1;
+
+-- ---------------------------------------------------------------------------
+create table const_ex2(
+s_id int auto_increment primary key,
+s_name varchar(30) not null,
+c_name varchar(50) default "BDA",
+c_start date default "2026-02-25",
+log_in timestamp default current_timestamp,
+login timestamp default now()
+);
+
+insert into const_ex2 (s_name)values("devdatta");
+select * from const_ex2;
+
+#==================================================================
+create table const_ex3(
+s_id int auto_increment primary key,
+s_name varchar(30) not null,
+c_name varchar(50) default "BDA",
+c_start date default "2026-02-25",
+log_in timestamp default current_timestamp,
+login timestamp default now(),
+m_num int unique
+);
+
+insert into const_ex3 (s_name,m_num)values("devdatta",9702);
+select * from const_ex3;
+
+insert into const_ex3 (s_name,m_num)values("devdatta",9702);
+# Error Code: 1062. Duplicate entry '9702' for key 'const_ex3.m_num'	0.016 sec
+
+#=====================================================================================================
+create table const_ex4(
+s_id int auto_increment primary key,
+s_name varchar(30) not null,
+c_name varchar(50) default "BDA",
+c_start date default "2026-02-25",
+log_in timestamp default current_timestamp,
+login timestamp default now(),
+m_num int,
+email varchar(100),
+unique(m_num,email) 
+
+## it work like or operator
+#1	devdatta	BDA	2026-02-25	2026-04-04 17:30:41	2026-04-04 17:30:41	9702	
+#2	devdatta	BDA	2026-02-25	2026-04-04 17:30:52	2026-04-04 17:30:52	9702	
+#3	devdatta	BDA	2026-02-25	2026-04-04 17:33:39	2026-04-04 17:33:39	9702	dev@gmail.com
+#5	devdatta	BDA	2026-02-25	2026-04-04 17:34:17	2026-04-04 17:34:17		    dev@gmail.com
+);
+
+
+insert into const_ex4 (s_name,m_num)values("devdatta",9702);
+select * from const_ex4;
+
+insert into const_ex4 (s_name,m_num,email)values("devdatta",9702,"dev@gmail.com");
+insert into const_ex4 (s_name,email)values("devdatta","dev@gmail.com");
+
+desc const_ex4;
+
+show indexes from const_ex4;
+
+#/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/
+create table const_ex5(
+s_id int auto_increment primary key,
+s_name varchar(30) not null,
+age int not null check(age>21)
+);
+
+insert into const_ex5(s_name,age) values("dev",22);
+insert into const_ex5(s_name,age) values("dev",12);
+# Error Code: 3819. Check constraint 'const_ex5_chk_1' is violated.	0.000 sec
+
+select * from const_ex5;
+
+#/=/=/=/=/=/=/=/=/=/=/=/=/=/=/= IN VALUES =/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=
+
+create table const_ex6(
+s_id int auto_increment primary key,
+s_name varchar(30) not null,
+age int not null check(age>21),
+gender char(10) check(gender in ("male","female","other"))
+);
+
+insert into const_ex6 (s_name,age) values("dev",22);
+insert into const_ex6 (s_name,age,gender) values("dev",22,"male");
+insert into const_ex6 (s_name,age,gender) values("dev",22,"o");
+# Error Code: 3819. Check constraint 'const_ex6_chk_2' is violated.	0.000 sec
+
+select * from const_ex6;
+
+#/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/= AND CHECK=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=
+
+create table const_ex7(
+s_id int auto_increment primary key,
+s_name varchar(30) not null,
+age int not null,
+gender char(10) check(gender in ("male","female","other")),
+check(age>21 and length(s_name)>1)
+);
+
+insert into const_ex7(s_name,age) values("c",22);
+insert into const_ex7(s_name,age) values("ch",22);
+# 	Error Code: 3819. Check constraint 'const_ex7_chk_2' is violated.	0.000 sec
+select * from const_ex7;
+
+#/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/= REGEXP /=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=
+
+create table const_ex8(
+s_id int auto_increment primary key,
+s_name varchar(30) not null,
+age int not null,
+m_num int,
+gender char(10) check(gender in ("male","female","other")),
+check(age>21 and length(s_name)>1),
+check(m_num regexp '[0-9]')
+);
 
