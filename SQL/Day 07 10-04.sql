@@ -323,14 +323,6 @@ select
     order by salary_band desc;
 
     
---     hi dev,
---     you are so inteeligent and good guy......but you never bring anything to eat 
---     
---     so do get it
---     
---     thenkssss
---     sweetie 
-    
 # ========================================================================================================
 
 select upper(first_name) from employees;
