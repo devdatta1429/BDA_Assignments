@@ -120,3 +120,123 @@ limit 5;
 
 select employee_id,first_name,department_id,salary,row_number() over(partition by department_id) as_row 
 from employees;
+
+with second_hi as (
+	select employee_id,first_name,department_id,salary, row_number() over (partition by department_id order by salary desc ) as_salry
+    from employees)
+select * from second_hi where as_salry<=2;
+
+## ====================================================================================================
+-- where you need to find newly or latest joined employee in ech departement
+select e.*,e.hire_date as d
+from employees e
+order by d desc;
+
+with latest_join as(
+		select employee_id,first_name,department_id,hire_date,row_number() over (partition by department_id order by hire_date desc) as_latest
+        from employees)
+select first_name,department_id, hire_date,as_latest
+from latest_join
+where as_latest=1;
+
+
+## ===================================    Remove     ==================================================
+
+## employee + department - duplicate () read
+
+
+with latest_join1 as(
+		select employee_id,first_name,department_id,row_number() over (partition by first_name,department_id) as_latest1
+        from employees)
+select first_name,department_id, as_latest1
+from latest_join1;
+
+
+## ===============================       use movie_db         =================================================
+use movie_db;
+
+select
+	row_number () over (order by r.averagerating desc ) as row_num,
+    t.primaryTitle as Title,
+    r.averageRating as rating
+from imdb_titles t join imdb_ratings r on t.tconst = r.tconst
+where t.titleType = 'Movie' and r.NumVotes >= 100000
+limit 10; 
+
+with top1 as(
+	select
+		row_number () over (partition by t.genres order by r.averagerating desc ) as row_num,
+		t.primaryTitle as Title,
+		r.averageRating as rating
+	from imdb_titles t join imdb_ratings r on t.tconst = r.tconst
+	where t.titleType = 'Movie' and r.averagerating >= 8.8
+	limit 10)
+select * 
+from top1 
+where row_num = 1; 
+
+
+## ====================================================================================================
+use new_one;
+select employee_id,first_name,department_id,salary,
+	row_number () over (partition by department_id  order by salary desc ) as_row_num,
+    rank() over (partition by department_id  order by salary desc ) as_rank,
+    dense_rank() over (partition by department_id  order by salary desc ) as_dense_rank
+from employees; 
+
+
+## ====================================================================================================
+-- -- rank emp1 based on their salary - high to low
+
+select employee_id,first_name,department_id,salary,
+rank() over(order by salary desc) as_rank
+from employees
+limit 5;
+
+#========================    to 3 unique salaried emp   ==================
+SET GLOBAL wait_timeout = 28800;
+SET GLOBAL interactive_timeout = 28800;
+SET GLOBAL max_execution_time = 30000; -- Sets a 30-second limit
+
+# rank the movies inside genres
+use movie_db;
+
+WITH movie_rank AS (
+    SELECT 
+        t.genres,
+        t.primaryTitle,
+        r.averageRating,
+        RANK() OVER (
+            PARTITION BY t.genres 
+            ORDER BY r.averageRating DESC
+        ) AS genre_each
+    FROM imdb_titles t 
+    INNER JOIN imdb_ratings r
+        ON t.tconst = r.tconst
+)
+SELECT *
+FROM movie_rank
+WHERE genre_each = 1;
+
+
+
+## ====================================================================================================
+use new_one;
+select employee_id, first_name,department_id,salary, last_value(salary) over (partition by department_id) as_last_value
+from employees;
+
+select employee_id, first_name,department_id,salary, first_value(salary) over (partition by department_id order by salary) as_last_value
+from employees;
+
+select employee_id, first_name,department_id,salary, lead(salary) over (partition by department_id order by salary) as_lead_value
+from employees;
+
+select employee_id, first_name,department_id,salary, lag(salary) over (partition by department_id order by salary) as_lag_value
+from employees;
+
+with diff as(
+				select employee_id, first_name,department_id,salary, lag(salary) over (partition by department_id order by salary) as_last_value
+				from employees
+				)
+select salary,as_last_value,salary-as_last_value as differernce
+from diff;
