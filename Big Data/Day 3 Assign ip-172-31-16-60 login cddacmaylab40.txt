@@ -1,0 +1,1136 @@
+ip-172-31-16-60 login: cddacmaylab407                                                                                          
+Password:                                                                                                                      
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.15.0-1084-aws x86_64)                                                               
+
+
+  System information as of Wed Apr 22 06:18:04 UTC 2026                                                                        
+                                                                                                                               
+  System load:  1.79               Processes:             310                                                                  
+  Usage of /:   47.8% of 61.84GB   Users logged in:       26                                                                   
+  Memory usage: 74%                IPv4 address for ens5: 172.31.16.60                                                         
+  Swap usage:   0%                                                                                                             
+                                                                                                                               
+  => There is 1 zombie process.                                                                                                
+                                                                                                                               
+Last login: Wed Apr 22 06:03:55 UTC 2026 from 127.0.0.1, 14.139.112.69 on pts/20                                               
+cddacmaylab407@ip-172-31-16-60:~$                                                                                              
+cddacmaylab407@ip-172-31-16-60:~$ hive                                                                                         
+SLF4J: Class path contains multiple SLF4J bindings.                                                                            
+SLF4J: Found binding in [jar:file:/opt/hive-3.1.1/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]    
+SLF4J: Found binding in [jar:file:/opt/hadoop/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBind
+er.class]                                                                                                                      
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.                                               
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]                                                 
+Hive Session ID = e39aa00c-272a-4017-986c-b77fdb479473                                                                         
+                                                                                                                               
+Logging initialized using configuration in jar:file:/opt/hive-3.1.1/lib/hive-common-3.1.1.jar!/hive-log4j2.properties Async: tr
+ue                                                                                                                             
+Hive Session ID = 082eff63-e086-4e58-87d6-45a99d37dbd8                                                                         
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine
+ (i.e. spark, tez) or using Hive 1.X releases.                                                                                 
+hive>                                                                                                                          
+    > set hive.cli.print.current.db = true;                                                                                    
+hive (default)>                                                                                                                
+              > set hive.cli.print.header = true;                                                                              
+hive (default)>                                                                                                                
+              > use dev;                                                                                                       
+OK                                                                                                                             
+Time taken: 0.347 seconds                                                                                                      
+hive (dev)> show databases;                                                                                                    
+OK                                                                                                                             
+database_name                                                                                                                  
+15april                                                                                                                        
+a                                                                                                                              
+aabb                                                                                                                           
+abdevs_db                                                                                                                      
+abhay23bcs10181_analytics                                                                                                      
+abhay23bcs10181_raw                                                                                                            
+abhay23bcs10181_staging                                                                                                        
+abhi_db                                                                                                                        
+abhi_db_05                                                                                                                     
+abhis_db                                                                                                                       
+abhishek_13april                                                                                                               
+adesh                                                                                                                          
+airbus_a640                                                                                                                    
+airfly_db                                                                                                                      
+airline                                                                                                                        
+airline123                                                                                                                     
+airline_29                                                                                                                     
+airline_ask                                                                                                                    
+airline_assi                                                                                                                   
+airline_s                                                                                                                      
+airlines                                                                                                                       
+airlines67                                                                                                                     
+airlines_50                                                                                                                    
+airlines_analysis                                                                                                              
+airlines_db                                                                                                                    
+airlines_db_0125                                                                                                               
+airlines_es                                                                                                                    
+airlineu_db                                                                                                                    
+airport_db                                                                                                                     
+airport_db_53                                                                                                                  
+airports_mod                                                                                                                   
+akdb                                                                                                                           
+akhil_db                                                                                                                       
+aman_analytics                                                                                                                 
+aman_raw                                                                                                                       
+aman_staging                                                                                                                   
+amrita_db                                                                                                                      
+anish_db                                                                                                                       
+arjun_db                                                                                                                       
+asgn1                                                                                                                          
+assign_1_25                                                                                                                    
+assignment_61                                                                                                                  
+assignment_db                                                                                                                  
+avishkar_airlines                                                                                                              
+avishkar_db                                                                                                                    
+berserk                                                                                                                        
+bharat                                                                                                                         
+bharath_db                                                                                                                     
+bigassignment                                                                                                                  
+bigdata1                                                                                                                       
+bigdatalab                                                                                                                     
+bigdatalabtest                                                                                                                 
+bk_db                                                                                                                          
+bk_hive_airlines_db                                                                                                            
+bk_new_db                                                                                                                      
+cd_new_db                                                                                                                      
+cdac_sneh                                                                                                                      
+claa_demo                                                                                                                      
+class_demo                                                                                                                     
+class_demo_1000                                                                                                                
+class_demo_14915                                                                                                               
+class_demo_14922                                                                                                               
+class_demo_20921                                                                                                               
+class_demo_aaron1357                                                                                                           
+class_demo_ajit                                                                                                                
+class_demo_apoorv                                                                                                              
+class_demo_arv                                                                                                                 
+class_demo_julie                                                                                                               
+class_demo_mayankesh                                                                                                           
+class_demo_mohan                                                                                                               
+class_demo_mp                                                                                                                  
+class_demo_naga                                                                                                                
+class_demo_nithin                                                                                                              
+class_demo_nyk                                                                                                                 
+class_demo_ranjana1                                                                                                            
+class_demo_ravi                                                                                                                
+class_demo_rk                                                                                                                  
+class_demo_rr                                                                                                                  
+class_demo_sam                                                                                                                 
+class_demo_sh                                                                                                                  
+class_demo_sudha                                                                                                               
+class_demo_test                                                                                                                
+class_demo_vijay                                                                                                               
+class_demo_viren                                                                                                               
+class_nm                                                                                                                       
+ct                                                                                                                             
+cust_trans                                                                                                                     
+customer_payal                                                                                                                 
+dark                                                                                                                           
+darshan                                                                                                                        
+darshan_db                                                                                                                     
+data_scientist                                                                                                                 
+day1                                                                                                                           
+db_2026                                                                                                                        
+db_train                                                                                                                       
+dd_scaler                                                                                                                      
+ddone                                                                                                                          
+debashis_10209_analytics                                                                                                       
+debashis_10209_raw                                                                                                             
+debashis_10209_staging                                                                                                         
+default                                                                                                                        
+default_demo                                                                                                                   
+demo_class                                                                                                                     
+demo_db                                                                                                                        
+dev                                                                                                                            
+dhanoo     
+
+hive (dev)>                                                                                                                    
+          >                                                                                                                    
+          > use sujal_db;                                                                                                      
+OK                                                                                                                             
+Time taken: 0.042 seconds                                                                                                      
+hive (sujal_db)>                                                                                                               
+               > show tables;                                                                                                  
+OK                                                                                                                             
+tab_name                                                                                                                       
+airlines                                                                                                                       
+airport                                                                                                                        
+routes                                                                                                                         
+Time taken: 0.035 seconds, Fetched: 3 row(s)                                                                                   
+hive (sujal_db)>                                                                                                               
+               >                                                                                                               
+               > CREATE DATABASE IF NOT EXISTS arv;                                                                            
+OK                                                                                                                             
+Time taken: 0.084 seconds                                                                                                      
+hive (sujal_db)> use arv;                                                                                                      
+OK                                                                                                                             
+Time taken: 0.029 seconds                                                                                                      
+hive (arv)>                                                                                                                    
+          > create table airport( airport_id int, name string, city string, country string, iata string, icao string, latitude 
+double, longitude double, altitude int, timezone double, dst string, tz string) row format delimited  fields terminated by ',' 
+ stored as textfile;
+OK                                                                                                                             
+Time taken: 0.282 seconds                                                                                                      
+hive (arv)>                                                                                                                    
+          > load data  inpath 'airports_mod.dat' overwrite into table airport;                                                 
+Loading data to table arv.airport                                                                                              
+OK                                                                                                                             
+Time taken: 4.174 seconds                                                                                                      
+hive (arv)>                                                                                                                    
+          > select count(airport_id) from airport;                                                                             
+Query ID = cddacmaylab407_20260422063105_5c588868-fe04-41ad-8f08-d8b74ff6f7d4                                                  
+Total jobs = 1                                                                                                                 
+Launching Job 1 out of 1                                                                                                       
+Number of reduce tasks determined at compile time: 1                                                                           
+In order to change the average load for a reducer (in bytes):                                                                  
+  set hive.exec.reducers.bytes.per.reducer=<number>                                                                            
+In order to limit the maximum number of reducers:                                                                              
+  set hive.exec.reducers.max=<number>                                                                                          
+In order to set a constant number of reducers:                                                                                 
+  set mapreduce.job.reduces=<number>                                                                                           
+Starting Job = job_1776055345521_2496, Tracking URL = http://master:6318/proxy/application_1776055345521_2496/                 
+Kill Command = /opt/hadoop/bin/mapred job  -kill job_1776055345521_2496         
+                                                                                                                                                                   
+
+################################################################################
+
+ip-172-31-16-60 login: cddacmaylab407                                              
+Password:                                                                          
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.15.0-1084-aws x86_64)                   
+
+  System information as of Wed Apr 22 06:03:54 UTC 2026                            
+
+  System load:  1.1                Processes:             296                      
+  Usage of /:   47.8% of 61.84GB   Users logged in:       21                       
+  Memory usage: 71%                IPv4 address for ens5: 172.31.16.60             
+  Swap usage:   0%                                                                 
+
+  => There is 1 zombie process.                                                    
+
+Last login: Tue Apr 21 11:27:52 UTC 2026 from 127.0.0.1, 14.139.112.69 on pts/25   
+cddacmaylab407@ip-172-31-16-60:~$ ls                                               
+custs.txt  nyse.csv  txns1.txt                                                     
+cddacmaylab407@ip-172-31-16-60:~$ mkdir nyse                                       
+cddacmaylab407@ip-172-31-16-60:~$ mv nyse.csv nyse                                 
+cddacmaylab407@ip-172-31-16-60:~$ ls                                               
+custs.txt  nyse  txns1.txt
+cddacmaylab407@ip-172-31-16-60:~$ mv custs.txt txns1.txt nyse                      
+cddacmaylab407@ip-172-31-16-60:~$ ls                                               
+nyse
+cddacmaylab407@ip-172-31-16-60:~$ ls                                               
+'Create table querry.txt'   Final_airlines   airports_mod.dat   nyse   routes.dat
+cddacmaylab407@ip-172-31-16-60:~$ rm 'Create table querry.txt'                     
+cddacmaylab407@ip-172-31-16-60:~$ ls                                               
+Final_airlines  airports_mod.dat  nyse  routes.dat
+cddacmaylab407@ip-172-31-16-60:~$                                                  
+cddacmaylab407@ip-172-31-16-60:~$                                                  
+cddacmaylab407@ip-172-31-16-60:~$ ls                                               
+Final_airlines  airports_mod.dat  nyse  routes.dat
+cddacmaylab407@ip-172-31-16-60:~$ hdfs dfs final_airlines airports_mod.dat routes.d
+final_airlines: Unknown command                                                    
+Usage: hadoop fs [generic options]                                                 
+        [-appendToFile <localsrc> ... <dst>]                                       
+        [-cat [-ignoreCrc] <src> ...]                                              
+        [-checksum [-v] <src> ...]                                                 
+        [-chgrp [-R] GROUP PATH...]                                                
+        [-chmod [-R] <MODE[,MODE]... | OCTALMODE> PATH...]                         
+        [-chown [-R] [OWNER][:[GROUP]] PATH...]                                    
+        [-copyFromLocal [-f] [-p] [-l] [-d] [-t <thread count>] <localsrc> ... <dst
+        [-copyToLocal [-f] [-p] [-ignoreCrc] [-crc] <src> ... <localdst>]          
+        [-count [-q] [-h] [-v] [-t [<storage type>]] [-u] [-x] [-e] <path> ...]    
+        [-cp [-f] [-p | -p[topax]] [-d] <src> ... <dst>]                           
+        [-createSnapshot <snapshotDir> [<snapshotName>]]                           
+        [-deleteSnapshot <snapshotDir> <snapshotName>]                             
+        [-df [-h] [<path> ...]]                                                    
+        [-du [-s] [-h] [-v] [-x] <path> ...]                                       
+        [-expunge [-immediate] [-fs <path>]]                                       
+        [-find <path> ... <expression> ...]                                        
+        [-get [-f] [-p] [-ignoreCrc] [-crc] <src> ... <localdst>]                  
+        [-getfacl [-R] <path>]                                                     
+        [-getfattr [-R] {-n name | -d} [-e en] <path>]                             
+        [-getmerge [-nl] [-skip-empty-file] <src> <localdst>]                      
+        [-head <file>]                                                             
+        [-help [cmd ...]]                                                          
+        [-ls [-C] [-d] [-h] [-q] [-R] [-t] [-S] [-r] [-u] [-e] [<path> ...]]       
+        [-mkdir [-p] <path> ...]                                                   
+        [-moveFromLocal <localsrc> ... <dst>]                                      
+        [-moveToLocal <src> <localdst>]                                            
+        [-mv <src> ... <dst>]                                                      
+        [-put [-f] [-p] [-l] [-d] <localsrc> ... <dst>]                            
+        [-renameSnapshot <snapshotDir> <oldName> <newName>]                        
+        [-rm [-f] [-r|-R] [-skipTrash] [-safely] <src> ...]                        
+        [-rmdir [--ignore-fail-on-non-empty] <dir> ...]                            
+        [-setfacl [-R] [{-b|-k} {-m|-x <acl_spec>} <path>]|[--set <acl_spec> <path>
+        [-setfattr {-n name [-v value] | -x name} <path>]                          
+        [-setrep [-R] [-w] <rep> <path> ...]                                       
+        [-stat [format] <path> ...]                                                
+        [-tail [-f] [-s <sleep interval>] <file>]                                  
+        [-test -[defswrz] <path>]                                                  
+        [-text [-ignoreCrc] <src> ...]                                             
+        [-touch [-a] [-m] [-t TIMESTAMP ] [-c] <path> ...]                         
+        [-touchz <path> ...]                                                       
+        [-truncate [-w] <length> <path> ...]                                       
+        [-usage [cmd ...]]                                                         
+
+Generic options supported are:                                                                  
+-conf <configuration file>        specify an application configuration file                     
+-D <property=value>               define a value for a given property                           
+-fs <file:///|hdfs://namenode:port> specify default filesystem URL to use, overrides 'fs.default
+-jt <local|resourcemanager:port>  specify a ResourceManager                                     
+-files <file1,...>                specify a comma-separated list of files to be copied to the ma
+-libjars <jar1,...>               specify a comma-separated list of jar files to be included in 
+-archives <archive1,...>          specify a comma-separated list of archives to be unarchived on
+
+The general command line syntax is:                                                             
+command [genericOptions] [commandOptions]                                                       
+
+cddacmaylab407@ip-172-31-16-60:~$ hdfs dfs -put final_airlines airports_mod.dat routes.dat      
+put: `routes.dat': No such file or directory                                                    
+cddacmaylab407@ip-172-31-16-60:~$ hdfs dfs -ls                                                  
+Found 1 items                                                                                   
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-21 07:46 data                   
+cddacmaylab407@ip-172-31-16-60:~$ hdfs dfs -put final_airlines                                  
+put: `final_airlines': No such file or directory                                                
+cddacmaylab407@ip-172-31-16-60:~$                                                               
+cddacmaylab407@ip-172-31-16-60:~$                                                               
+cddacmaylab407@ip-172-31-16-60:~$                                                               
+cddacmaylab407@ip-172-31-16-60:~$ ls                                                            
+Final_airlines  airports_mod.dat  nyse  routes.dat
+cddacmaylab407@ip-172-31-16-60:~$ hdfs dfs -put final_airlines airports_mod.dat routes.dat      
+put: `routes.dat': No such file or directory                                                    
+cddacmaylab407@ip-172-31-16-60:~$ hdfs dfs -put Final_airlines airports_mod.dat routes.dat      
+put: `routes.dat': No such file or directory                                                    
+cddacmaylab407@ip-172-31-16-60:~$                                                               
+cddacmaylab407@ip-172-31-16-60:~$                                                               
+cddacmaylab407@ip-172-31-16-60:~$ hdfs dfs -put Final_airlines airports_mod.dat routes.dat /user
+cddacmaylab407@ip-172-31-16-60:~$ hdfs dfs -ls                                                  
+Found 4 items                                                                                   
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407     316243 2026-04-22 06:13 Final_airlines         
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407     739515 2026-04-22 06:13 airports_mod.dat       
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-21 07:46 data                   
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407    2375505 2026-04-22 06:13 routes.dat             
+cddacmaylab407@ip-172-31-16-60:~$                                                               
+cddacmaylab407@ip-172-31-16-60:~$                                                               
+cddacmaylab407@ip-172-31-16-60:~$ hive                                                          
+SLF4J: Class path contains multiple SLF4J bindings.                                             
+SLF4J: Found binding in [jar:file:/opt/hive-3.1.1/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/imp
+taticLoggerBinder.class]                                                                        
+SLF4J: Found binding in [jar:file:/opt/hadoop/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/
+/slf4j/impl/StaticLoggerBinder.class]                                                           
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.                
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]                  
+Hive Session ID = 0e09e6a8-c2cd-4951-a14d-c8c5ccfc1393                                          
+
+Logging initialized using configuration in jar:file:/opt/hive-3.1.1/lib/hive-common-3.1.1.jar!/h
+-log4j2.properties Async: true                                                                  
+Hive Session ID = b63a454f-49b0-4d73-bd12-5bb9dacf81e1                                          
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider usi
+a different execution engine (i.e. spark, tez) or using Hive 1.X releases.                      
+hive> set hive.cli.print.current.db=true;                                                       
+hive (default)>                                                                                 
+              >                                                                                 
+              > set hive.cli.print.header=true;                                                 
+hive (default)>                                                                                 
+              > use arv                                                                         
+              > ;                                                                               
+OK                                                                                              
+Time taken: 0.344 seconds                                                                       
+hive (arv)>                                                                                     
+          > show tables;                                                                        
+OK                                                                                              
+tab_name                                                                                        
+airport                                                                                         
+Time taken: 0.097 seconds, Fetched: 1 row(s)                                                    
+hive (arv)>                                                                                     
+          > select count(airport_id) from airport;                                              
+Query ID = cddacmaylab407_20260422063845_0504e088-6c76-4b24-be0b-54af5c721871                   
+Total jobs = 1                                                                                  
+Launching Job 1 out of 1                                                                        
+Number of reduce tasks determined at compile time: 1                                            
+In order to change the average load for a reducer (in bytes):                                   
+  set hive.exec.reducers.bytes.per.reducer=<number>                                             
+In order to limit the maximum number of reducers:                                               
+  set hive.exec.reducers.max=<number>                                                           
+In order to set a constant number of reducers:                                                  
+  set mapreduce.job.reduces=<number>                                                            
+Starting Job = job_1776055345521_2528, Tracking URL = http://master:6318/proxy/application_17760
+45521_2528/                                                                                     
+Kill Command = /opt/hadoop/bin/mapred job  -kill job_1776055345521_2528                         
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1                 
+2026-04-22 06:38:59,536 Stage-1 map = 0%,  reduce = 0%                                          
+2026-04-22 06:39:06,737 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.3 sec                
+2026-04-22 06:39:13,879 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 6.08 sec             
+MapReduce Total cumulative CPU time: 6 seconds 80 msec                                          
+Ended Job = job_1776055345521_2528                                                              
+MapReduce Jobs Launched:                                                                        
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 6.08 sec   HDFS Read: 754174 HDFS Write: 104 
+CESS                                                                                            
+Total MapReduce CPU Time Spent: 6 seconds 80 msec                                               
+OK                                                                                              
+_c0                                                                                             
+8107                                                                                            
+Time taken: 31.077 seconds, Fetched: 1 row(s)                                                   
+hive (arv)>                                                                                     
+          >                                                                                     
+          > select country, count(airport_id) from airport group by country;                    
+Query ID = cddacmaylab407_20260422064036_d4a2092c-0158-475b-b537-5feedf064527                   
+Total jobs = 1                                                                                  
+Launching Job 1 out of 1                                                                        
+Number of reduce tasks not specified. Defaulting to jobconf value of: 4                         
+In order to change the average load for a reducer (in bytes):                                   
+  set hive.exec.reducers.bytes.per.reducer=<number>                                             
+In order to limit the maximum number of reducers:                                               
+  set hive.exec.reducers.max=<number>                                                           
+In order to set a constant number of reducers:                                                  
+  set mapreduce.job.reduces=<number>                                                            
+Starting Job = job_1776055345521_2538, Tracking URL = http://master:6318/proxy/application_17760
+45521_2538/                                                                                     
+Kill Command = /opt/hadoop/bin/mapred job  -kill job_1776055345521_2538                         
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 4                 
+2026-04-22 06:40:49,924 Stage-1 map = 0%,  reduce = 0%                                          
+2026-04-22 06:40:59,102 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.9 sec                
+2026-04-22 06:41:07,267 Stage-1 map = 100%,  reduce = 50%, Cumulative CPU 8.67 sec              
+2026-04-22 06:41:08,290 Stage-1 map = 100%,  reduce = 75%, Cumulative CPU 12.5 sec              
+2026-04-22 06:41:09,311 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 15.84 sec            
+MapReduce Total cumulative CPU time: 15 seconds 840 msec                                        
+Ended Job = job_1776055345521_2538                                                              
+MapReduce Jobs Launched:                                                                        
+Stage-Stage-1: Map: 1  Reduce: 4   Cumulative CPU: 15.84 sec   HDFS Read: 777247 HDFS Write: 642
+UCCESS                                                                                          
+Total MapReduce CPU Time Spent: 15 seconds 840 msec                                             
+OK                                                                                              
+country _c1                                                                                     
+ Fogo Island    1                                                                               
+ Niuafo'ou Island       1                                                                       
+ Sheffield      1                                                                               
+Afghanistan     21                                                                              
+Albania 1                                                                                       
+Australia       263                                                                             
+Belarus 9                                                                                       
+Benin   1                                                                                       
+Bermuda 2                                                                                       
+Bolivia 27                                                                                      
+Brazil  213                                                                                     
+British Indian Ocean Territory  1                                                               
+British Virgin Islands  2                                                                       
+Cambodia        13                                                                              
+Chad    7                                                                                       
+Colombia        72                                                                              
+Comoros 4                                                                                       
+Cote d'Ivoire   7                                                                               
+Dominica        3                                                                               
+East Timor      3                                                                               
+Gibraltar       1                                                                               
+Guernsey        2                                                                               
+Honduras        11                                                                              
+Indonesia       114                                                                             
+Israel  16                                                                                      
+Jamaica 7                                                                                       
+Jersey  1                                                                                       
+Jordan  6                                                                                       
+Kazakhstan      28                                                                              
+Kenya   55                                                                                      
+Madagascar      45                                                                              
+Marshall Islands        32                                                                      
+Micronesia      5                                                                               
+Moldova 3                                                                                       
+Mongolia        13                                                                              
+Montenegro      2                                                                               
+Morocco 22                                                                                      
+Nepal   36                                                                                      
+Netherlands     42                                                                              
+Netherlands Antilles    8                                                                       
+New Caledonia   11                                                                              
+Norfolk Island  1                                                                               
+Panama  26                                                                                      
+Papua New Guinea        57                                                                      
+Peru    43                                                                                      
+Reunion 10                                                                                      
+Saint Helena    1                                                                               
+Singapore       6                                                                               
+Somalia 11                                                                                      
+South Sudan     2                                                                               
+Suriname        23                                                                              
+Sweden  86                                                                                      
+Syria   6                                                                                       
+Taiwan  32                                                                                      
+Tajikistan      5                                                                               
+Uganda  9                                                                                       
+Uzbekistan      12                                                                              
+Vanuatu 29                                                                                      
+Vietnam 30                                                                                      
+Wallis and Futuna       2                                                                       
+Western Sahara  3                                                                               
+Zambia  13                                                                                      
+ Santiago Island        1                                                                       
+Algeria 44                                                                                      
+American Samoa  3                                                                               
+Armenia 4                                                                                       
+Austria 29                                                                                      
+Bahrain 2                                                                                       
+Bosnia and Herzegovina  4                                                                       
+Botswana        29                                                                              
+Brunei  3                                                                                       
+Burundi 1                                                                                       
+Cayman Islands  3                                                                               
+Chile   38                                                                                      
+Cocos (Keeling) Islands 1                                                                       
+Congo (Brazzaville)     3                                                                       
+Congo (Kinshasa)        36                                                                      
+Costa Rica      29                                                                              
+Cuba    30                                                                                      
+Czech Republic  27                                                                              
+Ecuador 38                                                                                      
+Estonia 9                                                                                       
+Ethiopia        32                                                                              
+Greece  60                                                                                      
+Guatemala       10                                                                              
+Guinea-Bissau   2                                                                               
+Guyana  14                                                                                      
+Haiti   14                                                                                      
+Hong Kong       13                                                                              
+Iraq    10                                                                                      
+Kiribati        18                                                                              
+Laos    11                                                                                      
+Lebanon 2                                                                                       
+Libya   21                                                                                      
+Lithuania       8                                                                               
+Macedonia       2                                                                               
+Mali    8                                                                                       
+Malta   8                                                                                       
+Mauritania      10                                                                              
+Mexico  94                                                                                      
+Midway Islands  1                                                                               
+Monaco  1                                                                                       
+Montserrat      2                                                                               
+Myanmar 1                                                                                       
+Nauru   1                                                                                       
+New Zealand     56                                                                              
+Niger   7                                                                                       
+Nigeria 26                                                                                      
+Pakistan        46                                                                              
+Palestine       1                                                                               
+Philippines     64                                                                              
+Qatar   3                                                                                       
+Romania 26                                                                                      
+Samoa   4                                                                                       
+Sao Tome and Principe   2                                                                       
+Senegal 9                                                                                       
+Slovenia        5                                                                               
+South Africa    103                                                                             
+South Georgia and the Islands   2                                                               
+Spain   84                                                                                      
+Sri Lanka       15                                                                              
+Tonga   5                                                                                       
+Tuvalu  1                                                                                       
+Venezuela       58                                                                              
+Wake Island     1                                                                               
+West Bank       1                                                                               
+Angola  26                                                                                      
+Antarctica      19                                                                              
+Barbados        1                                                                               
+Bhutan  1                                                                                       
+Cameroon        10                                                                              
+Canada  435                                                                                     
+Cook Islands    8                                                                               
+Cyprus  5                                                                                       
+Denmark 28                                                                                      
+Djibouti        3                                                                               
+Dominican Republic      14                                                                      
+Equatorial Guinea       2                                                                       
+Eritrea 3                                                                                       
+Fiji    17                                                                                      
+Finland 51                                                                                      
+French Polynesia        36                                                                      
+Georgia 5                                                                                       
+Greenland       29                                                                              
+Grenada 3                                                                                       
+Guam    2                                                                                       
+Hungary 15                                                                                      
+Iceland 22                                                                                      
+Iran    81                                                                                      
+Isle of Man     1                                                                               
+Japan   131                                                                                     
+Korea   1                                                                                       
+Kyrgyzstan      4                                                                               
+Lesotho 3                                                                                       
+Liberia 3                                                                                       
+Luxembourg      1                                                                               
+Mozambique      22                                                                              
+Norway  69                                                                                      
+Paraguay        8                                                                               
+Poland  34                                                                                      
+Portugal        39                                                                              
+Puerto Rico     15                                                                              
+Saint Kitts and Nevis   3                                                                       
+Saint Vincent and the Grenadines        5                                                       
+Saudi Arabia    42                                                                              
+Serbia  4                                                                                       
+Slovakia        10                                                                              
+Tanzania        27                                                                              
+Trinidad and Tobago     2                                                                       
+Turkey  77                                                                                      
+Turks and Caicos Islands        6                                                               
+United Kingdom  209                                                                             
+Uruguay 13                                                                                      
+Yemen   11                                                                                      
+Anguilla        1                                                                               
+Antigua and Barbuda     2                                                                       
+Argentina       103                                                                             
+Aruba   1                                                                                       
+Azerbaijan      11                                                                              
+Bahamas 37                                                                                      
+Bangladesh      13                                                                              
+Belgium 34                                                                                      
+Belize  12                                                                                      
+Bulgaria        7                                                                               
+Burkina Faso    2                                                                               
+Burma   43                                                                                      
+Cape Verde      5                                                                               
+Central African Republic        3                                                               
+China   219                                                                                     
+Christmas Island        1                                                                       
+Croatia 14                                                                                      
+Egypt   25                                                                                      
+El Salvador     2                                                                               
+Falkland Islands        5                                                                       
+Faroe Islands   3                                                                               
+France  233                                                                                     
+French Guiana   22                                                                              
+Gabon   14                                                                                      
+Gambia  1                                                                                       
+Germany 321                                                                                     
+Ghana   6                                                                                       
+Guadeloupe      7                                                                               
+Guinea  6                                                                                       
+India   140                                                                                     
+Ireland 25                                                                                      
+Italy   92                                                                                      
+Johnston Atoll  1                                                                               
+Kuwait  2                                                                                       
+Latvia  3                                                                                       
+Macau   4                                                                                       
+Malawi  8                                                                                       
+Malaysia        47                                                                              
+Maldives        42                                                                              
+Martinique      4                                                                               
+Mauritius       2                                                                               
+Mayotte 1                                                                                       
+Namibia 19                                                                                      
+Nicaragua       11                                                                              
+Niue    1                                                                                       
+North Korea     5                                                                               
+Northern Mariana Islands        3                                                               
+Oman    6                                                                                       
+Palau   3                                                                                       
+Russia  249                                                                                     
+Rwanda  3                                                                                       
+Saint Lucia     3                                                                               
+Saint Pierre and Miquelon       2                                                               
+Seychelles      11                                                                              
+Sierra Leone    8                                                                               
+Solomon Islands 27                                                                              
+South Korea     31                                                                              
+Sudan   18                                                                                      
+Svalbard        4                                                                               
+Swaziland       1                                                                               
+Switzerland     53                                                                              
+Thailand        58                                                                              
+Togo    2                                                                                       
+Tunisia 13                                                                                      
+Turkmenistan    8                                                                               
+Ukraine 33                                                                                      
+United Arab Emirates    19                                                                      
+United States   1697                                                                            
+Virgin Islands  8                                                                               
+Zimbabwe        16                                                                              
+Time taken: 33.623 seconds, Fetched: 244 row(s)                                                 
+hive (arv)>   
+hive (arv)>                                                                                     
+          >                                                                                        
+          > create table airlines(                                                                 
+          >                                                                                        
+          > airline_id int,                                                                        
+          >                                                                                        
+          > name string,                                                                           
+          >                                                                                        
+          > alias string,                                                                          
+          >                                                                                        
+          > iata string,                                                                           
+          >                                                                                        
+          > icao string,                                                                           
+          >                                                                                        
+          > callsign string,                                                                       
+          >                                                                                        
+          > country string,                                                                        
+          >                                                                                        
+          > active string)                                                                         
+          >                                                                                        
+          > row format delimited                                                                   
+          >                                                                                        
+          > fields terminated by ','                                                               
+          >                                                                                        
+          > stored as textfile;                                                                    
+OK                                                                                                 
+Time taken: 0.096 seconds                                                                          
+hive (arv)>                                                                                        
+          > load data inpath 'Final_airlines' overwrite into table airlines;                       
+Loading data to table arv.airlines                                                                 
+OK                                                                                                 
+Time taken: 4.052 seconds                                                                          
+hive (arv)>                                                                                        
+          > elect count(airline_id) from airlines;                                                 
+Query ID = cddacmaylab407_20260422064809_0f1b1afa-8bbc-448a-af80-c0ebd4265149                      
+Total jobs = 1                                                                                     
+Launching Job 1 out of 1                                                                           
+Number of reduce tasks determined at compile time: 1                                               
+In order to change the average load for a reducer (in bytes):                                      
+  set hive.exec.reducers.bytes.per.reducer=<number>                                                
+In order to limit the maximum number of reducers:                                                  
+  set hive.exec.reducers.max=<number>                                                              
+In order to set a constant number of reducers:                                                     
+  set mapreduce.job.reduces=<number>                                                               
+Starting Job = job_1776055345521_2579, Tracking URL = http://master:6318/proxy/application_17760553
+45521_2579/                                                                                        
+Kill Command = /opt/hadoop/bin/mapred job  -kill job_1776055345521_2579                            
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1                    
+2026-04-22 06:48:21,051 Stage-1 map = 0%,  reduce = 0%                                             
+2026-04-22 06:48:28,209 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.28 sec                  
+2026-04-22 06:48:34,335 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.15 sec                
+MapReduce Total cumulative CPU time: 7 seconds 150 msec                                            
+Ended Job = job_1776055345521_2579                                                                 
+MapReduce Jobs Launched:                                                                           
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.15 sec   HDFS Read: 329956 HDFS Write: 104 SUC
+CESS                                                                                               
+Total MapReduce CPU Time Spent: 7 seconds 150 msec                                                 
+OK                                                                                                 
+_c0                                                                                                
+6048                                                                                               
+Time taken: 27.654 seconds, Fetched: 1 row(s)                                                      
+hive (arv)> create table routes(                                                                   
+          >                                                                                        
+          > airline_iata string,                                                                   
+          >                                                                                        
+          > airline_id int,                                                                        
+          >                                                                                        
+          > src_airport_iata string,                                                               
+          >                                                                                        
+          > src_airport_id int,                                                                    
+          >                                                                                        
+          > dest_airport_iata string,                                                              
+          >                                                                                        
+          > dest_airport_id int,                                                                   
+          >                                                                                        
+          > codeshare string,                                                                      
+          >                                                                                        
+          > stops int,                                                                             
+          >                                                                                        
+          > equipment string)                                                                      
+          >                                                                                        
+          > row format delimited                                                                   
+          >                                                                                        
+          > fields terminated by ','                                                               
+          >                                                                                        
+          > stored as textfile;                                                                    
+OK                                                                                                 
+Time taken: 0.059 seconds                                                                          
+hive (arv)>                                                                                        
+          > load data inpath 'routes.dat' overwrite into table routes;                             
+Loading data to table arv.routes                                                                   
+OK                                                                                                 
+Time taken: 4.038 seconds                                                                          
+hive (arv)>                                                                                        
+          >   
+hive (arv)>                                                                                        
+          > show tables;                                                                           
+OK                                                                                                 
+tab_name                                                                                           
+airlines                                                                                           
+airport                                                                                            
+routes                                                                                             
+Time taken: 0.032 seconds, Fetched: 3 row(s)                                                       
+hive (arv)>                                                                                        
+          > describe extended airport;                                                             
+OK                                                                                                 
+col_name        data_type       comment                                                            
+airport_id              int                                                                        
+name                    string                                                                     
+city                    string                                                                     
+country                 string                                                                     
+iata                    string                                                                     
+icao                    string                                                                     
+latitude                double                                                                     
+longitude               double                                                                     
+altitude                int                                                                        
+timezone                double                                                                     
+dst                     string                                                                     
+tz                      string                                                                     
+
+Detailed Table Information      Table(tableName:airport, dbName:arv, owner:cddacmaylab407, createTi
+me:1776839395, lastAccessTime:0, retention:0, sd:StorageDescriptor(cols:[FieldSchema(name:airport_i
+d, type:int, comment:null), FieldSchema(name:name, type:string, comment:null), FieldSchema(name:cit
+y, type:string, comment:null), FieldSchema(name:country, type:string, comment:null), FieldSchema(na
+me:iata, type:string, comment:null), FieldSchema(name:icao, type:string, comment:null), FieldSchema
+(name:latitude, type:double, comment:null), FieldSchema(name:longitude, type:double, comment:null),
+ FieldSchema(name:altitude, type:int, comment:null), FieldSchema(name:timezone, type:double, commen
+t:null), FieldSchema(name:dst, type:string, comment:null), FieldSchema(name:tz, type:string, commen
+t:null)], location:hdfs://master:9000/user/hive/warehouse/arv.db/airport, inputFormat:org.apache.ha
+doop.mapred.TextInputFormat, outputFormat:org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputForma
+t, compressed:false, numBuckets:-1, serdeInfo:SerDeInfo(name:null, serializationLib:org.apache.hado
+op.hive.serde2.lazy.LazySimpleSerDe, parameters:{serialization.format=,, field.delim=,}), bucketCol
+s:[], sortCols:[], parameters:{}, skewedInfo:SkewedInfo(skewedColNames:[], skewedColValues:[], skew
+edColValueLocationMaps:{}), storedAsSubDirectories:false), partitionKeys:[], parameters:{totalSize=
+739515, numRows=0, rawDataSize=0, numFiles=1, transient_lastDdlTime=1776839426, bucketing_version=2
+}, viewOriginalText:null, viewExpandedText:null, tableType:MANAGED_TABLE, rewriteEnabled:false, cat
+Name:hive, ownerType:USER)                                                                         
+Time taken: 0.066 seconds, Fetched: 14 row(s)                                                      
+hive (arv)>                                                                                        
+          > describe airport;                                                                      
+OK                                                                                                 
+col_name        data_type       comment                                                            
+airport_id              int                                                                        
+name                    string                                                                     
+city                    string                                                                     
+country                 string                                                                     
+iata                    string                                                                     
+icao                    string                                                                     
+latitude                double                                                                     
+longitude               double                                                                     
+altitude                int                                                                        
+timezone                double                                                                     
+dst                     string                                                                     
+tz                      string                                                                     
+Time taken: 0.034 seconds, Fetched: 12 row(s)                                                      
+hive (arv)>                                                                                        
+          > select * from airlines limit 10;                                                       
+OK                                                                                                 
+airlines.airline_id     airlines.name   airlines.alias  airlines.iata   airlines.icao   airlines.ca
+llsign       airlines.country        airlines.active                                               
+1       Private flight  NULL    -       N/A                     Y                                  
+2       135 Airways     NULL            GNL     GENERAL United States   N                          
+3       1Time Airline   NULL    1T      RNX     NEXTIME South Africa    Y                          
+4       2 Sqn No 1 Elementary Flying Training School    NULL            WYT             United King
+dom  N                                                                                             
+5       213 Flight Unit NULL            TFU             Russia  N                                  
+6       223 Flight Unit State Airline   NULL            CHD     CHKALOVSK-AVIA  Russia  N          
+7       224th Flight Unit       NULL            TTF     CARGO UNIT      Russia  N                  
+8       247 Jet Ltd     NULL            TWF     CLOUD RUNNER    United Kingdom  N                  
+9       3D Aviation     NULL            SEC     SECUREX United States   N                          
+10      40-Mile Air     NULL    Q5      MLA     MILE-AIR        United States   Y                  
+Time taken: 1.602 seconds, Fetched: 10 row(s)                                                      
+hive (arv)> select * from airlines limit 10;                                                       
+OK                                                                                                            
+airlines.airline_id     airlines.name   airlines.alias  airlines.iata   airlines.icao   airlines.callsign     
+  airlines.country        airlines.active                                                                     
+1       Private flight  NULL    -       N/A                     Y                                             
+2       135 Airways     NULL            GNL     GENERAL United States   N                                     
+3       1Time Airline   NULL    1T      RNX     NEXTIME South Africa    Y                                     
+4       2 Sqn No 1 Elementary Flying Training School    NULL            WYT             United Kingdom  N     
+5       213 Flight Unit NULL            TFU             Russia  N                                             
+6       223 Flight Unit State Airline   NULL            CHD     CHKALOVSK-AVIA  Russia  N                     
+7       224th Flight Unit       NULL            TTF     CARGO UNIT      Russia  N                             
+8       247 Jet Ltd     NULL            TWF     CLOUD RUNNER    United Kingdom  N                             
+9       3D Aviation     NULL            SEC     SECUREX United States   N                                     
+10      40-Mile Air     NULL    Q5      MLA     MILE-AIR        United States   Y                             
+Time taken: 1.586 seconds, Fetched: 10 row(s)                                                                 
+hive (arv)>                                                                                                   
+          >                                                                                                   
+          > select * from airport limit 10;                                                                   
+OK                                                                                                            
+airport.airport_id      airport.name    airport.city    airport.country airport.iata    airport.icao    airpor
+t.latitude        airport.longitude       airport.altitude        airport.timezone        airport.dst     airp
+ort.tz                                                                                                        
+1       Goroka  Goroka  Papua New Guinea        GKA     AYGA    -6.081689       145.391881      5282    10.0  
+  U       Pacific/Port_Moresby                                                                                
+2       Madang  Madang  Papua New Guinea        MAG     AYMD    -5.207083       145.7887        20      10.0  
+  U       Pacific/Port_Moresby                                                                                
+3       Mount Hagen     Mount Hagen     Papua New Guinea        HGU     AYMH    -5.826789       144.295861    
+  5388    10.0    U       Pacific/Port_Moresby                                                                
+4       Nadzab  Nadzab  Papua New Guinea        LAE     AYNZ    -6.569828       146.726242      239     10.0  
+  U       Pacific/Port_Moresby                                                                                
+5       Port Moresby Jacksons Intl      Port Moresby    Papua New Guinea        POM     AYPY    -9.443383     
+  147.22005       146     10.0    U       Pacific/Port_Moresby                                                
+6       Wewak Intl      Wewak   Papua New Guinea        WWK     AYWK    -3.583828       143.669186      19    
+  10.0    U       Pacific/Port_Moresby                                                                        
+7       Narsarsuaq      Narssarssuaq    Greenland       UAK     BGBW    61.160517       -45.425978      112   
+  -3.0    E       America/Godthab                                                                             
+8       Nuuk    Godthaab        Greenland       GOH     BGGH    64.190922       -51.678064      283     -3.0  
+  E       America/Godthab                                                                                     
+9       Sondre Stromfjord       Sondrestrom     Greenland       SFJ     BGSF    67.016969       -50.689325    
+  165     -3.0    E       America/Godthab                                                                     
+10      Thule Air Base  Thule   Greenland       THU     BGTL    76.531203       -68.703161      251     -4.0  
+  E       America/Thule                                                                                       
+Time taken: 1.532 seconds, Fetched: 10 row(s)                                                                 
+hive (arv)>                                                                                                   
+          >                                                                                                                                                             
+          >                                                                                                                                                             
+          > select * from airport limit 10;                                                                                                                             
+OK                                                                                                                                                                      
+airport.airport_id      airport.name    airport.city    airport.country airport.iata    airport.icao    airport.latitude        airport.longitude       airport.altitude
+        airport.timezone        airport.dst     airport.tz                                                                                                              
+1       Goroka  Goroka  Papua New Guinea        GKA     AYGA    -6.081689       145.391881      5282    10.0    U       Pacific/Port_Moresby                            
+2       Madang  Madang  Papua New Guinea        MAG     AYMD    -5.207083       145.7887        20      10.0    U       Pacific/Port_Moresby                            
+3       Mount Hagen     Mount Hagen     Papua New Guinea        HGU     AYMH    -5.826789       144.295861      5388    10.0    U       Pacific/Port_Moresby            
+4       Nadzab  Nadzab  Papua New Guinea        LAE     AYNZ    -6.569828       146.726242      239     10.0    U       Pacific/Port_Moresby                            
+5       Port Moresby Jacksons Intl      Port Moresby    Papua New Guinea        POM     AYPY    -9.443383       147.22005       146     10.0    U       Pacific/Port_Mor
+esby                                                                                                                                                                    
+6       Wewak Intl      Wewak   Papua New Guinea        WWK     AYWK    -3.583828       143.669186      19      10.0    U       Pacific/Port_Moresby                    
+7       Narsarsuaq      Narssarssuaq    Greenland       UAK     BGBW    61.160517       -45.425978      112     -3.0    E       America/Godthab                         
+8       Nuuk    Godthaab        Greenland       GOH     BGGH    64.190922       -51.678064      283     -3.0    E       America/Godthab                                 
+9       Sondre Stromfjord       Sondrestrom     Greenland       SFJ     BGSF    67.016969       -50.689325      165     -3.0    E       America/Godthab                 
+10      Thule Air Base  Thule   Greenland       THU     BGTL    76.531203       -68.703161      251     -4.0    E       America/Thule                                   
+Time taken: 1.533 seconds, Fetched: 10 row(s)                                                                                                                           
+hive (arv)>                                                                                                                                                                                
+          >                                                                                                                                                                                
+          > select * from airport limit 10;                                                                                                                                                
+OK                                                                                                                                                                                         
+airport.airport_id      airport.name    airport.city    airport.country airport.iata    airport.icao    airport.latitude        airport.longitude       airport.altitude        airport.tim
+ezone        airport.dst     airport.tz                                                                                                                                                    
+1       Goroka  Goroka  Papua New Guinea        GKA     AYGA    -6.081689       145.391881      5282    10.0    U       Pacific/Port_Moresby                                               
+2       Madang  Madang  Papua New Guinea        MAG     AYMD    -5.207083       145.7887        20      10.0    U       Pacific/Port_Moresby                                               
+3       Mount Hagen     Mount Hagen     Papua New Guinea        HGU     AYMH    -5.826789       144.295861      5388    10.0    U       Pacific/Port_Moresby                               
+4       Nadzab  Nadzab  Papua New Guinea        LAE     AYNZ    -6.569828       146.726242      239     10.0    U       Pacific/Port_Moresby                                               
+5       Port Moresby Jacksons Intl      Port Moresby    Papua New Guinea        POM     AYPY    -9.443383       147.22005       146     10.0    U       Pacific/Port_Moresby               
+6       Wewak Intl      Wewak   Papua New Guinea        WWK     AYWK    -3.583828       143.669186      19      10.0    U       Pacific/Port_Moresby                                       
+7       Narsarsuaq      Narssarssuaq    Greenland       UAK     BGBW    61.160517       -45.425978      112     -3.0    E       America/Godthab                                            
+8       Nuuk    Godthaab        Greenland       GOH     BGGH    64.190922       -51.678064      283     -3.0    E       America/Godthab                                                    
+9       Sondre Stromfjord       Sondrestrom     Greenland       SFJ     BGSF    67.016969       -50.689325      165     -3.0    E       America/Godthab                                    
+10      Thule Air Base  Thule   Greenland       THU     BGTL    76.531203       -68.703161      251     -4.0    E       America/Thule                                                      
+Time taken: 1.524 seconds, Fetched: 10 row(s)                                                                                                                                              
+hive (arv)>                                                                                                                                                                                
+          >                                                                                                                                                                                
+          > show tables;                                                                                                                                                                   
+OK                                                                                                                                                                                         
+tab_name                                                                                                                                                                                   
+airlines                                                                                                                                                                                   
+airport                                                                                                                                                                                    
+routes                                                                                                                                                                                     
+Time taken: 0.028 seconds, Fetched: 3 row(s)                                                                                                                                               
+hive (arv)>                                                                                                                                                                                
+          >                                                                                                                                                                                
+          > select name                                                                                                                                                                    
+          > from airport                                                                                                                                                                   
+          > where country = 'greenland';                                                                                                                                                   
+OK                                                                                                                                                                                         
+name                                                                                                                                                                                       
+Time taken: 1.601 seconds                                                                                                                                                                  
+hive (arv)> select name                                                                                                                                                                    
+          > from airport                                                                                                                                                                   
+          > where country = 'Greenland';                                                                                                                                                   
+OK                                                                                                                                                                                         
+name                                                                                                                                                                                       
+Narsarsuaq                                                                                                                                                                                 
+Nuuk                                                                                                                                                                                       
+Sondre Stromfjord                                                                                                                                                                          
+Thule Air Base                                                                                                                                                                             
+Susse                                                                                                                                                                                      
+Ilulissat                                                                                                                                                                                  
+Qasigiannguit                                                                                                                                                                              
+Aasiaat                                                                                                                                                                                    
+Kulusuk                                                                                                                                                                                    
+Iginniarfik Heliport                                                                                                                                                                       
+Akunnaaq Heliport                                                                                                                                                                          
+Groennedal Heliport                                                                                                                                                                        
+Qaarsut Airport                                                                                                                                                                            
+Upernavik Airport                                                                                                                                                                          
+Sisimiut Airport                                                                                                                                                                           
+Qaanaaq Airport                                                                                                                                                                            
+Narsaq Heliport                                                                                                                                                                            
+Nanortalik Heliport                                                                                                                                                                        
+Maniitsoq Airport                                                                                                                                                                          
+Qaqortoq Heliport                                                                                                                                                                          
+Qeqertarsuaq Heliport                                                                                                                                                                      
+Paamiut Heliport                                                                                                                                                                           
+Neerlerit Inaat Airport                                                                                                                                                                    
+Alluitsup Paa Heliport                                                                                                                                                                     
+Summit Camp                                                                                                                                                                                
+Summit Camp                                                                                                                                                                                
+Tasiilaq                                                                                                                                                                                   
+Ittoqqortoormiit Heliport                                                                                                                                                                  
+Uummannaq Heliport                                                                                                                                                                         
+Time taken: 1.543 seconds, Fetched: 29 row(s)                                                                                                                                              
+hive (arv)>                                                                                                                                                                                
+          >                              
+
+hive (arv)>                                                                                                                                                                                
+          > select * from routes limit 10;                                                                                                                                                 
+OK                                                                                                                                                                                         
+routes.airline_iata     routes.airline_id       routes.src_airport_iata routes.src_airport_id   routes.dest_airport_iata        routes.dest_airport_id  routes.codeshare        routes.stop
+s    routes.equipment                                                                                                                                                                      
+2B      410     AER     2965    KZN     2990            0       CR2                                                                                                                        
+2B      410     ASF     2966    KZN     2990            0       CR2                                                                                                                        
+2B      410     ASF     2966    MRV     2962            0       CR2                                                                                                                        
+2B      410     CEK     2968    KZN     2990            0       CR2                                                                                                                        
+2B      410     CEK     2968    OVB     4078            0       CR2                                                                                                                        
+2B      410     DME     4029    KZN     2990            0       CR2                                                                                                                        
+2B      410     DME     4029    NBC     6969            0       CR2                                                                                                                        
+2B      410     DME     4029    TGK     NULL            0       CR2                                                                                                                        
+2B      410     DME     4029    UUA     6160            0       CR2                                                                                                                        
+2B      410     EGO     6156    KGD     2952            0       CR2                                                                                                                        
+Time taken: 2.783 seconds, Fetched: 10 row(s)                                                                                                                                              
+hive (arv)>                                                                                                                                                                                
+          >                                                                                                                                                                                
+          > select *                                                                                                                                                                       
+          > from routes                                                                                                                                                                    
+          > where stops > 0;                                                                                                                                                               
+OK                                                                                                                                                                                         
+routes.airline_iata     routes.airline_id       routes.src_airport_iata routes.src_airport_id   routes.dest_airport_iata        routes.dest_airport_id  routes.codeshare        routes.stop
+s    routes.equipment                                                                                                                                                                      
+5T      1623    YRT     132     YEK     50              1       ATR                                                                                                                        
+AC      330     ABJ     253     BRU     302             1       333                                                                                                                        
+AC      330     YVR     156     YBL     30              1       BEH                                                                                                                        
+CU      1936    FCO     1555    HAV     1909            1       767                                                                                                                        
+FL      1316    HOU     3566    SAT     3621            1       735                                                                                                                        
+FL      1316    MCO     3878    HOU     3566            1       73W                                                                                                                        
+FL      1316    MCO     3878    ORF     3611            1       717                                                                                                                        
+SK      4319    ARN     737     GEV     715             1       ATP                                                                                                                        
+WN      4547    BOS     3448    MCO     3878            1       73W                                                                                                                        
+WN      4547    MCO     3878    BOS     3448            1       73W                                                                                                                        
+WN      4547    MCO     3878    CAK     4112            1       73C 73W                                                                                                                    
+Time taken: 1.742 seconds, Fetched: 11 row(s)                                                                                                                                              
+hive (arv)>   
+
+hive (arv)>                                                                                                                                                                                
+          > select *                                                                                                                                                                       
+          > from airport                                                                                                                                                                   
+          > limit 10;                                                                                                                                                                      
+OK                                                                                                                                                                                         
+airport.airport_id      airport.name    airport.city    airport.country airport.iata    airport.icao    airport.latitude        airport.longitude       airport.altitude        airport.tim
+ezone        airport.dst     airport.tz                                                                                                                                                    
+1       Goroka  Goroka  Papua New Guinea        GKA     AYGA    -6.081689       145.391881      5282    10.0    U       Pacific/Port_Moresby                                               
+2       Madang  Madang  Papua New Guinea        MAG     AYMD    -5.207083       145.7887        20      10.0    U       Pacific/Port_Moresby                                               
+3       Mount Hagen     Mount Hagen     Papua New Guinea        HGU     AYMH    -5.826789       144.295861      5388    10.0    U       Pacific/Port_Moresby                               
+4       Nadzab  Nadzab  Papua New Guinea        LAE     AYNZ    -6.569828       146.726242      239     10.0    U       Pacific/Port_Moresby                                               
+5       Port Moresby Jacksons Intl      Port Moresby    Papua New Guinea        POM     AYPY    -9.443383       147.22005       146     10.0    U       Pacific/Port_Moresby               
+6       Wewak Intl      Wewak   Papua New Guinea        WWK     AYWK    -3.583828       143.669186      19      10.0    U       Pacific/Port_Moresby                                       
+7       Narsarsuaq      Narssarssuaq    Greenland       UAK     BGBW    61.160517       -45.425978      112     -3.0    E       America/Godthab                                            
+8       Nuuk    Godthaab        Greenland       GOH     BGGH    64.190922       -51.678064      283     -3.0    E       America/Godthab                                                    
+9       Sondre Stromfjord       Sondrestrom     Greenland       SFJ     BGSF    67.016969       -50.689325      165     -3.0    E       America/Godthab                                    
+10      Thule Air Base  Thule   Greenland       THU     BGTL    76.531203       -68.703161      251     -4.0    E       America/Thule                                                      
+Time taken: 1.586 seconds, Fetched: 10 row(s)                                                                                                                                              
+hive (arv)>                                                                                                                                                                                
+          >                                                                                                                                                                                
+          > select *                                                                                                                                                                       
+          > from airport                                                                                                                                                                   
+          > where country = 'Papua New Guinea'                                                                                                                                             
+          > limit 10;                                                                                                                                                                      
+OK                                                                                                                                                                                         
+airport.airport_id      airport.name    airport.city    airport.country airport.iata    airport.icao    airport.latitude        airport.longitude       airport.altitude        airport.tim
+ezone        airport.dst     airport.tz                                                                                                                                                    
+1       Goroka  Goroka  Papua New Guinea        GKA     AYGA    -6.081689       145.391881      5282    10.0    U       Pacific/Port_Moresby                                               
+2       Madang  Madang  Papua New Guinea        MAG     AYMD    -5.207083       145.7887        20      10.0    U       Pacific/Port_Moresby                                               
+3       Mount Hagen     Mount Hagen     Papua New Guinea        HGU     AYMH    -5.826789       144.295861      5388    10.0    U       Pacific/Port_Moresby                               
+4       Nadzab  Nadzab  Papua New Guinea        LAE     AYNZ    -6.569828       146.726242      239     10.0    U       Pacific/Port_Moresby                                               
+5       Port Moresby Jacksons Intl      Port Moresby    Papua New Guinea        POM     AYPY    -9.443383       147.22005       146     10.0    U       Pacific/Port_Moresby               
+6       Wewak Intl      Wewak   Papua New Guinea        WWK     AYWK    -3.583828       143.669186      19      10.0    U       Pacific/Port_Moresby                                       
+5987    Wipim Airport   Wipim   Papua New Guinea        WPM             -8.78822        142.882 173     10.0    U       Pacific/Port_Moresby                                               
+5986    Baimuru Airport Baimuru Papua New Guinea        VMU             -7.49686        144.82  27      10.0    U       Pacific/Port_Moresby                                               
+5985    Nuku Airport    Nuku    Papua New Guinea        UKU             -3.667  142.483 750     10.0    U       Pacific/Port_Moresby                                                       
+5984    Tufi Airport    Tufi    Papua New Guinea        TFI             -9.07595        149.32  85      10.0    U       Pacific/Port_Moresby                                               
+Time taken: 1.584 seconds, Fetched: 10 row(s)                                                                                                                                              
+hive (arv)>                                                                                                                                                                                                        
+          >                                                                                                                                                                                                        
+          > select *                                                                                                                                                                                               
+          > from airport                                                                                                                                                                                           
+          > where country = 'Papua New Guinea'                                                                                                                                                                     
+          > limit 10;                                                                                                                                                                                              
+OK                                                                                                                                                                                                                 
+airport.airport_id      airport.name    airport.city    airport.country airport.iata    airport.icao    airport.latitude        airport.longitude       airport.altitude        airport.timezone        airport.dst
+     airport.tz                                                                                                                                                                                                    
+1       Goroka  Goroka  Papua New Guinea        GKA     AYGA    -6.081689       145.391881      5282    10.0    U       Pacific/Port_Moresby                                                                       
+2       Madang  Madang  Papua New Guinea        MAG     AYMD    -5.207083       145.7887        20      10.0    U       Pacific/Port_Moresby                                                                       
+3       Mount Hagen     Mount Hagen     Papua New Guinea        HGU     AYMH    -5.826789       144.295861      5388    10.0    U       Pacific/Port_Moresby                                                       
+4       Nadzab  Nadzab  Papua New Guinea        LAE     AYNZ    -6.569828       146.726242      239     10.0    U       Pacific/Port_Moresby                                                                       
+5       Port Moresby Jacksons Intl      Port Moresby    Papua New Guinea        POM     AYPY    -9.443383       147.22005       146     10.0    U       Pacific/Port_Moresby                                       
+6       Wewak Intl      Wewak   Papua New Guinea        WWK     AYWK    -3.583828       143.669186      19      10.0    U       Pacific/Port_Moresby                                                               
+5987    Wipim Airport   Wipim   Papua New Guinea        WPM             -8.78822        142.882 173     10.0    U       Pacific/Port_Moresby                                                                       
+5986    Baimuru Airport Baimuru Papua New Guinea        VMU             -7.49686        144.82  27      10.0    U       Pacific/Port_Moresby                                                                       
+5985    Nuku Airport    Nuku    Papua New Guinea        UKU             -3.667  142.483 750     10.0    U       Pacific/Port_Moresby                                                                               
+5984    Tufi Airport    Tufi    Papua New Guinea        TFI             -9.07595        149.32  85      10.0    U       Pacific/Port_Moresby                                                                       
+Time taken: 1.538 seconds, Fetched: 10 row(s)                                                                                                                                                                      
+hive (arv)>                                                                                                                                                                                                        
+          >                                                                                                                                                                                
+          > select                                                                                                                                                                         
+          > *                                                                                                                                                                              
+          >  from routes                                                                                                                                                                   
+          > where dest_airport_id  is null                                                                                                                                                 
+          > limit 10;                                                                                                                                                                      
+OK                                                                                                                                                                                         
+routes.airline_iata     routes.airline_id       routes.src_airport_iata routes.src_airport_id   routes.dest_airport_iata        routes.dest_airport_id  routes.codeshare        routes.stop
+s    routes.equipment                                                                                                                                                                      
+2B      410     DME     4029    TGK     NULL            0       CR2                                                                                                                        
+2G      1654    IKT     2937    KCK     NULL            0       AN4                                                                                                                        
+4O      17885   MEX     1824    PQM     NULL            0       SU9                                                                                                                        
+4W      NULL    FAI     3832    SVS     NULL            0       PA2                                                                                                                        
+4W      NULL    WBQ     7115    SVS     NULL            0       PA2                                                                                                                        
+4Y      1173    BET     3599    WNA     NULL            0       CNA                                                                                                                        
+4Y      1173    KWT     7095    KKI     NULL            0       CNA                                                                                                                        
+4Y      1173    WNA     NULL    PKA     NULL            0       CNA                                                                                                                        
+5J      1683    CEB     4206    IAO     NULL            0       ATR                                                                                                                        
+5Z      18946   CPT     797     PBZ     NULL            0       BEH                                                                                                                        
+Time taken: 1.562 seconds, Fetched: 10 row(s)                                                                                                                                              
+hive (arv)>                                                                                                                                                                                
+          >                                                                                                                                                                                
+          > select count(*)                                                                                                                                                                
+          > from airports;                                                                                                                                                                 
+FAILED: SemanticException [Error 10001]: Line 2:5 Table not found 'airports'                                                                                                               
+hive (arv)>                                                                                                                                                                                
+          > select count(*)                                                                                                                                                                
+          > from airport;                                                                                                                                                                  
+Query ID = cddacmaylab407_20260422073844_39e8e696-fb7a-4649-97e8-80aebff67eb2                                                                                                              
+Total jobs = 1                                                                                                                                                                             
+Launching Job 1 out of 1                                                                                                                                                                   
+Number of reduce tasks determined at compile time: 1                                                                                                                                       
+In order to change the average load for a reducer (in bytes):                                                                                                                              
+  set hive.exec.reducers.bytes.per.reducer=<number>                                                                                                                                        
+In order to limit the maximum number of reducers:                                                                                                                                          
+  set hive.exec.reducers.max=<number>                                                                                                                                                      
+In order to set a constant number of reducers:                                                                                                                                             
+  set mapreduce.job.reduces=<number>                                                                                                                                                       
+Starting Job = job_1776055345521_2763, Tracking URL = http://master:6318/proxy/application_1776055345521_2763/                                                                             
+Kill Command = /opt/hadoop/bin/mapred job  -kill job_1776055345521_2763                                                                                                                    
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1                                                                                                            
+2026-04-22 07:38:57,875 Stage-1 map = 0%,  reduce = 0%                                                                                                                                     
+2026-04-22 07:39:05,052 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.66 sec                                                                                                          
+2026-04-22 07:39:13,220 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 5.91 sec                                                                                                        
+MapReduce Total cumulative CPU time: 5 seconds 910 msec                                                                                                                                    
+Ended Job = job_1776055345521_2763                                                                                                                                                         
+MapReduce Jobs Launched:                                                                                                                                                                   
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 5.91 sec   HDFS Read: 753757 HDFS Write: 104 SUCCESS                                                                                    
+Total MapReduce CPU Time Spent: 5 seconds 910 msec                                                                                                                                         
+OK                                                                                                                                                                                         
+_c0                                                                                                                                                                                        
+8107                                                                                                                                                                                       
+Time taken: 31.839 seconds, Fetched: 1 row(s)                                                                                                                                              
+hive (arv)>                                                                                                                                                                                
+          >                                                                                                                                                                                
+          > select count(distinct country)                                                                                                                                                 
+          > from airport;                                                                                                                                                                  
+Query ID = cddacmaylab407_20260422074201_2a3cb4c0-95d5-48fb-8f28-1d3c430816ae                                                                                                              
+Total jobs = 1                                                                                                                                                                             
+Launching Job 1 out of 1                                                                                                                                                                   
+Number of reduce tasks determined at compile time: 1                                                                                                                                       
+In order to change the average load for a reducer (in bytes):                                                                                                                              
+  set hive.exec.reducers.bytes.per.reducer=<number>                                                                                                                                        
+In order to limit the maximum number of reducers:                                                                                                                                          
+  set hive.exec.reducers.max=<number>                                                                                                                                                      
+In order to set a constant number of reducers:                                                                                                                                             
+  set mapreduce.job.reduces=<number>                                                                                                                                                       
+Starting Job = job_1776055345521_2777, Tracking URL = http://master:6318/proxy/application_1776055345521_2777/                                                                             
+Kill Command = /opt/hadoop/bin/mapred job  -kill job_1776055345521_2777                                                                                                                    
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1                                                                                                            
+2026-04-22 07:42:13,036 Stage-1 map = 0%,  reduce = 0%                                                                                                                                     
+2026-04-22 07:42:20,187 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.57 sec                                                                                                          
+2026-04-22 07:42:27,315 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 5.04 sec                                                                                                        
+MapReduce Total cumulative CPU time: 5 seconds 40 msec                                                                                                                                     
+Ended Job = job_1776055345521_2777                                                                                                                                                         
+MapReduce Jobs Launched:                                                                                                                                                                   
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 5.04 sec   HDFS Read: 749492 HDFS Write: 103 SUCCESS                                                                                    
+Total MapReduce CPU Time Spent: 5 seconds 40 msec                                                                                                                                          
+OK                                                                                                                                                                                         
+_c0                                                                                                                                                                                        
+244                                                                                                                                                                                        
+Time taken: 29.563 seconds, Fetched: 1 row(s)                                                                                                                                              
+hive (arv)>                                                                                                                
