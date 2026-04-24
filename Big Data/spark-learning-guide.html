@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PySpark — Today's Class Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+:root {
+  --bg: #F7F4EE;
+  --bg2: #EFEBE2;
+  --bg3: #E8E2D8;
+  --ink: #1A1510;
+  --ink2: #3D3028;
+  --ink3: #6B5F52;
+  --rust: #C94A1A;
+  --rust2: #E05A28;
+  --gold: #B8860B;
+  --gold2: #D4A017;
+  --teal: #1A6B6B;
+  --teal2: #228B8B;
+  --border: #D8D0C4;
+  --white: #FFFFFF;
+  --shadow: rgba(30,20,10,0.12);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 17px;
+  line-height: 1.85;
+  overflow-x: hidden;
+}
+
+/* HERO */
+.hero {
+  background: var(--ink);
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 80px 40px;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(200,160,80,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,160,80,0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,74,26,0.2) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+.hero-content { position:relative; z-index:1; max-width:860px; }
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--gold2);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(48px, 9vw, 96px);
+  font-weight: 900;
+  color: var(--bg);
+  line-height: 0.95;
+  margin-bottom: 8px;
+}
+.hero h1 em { font-style: italic; color: var(--rust2); }
+.hero-divider {
+  width: 80px; height: 3px;
+  background: linear-gradient(90deg, var(--rust), var(--gold2));
+  margin: 32px 0;
+}
+.hero-intro {
+  font-size: 18px;
+  color: #C8C0B0;
+  line-height: 1.75;
+  max-width: 640px;
+  font-weight: 300;
+}
+.hero-intro strong { color: var(--bg); font-weight: 500; }
+
+/* NAV */
+.nav-sticky {
+  position: sticky; top: 0;
+  background: rgba(247,244,238,0.96);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  z-index: 200;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+}
+.nav-sticky a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ink3);
+  text-decoration: none;
+  padding: 16px 14px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+.nav-sticky a:hover { color: var(--rust); border-bottom-color: var(--rust); }
+
+/* CHAPTERS */
+.chapter {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 80px 32px;
+  border-bottom: 1px solid var(--border);
+}
+.chapter-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  color: var(--rust);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.chapter h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(30px, 5vw, 50px);
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+.chapter h2 em { font-style: italic; color: var(--rust); }
+.chapter-lead {
+  font-size: 19px;
+  color: var(--ink2);
+  line-height: 1.6;
+  border-left: 4px solid var(--rust);
+  padding-left: 20px;
+  margin-bottom: 40px;
+}
+.prose p { color: var(--ink2); margin-bottom: 22px; }
+.prose p strong { color: var(--ink); font-weight: 600; }
+.prose h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 36px 0 14px;
+}
+
+/* CALLOUT BOX */
+.callout {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  padding: 20px 24px;
+  margin: 28px 0;
+}
+.callout.blue { border-left-color: var(--teal); }
+.callout.red { border-left-color: var(--rust); }
+.callout-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.callout.blue .callout-label { color: var(--teal); }
+.callout.red .callout-label { color: var(--rust); }
+.callout p { color: var(--ink2); margin: 0; font-size: 16px; }
+
+/* CODE BLOCK */
+.code-block {
+  background: #1A1510;
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin: 24px 0;
+  overflow-x: auto;
+  position: relative;
+}
+.code-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--gold2);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.code-block pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #D4CEC8;
+}
+.code-block .kw { color: #E05A28; }
+.code-block .fn { color: #D4A017; }
+.code-block .cm { color: #6B7280; font-style: italic; }
+.code-block .st { color: #4CAF82; }
+.code-block .num { color: #7CA8D4; }
+
+/* ARCHITECTURE DIAGRAM */
+.arch-diagram {
+  background: var(--ink);
+  border-radius: 12px;
+  padding: 40px;
+  margin: 32px 0;
+  color: #D4CEC8;
+}
+.arch-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--gold2);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  text-align: center;
+}
+.arch-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.arch-box {
+  background: #2A2018;
+  border: 1px solid #4A3828;
+  border-radius: 8px;
+  padding: 12px 20px;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+}
+.arch-box.driver { border-color: var(--rust2); color: var(--rust2); }
+.arch-box.manager { border-color: var(--gold2); color: var(--gold2); }
+.arch-box.worker { border-color: var(--teal2); color: var(--teal2); }
+.arch-box.executor { border-color: #A0A0B0; color: #A0A0B0; font-size: 11px; padding: 8px 14px; }
+.arch-box.task { border-color: #606070; color: #9090A0; font-size: 10px; padding: 5px 10px; }
+.arch-arrow {
+  color: #604830;
+  font-size: 20px;
+  font-weight: bold;
+}
+.arch-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #605848;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+.worker-group {
+  border: 1px dashed #3A3028;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.worker-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--teal2);
+  letter-spacing: 0.2em;
+  margin-bottom: 4px;
+}
+.task-row { display: flex; gap: 6px; }
+
+/* FLOW DIAGRAM */
+.flow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 28px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.flow-step {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 18px;
+  text-align: center;
+  min-width: 100px;
+  font-size: 14px;
+}
+.flow-step .step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--rust);
+  letter-spacing: 0.2em;
+  margin-bottom: 4px;
+}
+.flow-step .step-name { font-weight: 600; color: var(--ink); }
+.flow-step .step-desc { font-size: 12px; color: var(--ink3); margin-top: 3px; }
+.flow-arrow { font-size: 22px; color: var(--border); padding: 0 4px; }
+
+/* RDD PIPELINE */
+.pipeline {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 28px 0;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.pipeline-rdd {
+  background: var(--bg2);
+  border: 2px solid var(--teal);
+  border-radius: 10px;
+  padding: 12px 16px;
+  text-align: center;
+  min-width: 90px;
+  flex-shrink: 0;
+}
+.pipeline-rdd .rdd-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--teal);
+}
+.pipeline-rdd .rdd-op {
+  font-size: 11px;
+  color: var(--ink3);
+  margin-top: 3px;
+}
+.pipeline-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+.pipeline-arrow .op-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  margin-bottom: 2px;
+}
+.pipeline-arrow .arrow-line { font-size: 20px; color: var(--gold); }
+.pipeline-rdd.action { border-color: var(--rust); }
+.pipeline-rdd.action .rdd-name { color: var(--rust); }
+
+/* QUIZ */
+.quiz-section {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin: 40px 0;
+}
+.quiz-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--rust);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.quiz-q {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.quiz-q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.quiz-q p { font-weight: 600; color: var(--ink); margin-bottom: 12px; font-size: 16px; }
+.quiz-option {
+  display: block;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 16px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--ink2);
+  transition: all 0.2s;
+  width: 100%;
+  text-align: left;
+}
+.quiz-option:hover { border-color: var(--teal); color: var(--teal); }
+.quiz-option.correct { background: #E8F5E9; border-color: #4CAF50; color: #2E7D32; }
+.quiz-option.wrong { background: #FFEBEE; border-color: #EF5350; color: #C62828; }
+.quiz-feedback {
+  font-size: 14px;
+  margin-top: 8px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  display: none;
+}
+.quiz-feedback.show { display: block; }
+.quiz-feedback.correct { background: #E8F5E9; color: #2E7D32; }
+.quiz-feedback.wrong { background: #FFEBEE; color: #C62828; }
+
+/* KEY TERMS */
+.key-terms {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 28px 0;
+}
+.term-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--teal);
+  border-radius: 8px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.term-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--shadow); }
+.term-card .term { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; color: var(--teal); margin-bottom: 8px; }
+.term-card .definition { font-size: 14px; color: var(--ink3); line-height: 1.5; }
+
+/* STEP BY STEP */
+.steps { margin: 28px 0; }
+.step-item {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+  align-items: flex-start;
+}
+.step-num-circle {
+  width: 36px; height: 36px;
+  background: var(--rust);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: white;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-content { flex: 1; }
+.step-content h4 { font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.step-content p { font-size: 15px; color: var(--ink2); margin: 0; }
+
+/* JOB STAGE TASK VISUAL */
+.jst-diagram {
+  background: #1A1510;
+  border-radius: 12px;
+  padding: 32px;
+  margin: 28px 0;
+}
+.jst-outer {
+  border: 2px solid #4A3828;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 12px;
+}
+.jst-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.jst-label.job { color: var(--gold2); }
+.jst-label.stage { color: var(--teal2); }
+.jst-label.task { color: var(--rust2); }
+.jst-inner {
+  border: 1px solid #3A3028;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 8px 0;
+}
+.jst-tasks {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.jst-task-box {
+  background: #2A2018;
+  border: 1px solid #503820;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--rust2);
+}
+
+/* WORD COUNT VISUAL */
+.wc-flow {
+  background: #1A1510;
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin: 28px 0;
+}
+.wc-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid #2A2018;
+}
+.wc-step:last-child { border-bottom: none; }
+.wc-rdd-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--teal2);
+  min-width: 60px;
+  padding-top: 2px;
+}
+.wc-op {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--gold2);
+  min-width: 100px;
+  padding-top: 3px;
+}
+.wc-data {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #C0B8A8;
+  line-height: 1.6;
+}
+.wc-arrow-col { color: #4A3828; font-size: 18px; min-width: 20px; padding-top: 2px; }
+
+/* PARTITION VIZ */
+.partition-viz {
+  display: flex;
+  gap: 16px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+.partition-box {
+  border: 2px solid var(--teal);
+  border-radius: 10px;
+  padding: 14px 18px;
+  min-width: 120px;
+  text-align: center;
+}
+.partition-box .p-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--teal);
+  letter-spacing: 0.2em;
+  margin-bottom: 8px;
+}
+.partition-box .p-data {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink2);
+  line-height: 1.6;
+}
+.partition-arrow { font-size: 24px; color: var(--border); align-self: center; }
+
+/* HIGHLIGHT */
+.highlight-box {
+  background: linear-gradient(135deg, #FFF8E7, #FFF3D0);
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 24px 0;
+}
+.highlight-box p { margin: 0; color: var(--ink2); font-size: 16px; }
+.highlight-box strong { color: var(--gold); }
+
+/* FOOTER */
+.footer {
+  background: var(--ink);
+  color: #6B5F52;
+  text-align: center;
+  padding: 40px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">📅 April 23, 2026 · Class Notes</div>
+    <h1>Py<em>Spark</em><br>Explained</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-intro">
+      Everything from today's class — <strong>Architecture, RDDs, Transformations, Actions, Partitions, Jobs, Stages & Tasks</strong> — explained in simple words with visuals and a quiz to test yourself.
+    </p>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="nav-sticky">
+  <a href="#arch">Architecture</a>
+  <a href="#rdd">RDDs</a>
+  <a href="#transform">Transformations</a>
+  <a href="#actions">Actions</a>
+  <a href="#partitions">Partitions</a>
+  <a href="#wordcount">Word Count</a>
+  <a href="#jobs">Jobs &amp; Stages</a>
+  <a href="#quiz">Quick Quiz</a>
+</nav>
+
+<!-- CHAPTER 1: ARCHITECTURE -->
+<section class="chapter" id="arch">
+  <div class="chapter-num">Chapter 01</div>
+  <h2>Spark <em>Architecture</em></h2>
+  <p class="chapter-lead">Think of Spark like a restaurant. One Head Chef gives orders. Multiple Cooks actually cook the food. That's exactly how Spark works.</p>
+
+  <div class="prose">
+    <p>Spark uses a <strong>master/slave (driver/worker) architecture</strong>. There is one central coordinator called the <strong>Driver</strong>, and many distributed workers called <strong>Executors</strong>. They all run in their own Java processes.</p>
+  </div>
+
+  <div class="arch-diagram">
+    <div class="arch-title">Spark Architecture</div>
+    <div class="arch-row">
+      <div>
+        <div class="arch-box driver" style="margin-bottom:8px">Driver Program</div>
+        <div class="arch-box driver" style="font-size:11px">SparkContext</div>
+      </div>
+      <div class="arch-arrow">⟷</div>
+      <div class="arch-box manager">Cluster Manager<br><span style="font-size:10px">(YARN / Standalone)</span></div>
+      <div class="arch-arrow">→</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="worker-group">
+          <div class="worker-label">Worker Node 1</div>
+          <div class="arch-box executor">Executor + Cache</div>
+          <div class="task-row">
+            <div class="arch-box task">Task</div>
+            <div class="arch-box task">Task</div>
+          </div>
+        </div>
+        <div class="worker-group">
+          <div class="worker-label">Worker Node 2</div>
+          <div class="arch-box executor">Executor + Cache</div>
+          <div class="task-row">
+            <div class="arch-box task">Task</div>
+            <div class="arch-box task">Task</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="key-terms">
+    <div class="term-card">
+      <div class="term">Driver Program</div>
+      <div class="definition">The main program. It converts your code into tasks and schedules them. Like the Head Chef reading the menu.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">SparkContext</div>
+      <div class="definition">The entry point of any Spark app. Created inside the Driver. Without it, nothing works. It's how your code connects to the cluster.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Cluster Manager</div>
+      <div class="definition">Manages cluster resources. It decides which worker gets which task. YARN is the cluster manager used in today's class.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Executor</div>
+      <div class="definition">A process on a Worker Node that actually runs your tasks. Started at the beginning of a Spark application and lives for its entire lifetime.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Worker Node</div>
+      <div class="definition">The physical/virtual machine where Executors run. Each worker reports its available resources to the Cluster Manager.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Block Manager</div>
+      <div class="definition">Part of each Executor that provides in-memory storage for cached RDDs.</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h3>Application Execution Flow — Step by Step</h3>
+  </div>
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-num-circle">1</div>
+      <div class="step-content">
+        <h4>SparkContext is Created</h4>
+        <p>Your program starts and creates a SparkContext instance. Only now can your program be called a "Driver".</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num-circle">2</div>
+      <div class="step-content">
+        <h4>Driver Asks for Resources</h4>
+        <p>The Driver asks the Cluster Manager to launch Executors on Worker Nodes.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num-circle">3</div>
+      <div class="step-content">
+        <h4>Cluster Manager Launches Executors</h4>
+        <p>Executors are started on Worker Nodes. They register themselves with the Driver directly.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num-circle">4</div>
+      <div class="step-content">
+        <h4>Driver Sends Tasks</h4>
+        <p>The Driver runs through your code. When it hits transformations and actions on RDDs, it sends tasks to Executors.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num-circle">5</div>
+      <div class="step-content">
+        <h4>Executors Run &amp; Return Results</h4>
+        <p>Executors run the tasks on their partitions and send results back to the Driver.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num-circle">6</div>
+      <div class="step-content">
+        <h4>Fault Tolerance in Action</h4>
+        <p>If a Worker crashes, its tasks are sent to different Executors. Spark even uses "speculative execution" — if a node is just slow, it launches a copy of the task on another node and takes whichever finishes first.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">💡 Remember</div>
+    <p>When you type <code>pyspark</code> in the terminal, a SparkContext is automatically created for you as <code>sc</code>. That's why in today's lab we could directly write <code>rdd1 = sc.textFile(...)</code></p>
+  </div>
+</section>
+
+<!-- CHAPTER 2: RDDs -->
+<section class="chapter" id="rdd">
+  <div class="chapter-num">Chapter 02</div>
+  <h2>RDDs — <em>Resilient Distributed Datasets</em></h2>
+  <p class="chapter-lead">An RDD is the fundamental data structure in Spark. Think of it as a giant list that's been split across many computers.</p>
+
+  <div class="prose">
+    <p>RDD stands for <strong>Resilient Distributed Dataset</strong>. Let's break that down:</p>
+  </div>
+
+  <div class="key-terms">
+    <div class="term-card">
+      <div class="term">Resilient</div>
+      <div class="definition">Fault-tolerant. If a partition of your data is lost, Spark can re-compute it from scratch using the lineage (history of transformations).</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Distributed</div>
+      <div class="definition">The data is split across multiple worker nodes. Each piece (partition) lives on a different machine and is processed in parallel.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Dataset</div>
+      <div class="definition">Simply a collection of data — could be records, words, numbers, rows — anything.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Immutable</div>
+      <div class="definition">You cannot change an RDD. Every transformation creates a NEW RDD. This is why Spark cannot return incomplete output.</div>
+    </div>
+  </div>
+
+  <div class="callout red">
+    <div class="callout-label">🔑 Key Concept: Lazy Evaluation</div>
+    <p>Spark is <strong>lazy</strong>. When you write a transformation (like <code>map</code> or <code>filter</code>), Spark doesn't actually run anything. It just takes notes. Only when you call an <strong>Action</strong> (like <code>collect()</code> or <code>saveAsTextFile()</code>) does Spark actually execute everything.</p>
+  </div>
+
+  <div class="prose">
+    <h3>Two Types of RDD Operations</h3>
+    <p>Every operation you do on an RDD is one of two types:</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0">
+    <div class="callout blue" style="margin:0">
+      <div class="callout-label">Transformation</div>
+      <p>Creates a NEW RDD from an existing one. Does NOT execute immediately.<br><br>
+      Examples: <code>map()</code>, <code>filter()</code>, <code>flatMap()</code>, <code>reduceByKey()</code>, <code>repartition()</code></p>
+    </div>
+    <div class="callout red" style="margin:0">
+      <div class="callout-label">Action</div>
+      <p>Triggers actual execution and returns a result. This is when Spark actually does the work.<br><br>
+      Examples: <code>collect()</code>, <code>count()</code>, <code>take(n)</code>, <code>saveAsTextFile()</code></p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <p>📌 <strong>Today's trainer said:</strong> "Till Action is not part of the code, none of the coding will get executed." This is Lazy Evaluation in action.</p>
+  </div>
+
+  <div class="prose">
+    <h3>DAG — Directed Acyclic Graph</h3>
+    <p>As you write transformations, Spark builds a <strong>DAG</strong> — a roadmap of all the steps. Think of it like Google Maps planning a route <em>before</em> you start driving. The DAG Scheduler reads this map and divides work into stages and tasks when an action is finally triggered.</p>
+  </div>
+</section>
+
+<!-- CHAPTER 3: TRANSFORMATIONS -->
+<section class="chapter" id="transform">
+  <div class="chapter-num">Chapter 03</div>
+  <h2>Key <em>Transformations</em></h2>
+  <p class="chapter-lead">These are the operations you used today in the Word Count and Top Selling Products programs.</p>
+
+  <div class="prose">
+    <h3>flatMap — Split &amp; Flatten</h3>
+    <p>Used to split each line into individual words. Unlike <code>map()</code> which gives one output per input, <code>flatMap()</code> can give multiple outputs per input and flattens them all into one list.</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-label">flatMap Example</div>
+    <pre><span class="cm"># Input: "river car river" is ONE element</span>
+rdd3 = rdd2.<span class="fn">flatMap</span>(<span class="kw">lambda</span> a : a.<span class="fn">split</span>(<span class="st">" "</span>))
+
+<span class="cm"># Output: "river", "car", "river" are THREE separate elements</span>
+<span class="cm"># The list is FLATTENED — no nested arrays</span></pre>
+  </div>
+
+  <div class="wc-flow" style="margin-bottom:8px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold2);letter-spacing:0.3em;margin-bottom:16px">FLATMAP VISUAL</div>
+    <div class="wc-step">
+      <div class="wc-rdd-label">Input</div>
+      <div class="wc-arrow-col">→</div>
+      <div class="wc-data">"river car river"<br>"car car bear"</div>
+    </div>
+    <div class="wc-step">
+      <div class="wc-rdd-label">flatMap</div>
+      <div class="wc-arrow-col">→</div>
+      <div class="wc-data">split(" ") each line → flatten all results</div>
+    </div>
+    <div class="wc-step">
+      <div class="wc-rdd-label">Output</div>
+      <div class="wc-arrow-col">→</div>
+      <div class="wc-data">"river", "car", "river", "car", "car", "bear"</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h3>map — Transform Each Element</h3>
+    <p>Applies a function to every element and returns one output per input. Used to convert each word into a key-value pair like <code>('car', 1)</code>.</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-label">map Example — Creating Key-Value Pairs</div>
+    <pre>rdd4 = rdd3.<span class="fn">map</span>(<span class="kw">lambda</span> a : (a, <span class="num">1</span>))
+
+<span class="cm"># "car"   →  ('car', 1)</span>
+<span class="cm"># "river" →  ('river', 1)</span>
+<span class="cm"># "bear"  →  ('bear', 1)</span></pre>
+  </div>
+
+  <div class="prose">
+    <h3>reduceByKey — Group &amp; Aggregate by Key</h3>
+    <p>Groups all values with the same key and applies a function to combine them. This is what causes a <strong>shuffle</strong> — data moves across the network so that all records with the same key land on the same partition.</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-label">reduceByKey Example — Word Count</div>
+    <pre>rdd5 = rdd4.<span class="fn">reduceByKey</span>(<span class="kw">lambda</span> a, b : (a + b))
+
+<span class="cm"># ('bear', 1) + ('bear', 1) + ('bear', 1) ... → ('bear', 6)</span>
+<span class="cm"># ('car', 1) + ('car', 1) + ... → ('car', 7)</span>
+<span class="cm"># ('river', 1) + ... → ('river', 9)</span>
+
+<span class="cm"># Result:</span>
+<span class="cm"># ('bear', 6)  ('car', 7)  ('river', 9)  ('dear', 1)</span></pre>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">💡 reduceByKey vs SQL</div>
+    <p>reduceByKey is like SQL's <code>GROUP BY</code> with <code>SUM()</code>. In today's class: <code>select prod, sum(amt) from orders group by prod</code> was equivalent to creating key-value pairs of (product, amount) then doing reduceByKey.</p>
+  </div>
+
+  <div class="prose">
+    <h3>repartition — Change Number of Partitions</h3>
+    <p>You can manually set how many partitions an RDD should have. More partitions = more parallelism. Less partitions = less overhead.</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-label">repartition Example — From Today's Lab</div>
+    <pre>rdd1 = sc.<span class="fn">textFile</span>(<span class="st">"/user/cddacmaylab013/data"</span>)
+rdd1.<span class="fn">getNumPartitions</span>()   <span class="cm"># Returns: 3 (3 files = 3 blocks)</span>
+sc.defaultParallelism     <span class="cm"># Returns: 2 (system has 2 cores)</span>
+
+rdd2 = rdd1.<span class="fn">repartition</span>(<span class="num">2</span>)  <span class="cm"># Now 2 partitions to match 2 cores</span>
+rdd2.<span class="fn">getNumPartitions</span>()   <span class="cm"># Returns: 2 ✓</span></pre>
+  </div>
+
+  <div class="prose">
+    <h3>sortBy — Sort the Data</h3>
+    <p>Used in the Top Selling Products program to sort products by total sales in descending order.</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-label">sortBy Example — Top Selling Products</div>
+    <pre>rdd4 = rdd3.<span class="fn">sortBy</span>(<span class="kw">lambda</span> a : <span class="num">-a[1]</span>)  <span class="cm"># negative = descending order</span>
+
+<span class="cm"># Result (top items):</span>
+<span class="cm"># ('Yoga & Pilates', 47804.93)</span>
+<span class="cm"># ('Swing Sets', 47204.14)</span>
+<span class="cm"># ('Lawn Games', 46828.43)</span></pre>
+  </div>
+</section>
+
+<!-- CHAPTER 4: ACTIONS -->
+<section class="chapter" id="actions">
+  <div class="chapter-num">Chapter 04</div>
+  <h2>Actions — <em>Trigger Execution</em></h2>
+  <p class="chapter-lead">Actions are what actually make Spark DO something. Without an action, your transformations are just a plan sitting on paper.</p>
+
+  <div class="key-terms">
+    <div class="term-card">
+      <div class="term">collect()</div>
+      <div class="definition">Brings ALL data from all partitions back to the Driver as a Python list. Use carefully on large datasets — can crash the Driver if data is huge!</div>
+    </div>
+    <div class="term-card">
+      <div class="term">count()</div>
+      <div class="definition">Returns the total number of elements in the RDD. Simple but triggers full computation.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">take(n)</div>
+      <div class="definition">Returns only the first n elements. Safer than collect() for previewing large datasets.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">saveAsTextFile()</div>
+      <div class="definition">Saves the RDD to HDFS (or disk) as text files. One file per partition. Used at the end of both programs today.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">coalesce(n)</div>
+      <div class="definition">Reduces the number of partitions without a full shuffle. Used to merge output files before saving. Unlike repartition, it only reduces — never increases.</div>
+    </div>
+  </div>
+
+  <div class="callout red">
+    <div class="callout-label">⚠️ Important Distinction</div>
+    <p><strong>Transformations</strong> return a new RDD (lazy — no execution).<br>
+    <strong>Actions</strong> return a value or write to storage (eager — triggers execution).<br><br>
+    This is why in the Word Count code, typing <code>rdd3 = rdd2.flatMap(...)</code> was instant — but <code>rdd3.collect()</code> took time to run.</p>
+  </div>
+</section>
+
+<!-- CHAPTER 5: PARTITIONS -->
+<section class="chapter" id="partitions">
+  <div class="chapter-num">Chapter 05</div>
+  <h2>Partitions — <em>How Data is Split</em></h2>
+  <p class="chapter-lead">A partition is one chunk of your dataset. More partitions = more parallel processing. Understanding partitions is key to understanding Spark's speed.</p>
+
+  <div class="prose">
+    <p>When you load a file into Spark, it gets divided into <strong>partitions</strong>. In HDFS, data is stored in <strong>blocks</strong> (default 128MB each). Each block becomes one partition in Spark.</p>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">📂 From Today's Lab</div>
+    <p>The data folder had <strong>3 files</strong> (3 blocks in HDFS), so <code>rdd1</code> had <strong>3 partitions</strong>. The system had 2 CPU cores, so we repartitioned to 2 to match the cores for better efficiency.</p>
+  </div>
+
+  <div class="prose">
+    <h3>Physical vs Logical Split</h3>
+  </div>
+
+  <div class="partition-viz">
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--teal);letter-spacing:0.2em;margin-bottom:10px">PHYSICAL SPLIT (HDFS Blocks)</div>
+      <div class="partition-viz" style="flex-direction:column;gap:8px">
+        <div class="partition-box">
+          <div class="p-label">Block 1</div>
+          <div class="p-data">Rows 1–5</div>
+        </div>
+        <div class="partition-box">
+          <div class="p-label">Block 2</div>
+          <div class="p-data">Rows 6–9</div>
+        </div>
+        <div class="partition-box">
+          <div class="p-label">Block 3</div>
+          <div class="p-data">Rows 10–11</div>
+        </div>
+      </div>
+    </div>
+    <div class="partition-arrow">→</div>
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:0.2em;margin-bottom:10px">LOGICAL SPLIT (RDD Partitions)</div>
+      <div class="partition-viz" style="flex-direction:column;gap:8px">
+        <div class="partition-box" style="border-color:var(--gold)">
+          <div class="p-label" style="color:var(--gold)">Partition 1</div>
+          <div class="p-data">Rows 1–5</div>
+        </div>
+        <div class="partition-box" style="border-color:var(--gold)">
+          <div class="p-label" style="color:var(--gold)">Partition 2</div>
+          <div class="p-data">Rows 6–11</div>
+        </div>
+      </div>
+    </div>
+    <div class="partition-arrow">→</div>
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--rust);letter-spacing:0.2em;margin-bottom:10px">TASKS (1 per Partition)</div>
+      <div class="partition-viz" style="flex-direction:column;gap:8px">
+        <div class="partition-box" style="border-color:var(--rust)">
+          <div class="p-label" style="color:var(--rust)">Task 1</div>
+          <div class="p-data">Core 1</div>
+        </div>
+        <div class="partition-box" style="border-color:var(--rust)">
+          <div class="p-label" style="color:var(--rust)">Task 2</div>
+          <div class="p-data">Core 2</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h3>Hash Partitioning</h3>
+    <p>When you use <code>reduceByKey()</code>, Spark decides which partition a key goes to using <strong>hash partitioning</strong>:</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-label">Hash Partitioning Formula</div>
+    <pre><span class="cm"># From today's class:</span>
+hash_value(<span class="st">'bear'</span>) = <span class="num">10</span>
+num_partitions = <span class="num">2</span>
+
+partition_number = hash_value % num_partitions
+                 = <span class="num">10</span> % <span class="num">2</span>
+                 = <span class="num">0</span>   <span class="cm"># 'bear' goes to Partition 0</span>
+
+<span class="cm"># This ensures ALL 'bear' records land in the same partition</span>
+<span class="cm"># so they can be counted together!</span></pre>
+  </div>
+
+  <div class="callout blue">
+    <div class="callout-label">Range vs Hash Partitioning</div>
+    <p><strong>Hash Partitioning:</strong> Uses hash(key) % num_partitions. Good for grouping by key (like reduceByKey).<br>
+    <strong>Range Partitioning:</strong> Divides keys into sorted ranges. Good for sorted output (like sortBy).</p>
+  </div>
+</section>
+
+<!-- CHAPTER 6: WORD COUNT -->
+<section class="chapter" id="wordcount">
+  <div class="chapter-num">Chapter 06</div>
+  <h2>Word Count — <em>Step by Step</em></h2>
+  <p class="chapter-lead">The classic first Spark program. Let's trace exactly what happened in today's lab session.</p>
+
+  <div class="prose">
+    <p>The input data was 3 files in HDFS containing lines like: <code>car river dear bear</code>, <code>river car car</code>, <code>bear bear river river car</code>...</p>
+  </div>
+
+  <div class="wc-flow">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold2);letter-spacing:0.3em;margin-bottom:20px">WORD COUNT PIPELINE — TODAY'S LAB</div>
+
+    <div class="wc-step">
+      <div class="wc-rdd-label">rdd1</div>
+      <div class="wc-op">textFile()</div>
+      <div class="wc-arrow-col">→</div>
+      <div class="wc-data">Load 3 files from HDFS<br><span style="color:#605848">8 lines, 3 partitions, count() = 8</span></div>
+    </div>
+
+    <div class="wc-step">
+      <div class="wc-rdd-label">rdd2</div>
+      <div class="wc-op">repartition(2)</div>
+      <div class="wc-arrow-col">→</div>
+      <div class="wc-data">Reorganize into 2 partitions to match CPU cores<br><span style="color:#605848">Same data, better parallelism</span></div>
+    </div>
+
+    <div class="wc-step">
+      <div class="wc-rdd-label">rdd3</div>
+      <div class="wc-op">flatMap(split)</div>
+      <div class="wc-arrow-col">→</div>
+      <div class="wc-data">Split each line by space → flatten into individual words<br><span style="color:#605848">"car river dear bear" → "car", "river", "dear", "bear"</span></div>
+    </div>
+
+    <div class="wc-step">
+      <div class="wc-rdd-label">rdd4</div>
+      <div class="wc-op">map(a,(a,1))</div>
+      <div class="wc-arrow-col">→</div>
+      <div class="wc-data">Pair each word with 1<br><span style="color:#605848">"car" → ('car', 1), "bear" → ('bear', 1)</span></div>
+    </div>
+
+    <div class="wc-step">
+      <div class="wc-rdd-label">rdd5</div>
+      <div class="wc-op">reduceByKey</div>
+      <div class="wc-arrow-col">→</div>
+      <div class="wc-data">Group by word and sum the 1s — <strong style="color:var(--rust2)">THIS IS AN ACTION TRIGGER POINT</strong><br><span style="color:#605848">('bear',6) ('car',7) ('river',9) ('dear',1)</span></div>
+    </div>
+
+    <div class="wc-step">
+      <div class="wc-rdd-label">save</div>
+      <div class="wc-op">saveAsTextFile</div>
+      <div class="wc-arrow-col">→</div>
+      <div class="wc-data">Write results to HDFS at /user/cddacmaylab013/spark1<br><span style="color:#605848">ACTION — triggers everything above to execute</span></div>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-label">Complete Word Count Code — From Today's Lab</div>
+    <pre>rdd1 = sc.<span class="fn">textFile</span>(<span class="st">"/user/cddacmaylab013/data"</span>)
+rdd1.<span class="fn">count</span>()             <span class="cm"># 8 lines</span>
+rdd1.<span class="fn">getNumPartitions</span>()  <span class="cm"># 3 partitions</span>
+sc.defaultParallelism    <span class="cm"># 2 cores</span>
+
+rdd2 = rdd1.<span class="fn">repartition</span>(<span class="num">2</span>)
+rdd3 = rdd2.<span class="fn">flatMap</span>(<span class="kw">lambda</span> a : a.<span class="fn">split</span>(<span class="st">" "</span>))
+rdd4 = rdd3.<span class="fn">map</span>(<span class="kw">lambda</span> a : (a, <span class="num">1</span>))
+rdd5 = rdd4.<span class="fn">reduceByKey</span>(<span class="kw">lambda</span> a, b : (a + b))
+
+<span class="cm"># Final counts:</span>
+<span class="cm"># ('bear', 6)  ('car', 7)  ('river', 9)  ('dear', 1)</span>
+
+rdd5.<span class="fn">saveAsTextFile</span>(<span class="st">"/user/cddacmaylab013/spark1"</span>)</pre>
+  </div>
+</section>
+
+<!-- CHAPTER 7: JOBS STAGES TASKS -->
+<section class="chapter" id="jobs">
+  <div class="chapter-num">Chapter 07</div>
+  <h2>Jobs, Stages <em>&amp; Tasks</em></h2>
+  <p class="chapter-lead">When Spark runs your code, it breaks everything into a hierarchy: one Job → multiple Stages → many Tasks.</p>
+
+  <div class="prose">
+    <h3>The Hierarchy</h3>
+  </div>
+
+  <div class="jst-diagram">
+    <div class="jst-outer">
+      <div class="jst-label job">JOB — Triggered by one Action (e.g. collect() or saveAsTextFile())</div>
+      <div class="jst-inner">
+        <div class="jst-label stage">STAGE 0 — ShuffleMapStage (before data shuffling: flatMap → map)</div>
+        <div class="jst-tasks">
+          <div class="jst-task-box">Task 1<br><span style="font-size:10px;color:#6B5F52">Partition 0</span></div>
+          <div class="jst-task-box">Task 2<br><span style="font-size:10px;color:#6B5F52">Partition 1</span></div>
+        </div>
+      </div>
+      <div class="jst-inner">
+        <div class="jst-label stage">STAGE 1 — ResultStage (after shuffle: reduceByKey → Action)</div>
+        <div class="jst-tasks">
+          <div class="jst-task-box">Task 1<br><span style="font-size:10px;color:#6B5F52">Partition 0</span></div>
+          <div class="jst-task-box">Task 2<br><span style="font-size:10px;color:#6B5F52">Partition 1</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="key-terms">
+    <div class="term-card">
+      <div class="term">Job</div>
+      <div class="definition">One job = one action call. Every time you call collect(), count(), saveAsTextFile(), etc., Spark creates one job. A job is a series of stages.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Stage</div>
+      <div class="definition">A stage is created whenever data needs to be shuffled across the network. reduceByKey() causes a shuffle → creates a stage boundary.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Task</div>
+      <div class="definition">The smallest unit of work. One task runs on ONE partition of data on ONE core of a worker node. 2 partitions = 2 tasks per stage.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">ShuffleMapStage</div>
+      <div class="definition">A stage that produces data FOR a shuffle operation. Its output feeds into the next stage.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">ResultStage</div>
+      <div class="definition">The FINAL stage in a job. It runs the action and returns the final result to the Driver.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Pipelining</div>
+      <div class="definition">Within a single stage, transformations are chained together and processed sequentially on each partition without extra shuffling.</div>
+    </div>
+  </div>
+
+  <div class="callout blue">
+    <div class="callout-label">Rule: When does a new Stage start?</div>
+    <p>A new stage begins whenever there is a <strong>data shuffle</strong> — when records must move from one partition to another across the network. This happens with operations like <code>reduceByKey()</code>, <code>groupByKey()</code>, <code>join()</code>, <code>sortBy()</code>.<br><br>
+    <strong>No shuffle = same stage.</strong> flatMap → map → collect (no shuffle) = ONE stage.</p>
+  </div>
+
+  <div class="prose">
+    <h3>DAGScheduler &amp; TaskScheduler</h3>
+  </div>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="step-num">ACTION CALLED</div>
+      <div class="step-name">Trigger</div>
+      <div class="step-desc">e.g. collect()</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="step-num">HIGH LEVEL</div>
+      <div class="step-name">DAG Scheduler</div>
+      <div class="step-desc">Divides job into stages</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="step-num">LOW LEVEL</div>
+      <div class="step-name">Task Scheduler</div>
+      <div class="step-desc">Assigns tasks to executors</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="step-num">EXECUTE</div>
+      <div class="step-name">Cluster Manager</div>
+      <div class="step-desc">Provides resources</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="step-num">RUN</div>
+      <div class="step-name">Executors</div>
+      <div class="step-desc">Run tasks, return results</div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 8: QUIZ -->
+<section class="chapter" id="quiz">
+  <div class="chapter-num">Chapter 08</div>
+  <h2>Quick <em>Quiz</em></h2>
+  <p class="chapter-lead">Test your understanding of today's class. Click an option to check your answer.</p>
+
+  <div class="quiz-section">
+    <div class="quiz-title">🧪 Test Yourself</div>
+
+    <div class="quiz-q" id="q1">
+      <p>Q1. What is the role of the Driver in Spark?</p>
+      <button class="quiz-option" onclick="answer(this,'q1',false)">It runs tasks on partitions of data</button>
+      <button class="quiz-option" onclick="answer(this,'q1',true)">It converts your program into tasks and schedules them on executors</button>
+      <button class="quiz-option" onclick="answer(this,'q1',false)">It manages cluster resources like memory and CPU</button>
+      <button class="quiz-option" onclick="answer(this,'q1',false)">It stores RDD data in-memory</button>
+      <div class="quiz-feedback" id="q1-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q2">
+      <p>Q2. When does Spark actually execute a transformation like <code>flatMap()</code>?</p>
+      <button class="quiz-option" onclick="answer(this,'q2',false)">Immediately when you write the line</button>
+      <button class="quiz-option" onclick="answer(this,'q2',false)">After a few seconds of buffering</button>
+      <button class="quiz-option" onclick="answer(this,'q2',true)">Only when an Action like collect() or saveAsTextFile() is called</button>
+      <button class="quiz-option" onclick="answer(this,'q2',false)">When you call repartition()</button>
+      <div class="quiz-feedback" id="q2-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q3">
+      <p>Q3. In today's Word Count program, the input data folder had 3 files. How many partitions did rdd1 have?</p>
+      <button class="quiz-option" onclick="answer(this,'q3',false)">1</button>
+      <button class="quiz-option" onclick="answer(this,'q3',false)">2</button>
+      <button class="quiz-option" onclick="answer(this,'q3',true)">3</button>
+      <button class="quiz-option" onclick="answer(this,'q3',false)">8</button>
+      <div class="quiz-feedback" id="q3-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q4">
+      <p>Q4. What triggers the creation of a new Spark Stage?</p>
+      <button class="quiz-option" onclick="answer(this,'q4',false)">Calling rdd.count()</button>
+      <button class="quiz-option" onclick="answer(this,'q4',true)">A shuffle operation (e.g. reduceByKey shuffles data across the network)</button>
+      <button class="quiz-option" onclick="answer(this,'q4',false)">Creating a new RDD with map()</button>
+      <button class="quiz-option" onclick="answer(this,'q4',false)">Loading data with textFile()</button>
+      <div class="quiz-feedback" id="q4-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q5">
+      <p>Q5. What does <code>reduceByKey(lambda a, b: a+b)</code> do?</p>
+      <button class="quiz-option" onclick="answer(this,'q5',false)">It sorts all key-value pairs alphabetically</button>
+      <button class="quiz-option" onclick="answer(this,'q5',false)">It removes duplicate keys</button>
+      <button class="quiz-option" onclick="answer(this,'q5',true)">It groups records with the same key and sums their values</button>
+      <button class="quiz-option" onclick="answer(this,'q5',false)">It filters out keys that appear only once</button>
+      <div class="quiz-feedback" id="q5-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q6">
+      <p>Q6. RDDs are "immutable." What does this mean?</p>
+      <button class="quiz-option" onclick="answer(this,'q6',false)">They cannot be used in more than one operation</button>
+      <button class="quiz-option" onclick="answer(this,'q6',true)">You cannot modify an existing RDD — every transformation creates a brand new RDD</button>
+      <button class="quiz-option" onclick="answer(this,'q6',false)">They can only store text data</button>
+      <button class="quiz-option" onclick="answer(this,'q6',false)">They are stored permanently and never deleted</button>
+      <div class="quiz-feedback" id="q6-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q7">
+      <p>Q7. What is the difference between <code>map()</code> and <code>flatMap()</code>?</p>
+      <button class="quiz-option" onclick="answer(this,'q7',false)">map() is faster than flatMap()</button>
+      <button class="quiz-option" onclick="answer(this,'q7',true)">flatMap() can return multiple outputs per input and flattens them; map() returns exactly one output per input</button>
+      <button class="quiz-option" onclick="answer(this,'q7',false)">They are the same — just different names</button>
+      <button class="quiz-option" onclick="answer(this,'q7',false)">flatMap() works only with key-value pairs</button>
+      <div class="quiz-feedback" id="q7-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q8">
+      <p>Q8. In today's word count, 'river' appeared 9 times. What type of operation aggregated those 9 individual ('river', 1) records into one ('river', 9)?</p>
+      <button class="quiz-option" onclick="answer(this,'q8',false)">flatMap + collect</button>
+      <button class="quiz-option" onclick="answer(this,'q8',false)">map + count</button>
+      <button class="quiz-option" onclick="answer(this,'q8',true)">reduceByKey</button>
+      <button class="quiz-option" onclick="answer(this,'q8',false)">repartition</button>
+      <div class="quiz-feedback" id="q8-fb"></div>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  PySpark Class Notes · April 23, 2026 · Based on Sandeep (Trainer)'s Session · CDAC
+</div>
+
+<script>
+const explanations = {
+  q1: "Correct! The Driver is the brain. It reads your Python code, converts it into a logical plan, and sends tasks to Executors on Worker Nodes.",
+  q2: "Exactly right! This is called Lazy Evaluation. Spark waits until an Action is triggered before doing any actual computation.",
+  q3: "Correct! 3 files in HDFS = 3 blocks = 3 partitions. That's why rdd1.getNumPartitions() returned 3.",
+  q4: "Correct! A shuffle means data must travel across the network between partitions. This is expensive, so Spark creates a stage boundary here.",
+  q5: "Correct! reduceByKey is like SQL's GROUP BY + SUM. It groups all ('river', 1) pairs and adds them → ('river', 9).",
+  q6: "Correct! RDDs are immutable — you never change one. Instead, each transformation creates a new RDD. This is what makes fault-tolerance possible.",
+  q7: "Correct! map() gives 1 output per input. flatMap() gives 0 or more outputs per input and flattens the result. Used in word count to split lines into words.",
+  q8: "Correct! reduceByKey grouped all ('river', 1) records by key 'river' and summed the values: 1+1+1+1+1+1+1+1+1 = 9."
+};
+
+const wrongs = {
+  q1: "Not quite. Executors (on Worker Nodes) run the tasks. The Driver is the coordinator that creates the plan.",
+  q2: "Not quite. Spark is lazy — transformations like flatMap(), map(), filter() don't run immediately. They only run when you call an Action.",
+  q3: "Not quite. The data had 3 files, each stored as 1 block in HDFS, so Spark created 3 partitions by default.",
+  q4: "Not quite. count() is an action and triggers a JOB, not a stage. A new stage is triggered by operations that require shuffling data across the network.",
+  q5: "Not quite. reduceByKey groups records by key and applies your function (here, addition) to combine values with the same key.",
+  q6: "Not quite. Immutable means you cannot change or update an existing RDD. Each transformation always creates a new, separate RDD.",
+  q7: "Not quite. The key difference: map() = 1-to-1 mapping. flatMap() = 1-to-many mapping with flattening. Used to split 'car river bear' into 3 separate words.",
+  q8: "Not quite. The operation that grouped and summed word counts was reduceByKey(lambda a, b: a+b)."
+};
+
+function answer(btn, qid, isCorrect) {
+  const q = document.getElementById(qid);
+  const buttons = q.querySelectorAll('.quiz-option');
+  const fb = document.getElementById(qid + '-fb');
+  
+  buttons.forEach(b => b.disabled = true);
+  
+  if (isCorrect) {
+    btn.classList.add('correct');
+    fb.className = 'quiz-feedback show correct';
+    fb.textContent = '✓ ' + explanations[qid];
+  } else {
+    btn.classList.add('wrong');
+    fb.className = 'quiz-feedback show wrong';
+    fb.textContent = '✗ ' + wrongs[qid];
+  }
+}
+</script>
+</body>
+</html>
