@@ -1,0 +1,164 @@
+j.protocol.Py4JJavaError: An error occurred while calling z:org.apache.spark.api.python.P
+ythonRDD.collectAndServe.                                                                   
+: org.apache.hadoop.mapred.InvalidInputException: Input path does not exist: hdfs://master:9
+000/ user/ cddacmaylab4015/ uber_data.tmp                                                   
+        at org.apache.hadoop.mapred.FileInputFormat.singleThreadedListStatus(FileInputFormat
+.java:297)                                                                                  
+        at org.apache.hadoop.mapred.FileInputFormat.listStatus(FileInputFormat.java:239)    
+        at org.apache.hadoop.mapred.FileInputFormat.getSplits(FileInputFormat.java:325)     
+        at org.apache.spark.rdd.HadoopRDD.getPartitions(HadoopRDD.scala:205)                
+        at org.apache.spark.rdd.RDD.$anonfun$partitions$2(RDD.scala:300)                    
+        at scala.Option.getOrElse(Option.scala:189)                                         
+        at org.apache.spark.rdd.RDD.partitions(RDD.scala:296)                               
+        at org.apache.spark.rdd.MapPartitionsRDD.getPartitions(MapPartitionsRDD.scala:49)   
+        at org.apache.spark.rdd.RDD.$anonfun$partitions$2(RDD.scala:300)                    
+        at scala.Option.getOrElse(Option.scala:189)                                         
+        at org.apache.spark.rdd.RDD.partitions(RDD.scala:296)                               
+        at org.apache.spark.api.python.PythonRDD.getPartitions(PythonRDD.scala:55)          
+        at org.apache.spark.rdd.RDD.$anonfun$partitions$2(RDD.scala:300)                    
+        at scala.Option.getOrElse(Option.scala:189)                                         
+        at org.apache.spark.rdd.RDD.partitions(RDD.scala:296)                               
+        at org.apache.spark.SparkContext.runJob(SparkContext.scala:2261)                    
+        at org.apache.spark.rdd.RDD.$anonfun$collect$1(RDD.scala:1030)                      
+        at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)   
+        at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)   
+        at org.apache.spark.rdd.RDD.withScope(RDD.scala:414)                                
+        at org.apache.spark.rdd.RDD.collect(RDD.scala:1029)                                 
+        at org.apache.spark.api.python.PythonRDD$.collectAndServe(PythonRDD.scala:180)      
+        at org.apache.spark.api.python.PythonRDD.collectAndServe(PythonRDD.scala)           
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)                      
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)    
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java
+:43)                                                                                        
+        at java.lang.reflect.Method.invoke(Method.java:498)                                 
+        at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)                     
+        at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)               
+        at py4j.Gateway.invoke(Gateway.java:282)                                            
+        at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)             
+        at py4j.commands.CallCommand.execute(CallCommand.java:79)                           
+        at py4j.GatewayConnection.run(GatewayConnection.java:238)                           
+        at java.lang.Thread.run(Thread.java:750)                                            
+
+>>> rdd1.take(5)                                                                            
+Traceback (most recent call last):                                                          
+  File "<stdin>", line 1, in <module>                                                       
+  File "/opt/spark-3.1.2/python/pyspark/rdd.py", line 1533, in take                         
+    totalParts = self.getNumPartitions()                                                    
+  File "/opt/spark-3.1.2/python/pyspark/rdd.py", line 465, in getNumPartitions              
+    return self._jrdd.partitions().size()                                                   
+  File "/opt/spark-3.1.2/python/lib/py4j-0.10.9-src.zip/py4j/java_gateway.py", line 1304, in
+ __call__                                                                                   
+  File "/opt/spark-3.1.2/python/pyspark/sql/utils.py", line 111, in deco                    
+    return f(*a, **kw)                                                                      
+  File "/opt/spark-3.1.2/python/lib/py4j-0.10.9-src.zip/py4j/protocol.py", line 326, in get_
+return_value                                                                                
+py4j.protocol.Py4JJavaError: An error occurred while calling o62.partitions.                
+: org.apache.hadoop.mapred.InvalidInputException: Input path does not exist: hdfs://master:9
+000/ user/ cddacmaylab4015/ uber_data.tmp                                                   
+        at org.apache.hadoop.mapred.FileInputFormat.singleThreadedListStatus(FileInputFormat
+.java:297)                                                                                  
+        at org.apache.hadoop.mapred.FileInputFormat.listStatus(FileInputFormat.java:239)    
+        at org.apache.hadoop.mapred.FileInputFormat.getSplits(FileInputFormat.java:325)     
+        at org.apache.spark.rdd.HadoopRDD.getPartitions(HadoopRDD.scala:205)                
+        at org.apache.spark.rdd.RDD.$anonfun$partitions$2(RDD.scala:300)                    
+        at scala.Option.getOrElse(Option.scala:189)                                         
+        at org.apache.spark.rdd.RDD.partitions(RDD.scala:296)                               
+        at org.apache.spark.rdd.MapPartitionsRDD.getPartitions(MapPartitionsRDD.scala:49)   
+        at org.apache.spark.rdd.RDD.$anonfun$partitions$2(RDD.scala:300)                    
+        at scala.Option.getOrElse(Option.scala:189)                                         
+        at org.apache.spark.rdd.RDD.partitions(RDD.scala:296)                               
+        at org.apache.spark.api.java.JavaRDDLike.partitions(JavaRDDLike.scala:61)           
+        at org.apache.spark.api.java.JavaRDDLike.partitions$(JavaRDDLike.scala:61)          
+        at org.apache.spark.api.java.AbstractJavaRDDLike.partitions(JavaRDDLike.scala:45)   
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)                      
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)    
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java
+:43)                                                                                        
+        at java.lang.reflect.Method.invoke(Method.java:498)                                 
+        at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)                     
+        at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)               
+        at py4j.Gateway.invoke(Gateway.java:282)                                            
+        at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)             
+        at py4j.commands.CallCommand.execute(CallCommand.java:79)                           
+        at py4j.GatewayConnection.run(GatewayConnection.java:238)                           
+        at java.lang.Thread.run(Thread.java:750)                                            
+
+>>> rdd1 = sc.textFile("/user/cddacmaylab4015/uber_data")                                   
+>>> rdd1.count()                                                                            
+[Stage 1:>                                                                                  
+                                                                                   (0 + 1) /
+[Stage 1:===================================================================================
+>                                                                                  (1 + 1) /
+
+
+355
+>>> rdd1.take(5)                                                                            
+['dispatching_base_number,date,active_vehicles,trips', 'B02512,1/1/2015,190,1132', 'B02765,1
+/1/2015,225,1765', 'B02764,1/1/2015,3427,29421', 'B02682,1/1/2015,945,7679']                
+>>> rdd1.count()                                                                            
+355                                                                                         
+>>> header = rdd1.first()                                                                   
+>>> print(header)                                                                           
+dispatching_base_number,date,active_vehicles,trips                                          
+>>>rdd2=rdd1.filter(lambda a : a!= header)                                                  
+>>> rdd2=count()                                                                            
+Traceback (most recent call last):                                                          
+  File "<stdin>", line 1, in <module>                                                       
+NameError: name 'count' is not defined                                                      
+>>> rdd2.count()                                                                            
+354                                                                                         
+>>> for line in rdd2.take(5):                                                               
+... print(line)                                                                             
+  File "<stdin>", line 2                                                                    
+    print(line)                                                                             
+    ^                                                                                       
+IndentationError: expected an indented block                                                
+>>> for line in rdd2.take(5):                                                               
+...     print(line)  
+
+##############################################################################################
+
+>>> from datetime import datetime                                                           
+>>> format_date = "%m/%d/%Y"                                                                
+>>> print(format_date)                                                                      
+%m/%d/%Y 
+
+>>> print(datetime.strptime("04/24/2026",format_date))                                      
+2026-04-24 00:00:00                                                                         
+>>> print(datetime.strpftime("04/24/2026",format_date))  
+
+
+>>> print(datetime.strptime("04/24/2026",format_date).strftime("%A"))                       
+Friday                                                                                      
+>>> print(datetime.strptime("04/24/2026",format_date).strftime("%B"))                       
+April   
+
+>>> rdd3 = rdd2.map(lambda a :(a.split(",")[0],datetime.strptime(a.split(",")[1],format_date).strftime("%A"),a.split(",")[2]))                                                           
+>>> for line in rdd3.take(5):                                                               
+...     print(line) 
+
+>>> rdd4 = rdd3.map(lambda a : (a[0] + " "+a[1],int(a[2]) ))                                
+>>> for line in rdd4.take(5):                                                               
+...     print(line) 
+
+>>> rdd5 = rdd4.reduceBykey(lambda a,b : a+b)     
+
+>>>rdd5 = rdd4.reduceByKey(lambda a,b : a+b)                                                
+>>> rdd3 = rdd2.map(lambda a : (a.split(",")[0], datetime.strptime(a.split(",")[1],format_date).strftime("%A"), a.split(",")[2] ))                                                      
+>>> for line in rdd4.take(5):      
+
+
+>>> rdd5 = rdd4.reduceByKey(lambda a,b : a+b)                                               
+>>> rdd6 = rdd2.map(lambda a : (a.split(",")[0], datetime.strptime(a.split(",")[1],format_da
+te).strftime("%A"), a.split(",")[3] ))                                                      
+>>> rdd7 = rdd6.map(lambda a : (a[0] + " " + a[1], int(a[2]) ))                             
+>>> for line in rdd7.take(5):                                                               
+...     print(line)   
+
+>>> rdd8 = rdd7.reduceByKey(lambda a, b : a + b)
+>>> 
+>>> for line in rdd8.take(5):                                                               
+...     print(line)     
+
+
+
