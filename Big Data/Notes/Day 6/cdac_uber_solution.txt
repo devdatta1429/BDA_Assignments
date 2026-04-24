@@ -1,0 +1,191 @@
+>>> rdd1 = sc.textFile("hdfs://localhost:9000/user/cdac/uber_data")
+>>> rdd1.count()
+355                                                                             
+>>> sc.defaultParallelism
+2
+>>> rdd1.getNumPartitions()
+2
+>>> 
+>>> header = rdd1.first()
+>>> print(header)
+dispatching_base_number,date,active_vehicles,trips
+>>> rdd2 = rdd1.filter(lambda a : a != header)
+>>> rdd2.count()
+354
+>>> for line in rdd2.take(5):
+...     print(line)
+... 
+B02512,1/1/2015,190,1132
+B02765,1/1/2015,225,1765
+B02764,1/1/2015,3427,29421
+B02682,1/1/2015,945,7679
+B02617,1/1/2015,1228,9537
+>>> from datetime import datetime
+>>> format_date = "%m/%d/%Y"
+>>> print(datetime.strptime("04/24/2026",format_date))
+2026-04-24 00:00:00
+>>> print(datetime.strptime("04/24/2026",format_date).strftime("%A"))
+Friday
+>>> print(datetime.strptime("04/24/2026",format_date).strftime("%B"))
+April
+>>> rdd3 = rdd2.map(lambda a : (a.split(",")[0], datetime.strptime(a.split(",")[1],format_date).strftime("%A"), a.split(",")[2] ))
+>>> for line in rdd3.take(5):
+...     print(line)
+... 
+(u'B02512', 'Thursday', u'190')
+(u'B02765', 'Thursday', u'225')
+(u'B02764', 'Thursday', u'3427')
+(u'B02682', 'Thursday', u'945')
+(u'B02617', 'Thursday', u'1228')
+>>> rdd2 = rdd2.map(lambda a : a.encode("ascii","ignore"))
+>>> rdd3 = rdd2.map(lambda a : (a.split(",")[0], datetime.strptime(a.split(",")[1],format_date).strftime("%A"), a.split(",")[2] ))
+>>> for line in rdd3.take(5):
+...     print(line)
+... 
+('B02512', 'Thursday', '190')
+('B02765', 'Thursday', '225')
+('B02764', 'Thursday', '3427')
+('B02682', 'Thursday', '945')
+('B02617', 'Thursday', '1228')
+>>> rdd4 = rdd3.map(lambda a : (a[0] + " " + a[1], int(a[2]) ))
+>>> for line in rdd4.take(5):
+...     print(line)
+... 
+('B02512 Thursday', 190)
+('B02765 Thursday', 225)
+('B02764 Thursday', 3427)
+('B02682 Thursday', 945)
+('B02617 Thursday', 1228)
+>>> rdd5 = rdd4.reduceByKey(lambda a,b : a+b)
+>>> for line in rdd5.take(5):
+...     print(line)
+... 
+('B02765 Wednesday', 3152)                                                      
+('B02682 Wednesday', 10092)
+('B02764 Thursday', 35387)
+('B02764 Tuesday', 27569)
+('B02765 Saturday', 3612)
+
+>>> rdd6 = rdd2.map(lambda a : (a.split(",")[0], datetime.strptime(a.split(",")[1],format_date).strftime("%A"), a.split(",")[3] ))
+>>> rdd7 = rdd6.map(lambda a : (a[0] + " " + a[1], int(a[2]) ))
+>>> for line in rdd7.take(5):
+...     print(line)
+... 
+('B02512 Thursday', 1132)
+('B02765 Thursday', 1765)
+('B02764 Thursday', 29421)
+('B02682 Thursday', 7679)
+('B02617 Thursday', 9537)
+>>> rdd8 = rdd7.reduceByKey(lambda a,b : a+b)
+>>> for line in rdd8.take(5):
+...     print(line)
+... 
+('B02765 Wednesday', 24340)
+('B02682 Wednesday', 86252)
+('B02764 Thursday', 304200)
+('B02764 Tuesday', 221343)
+('B02765 Saturday', 36737)
+>>> joinedRDD = rdd8.join(rdd5)
+>>> for line in joinedRDD.take(5):
+...     print(line)
+... 
+('B02765 Wednesday', (24340, 3152))
+('B02682 Wednesday', (86252, 10092))
+('B02764 Thursday', (304200, 35387))
+('B02765 Saturday', (36737, 3612))
+('B02512 Friday', (16435, 2221))
+>>> avgTrips = joinedRDD.map(lambda a : (a[0], a[1][0] / a[1][1]))
+>>> for line in avgTrips.collect():
+...     print(line)
+... 
+('B02765 Wednesday', 7)
+('B02682 Wednesday', 8)
+('B02764 Thursday', 8)
+('B02765 Saturday', 10)
+('B02512 Friday', 7)
+('B02765 Friday', 8)
+('B02682 Friday', 9)
+('B02598 Wednesday', 8)
+('B02764 Tuesday', 8)
+('B02617 Saturday', 10)
+('B02617 Friday', 9)
+('B02598 Saturday', 10)
+('B02598 Friday', 9)
+('B02617 Wednesday', 8)
+('B02682 Saturday', 10)
+('B02512 Wednesday', 6)
+('B02512 Saturday', 7)
+('B02764 Sunday', 9)
+('B02764 Monday', 7)
+('B02512 Sunday', 7)
+('B02765 Monday', 7)
+('B02512 Tuesday', 6)
+('B02764 Wednesday', 7)
+('B02598 Sunday', 9)
+('B02512 Thursday', 7)
+('B02598 Monday', 8)
+('B02682 Tuesday', 8)
+('B02617 Sunday', 9)
+('B02764 Saturday', 10)
+('B02765 Thursday', 8)
+('B02682 Monday', 8)
+('B02764 Friday', 9)
+('B02598 Thursday', 9)
+('B02617 Monday', 8)
+('B02682 Thursday', 9)
+('B02682 Sunday', 9)
+('B02765 Sunday', 8)
+('B02617 Thursday', 8)
+('B02765 Tuesday', 7)
+('B02512 Monday', 6)
+('B02617 Tuesday', 8)
+('B02598 Tuesday', 8)
+>>> avgTrips = joinedRDD.map(lambda a : (a[0], float(a[1][0]) / float(a[1][1]) ))
+>>> for line in avgTrips.collect():
+...     print(line)
+... 
+('B02765 Wednesday', 7.722081218274112)
+('B02682 Wednesday', 8.546571541815299)
+('B02764 Thursday', 8.596377200666911)
+('B02765 Saturday', 10.170819490586933)
+('B02512 Friday', 7.39981990094552)
+('B02765 Friday', 8.973542255330079)
+('B02682 Friday', 9.604791422348802)
+('B02598 Wednesday', 8.575378381599332)
+('B02764 Tuesday', 8.028691646414451)
+('B02617 Saturday', 10.4239608801956)
+('B02617 Friday', 9.431189201417691)
+('B02598 Saturday', 10.636230743281233)
+('B02598 Friday', 9.473652085452695)
+('B02617 Wednesday', 8.424664831749977)
+('B02682 Saturday', 10.796427609729827)
+('B02512 Wednesday', 6.679473684210526)
+('B02512 Saturday', 7.781460383221129)
+('B02764 Sunday', 9.27980987039994)
+('B02764 Monday', 7.951721320607569)
+('B02512 Sunday', 7.247408431237043)
+('B02765 Monday', 7.8199288256227755)
+('B02512 Tuesday', 6.829835507657402)
+('B02764 Wednesday', 7.976744955342375)
+('B02598 Sunday', 9.400028280542987)
+('B02512 Thursday', 7.228623685413809)
+('B02598 Monday', 8.395201323772753)
+('B02682 Tuesday', 8.474380165289256)
+('B02617 Sunday', 9.270466949666465)
+('B02764 Saturday', 10.512345315262227)
+('B02765 Thursday', 8.34009873834339)
+('B02682 Monday', 8.497448690327701)
+('B02764 Friday', 9.005398259336785)
+('B02598 Thursday', 9.234614598241668)
+('B02617 Monday', 8.258967001434721)
+('B02682 Thursday', 9.131957526973796)
+('B02682 Sunday', 9.533264272559853)
+('B02765 Sunday', 8.782540919719407)
+('B02617 Thursday', 8.999543378995433)
+('B02765 Tuesday', 7.852555248618785)
+('B02512 Monday', 6.740453460620525)
+('B02617 Tuesday', 8.513763271726308)
+('B02598 Tuesday', 8.53343199246603)
+>>> 
+
+
