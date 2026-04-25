@@ -27,6 +27,55 @@ queries
 1) Top Selling Cities
 CityName	Total amount
 
+
+# =================================================================================================================
+# =================================================================================================================
+ip-172-31-14-185 login: cddacmaylab407                                             
+Password:                                                                          
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.15.0-1084-aws x86_64)                   
+
+  System information as of Sat Apr 25 12:52:31 UTC 2026                                
+
+  System load:  0.3                Processes:             247                          
+  Usage of /:   77.7% of 30.83GB   Users logged in:       7                            
+  Memory usage: 21%                IPv4 address for ens5: 172.31.14.185                
+  Swap usage:   0%                                                                     
+
+  => There is 1 zombie process.                                                                  
+
+Last login: Sat Apr 25 12:30:43 UTC 2026 from 127.0.0.1, 14.139.112.69 on pts/2                          
+cddacmaylab407@ip-172-31-14-185:~$ export PYSPARK_PYTHON=/opt/anaconda3/bin/python     
+cddacmaylab407@ip-172-31-14-185:~$ export PYSPARK_DRIVER_PYTHON=/opt/anaconda3/bin/python
+on                                                                                     
+cddacmaylab407@ip-172-31-14-185:~$                                                     
+cddacmaylab407@ip-172-31-14-185:~$ pyspark                                                               
+Python 3.9.13 (main, Aug 25 2022, 23:26:10)                                                              
+[GCC 11.2.0] :: Anaconda, Inc. on linux                                                                  
+Type "help", "copyright", "credits" or "license" for more information.                                   
+26/04/25 12:53:49 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using 
+tin-java classes where applicable                                                                        
+Setting default log level to "WARN".                                                                     
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).             
+26/04/25 12:53:50 WARN Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to upl
+ng libraries under SPARK_HOME.                                                                           
+Welcome to                                                                                               
+      ____              __                                                                               
+     / __/__  ___ _____/ /__                                                                             
+    _\ \/ _ \/ _ `/ __/  '_/                                                                             
+   /__ / .__/\_,_/_/ /_/\_\   version 3.1.2                                                              
+      /_/                                                                                                
+
+Using Python version 3.9.13 (main, Aug 25 2022 23:26:10)                                                     
+Spark context Web UI available at http://ip-172-31-14-185.ap-south-1.compute.internal:4040                   
+Spark context available as 'sc' (master = yarn, app id = application_1777085723191_0209).                    
+SparkSession available as 'spark'.                                                                           
+>>> import sys                                                                                               
+>>>                                                                                                          
+>>> rdd = sc.parallelize([1])                                                                                
+>>> rdd.map(lambda x: __import__("sys").version).collect()                                                   
+['3.9.13 (main, Aug 25 2022, 23:26:10) \n[GCC 11.2.0]']
+>>> 
+# =================================================================================================================
 ## -----------------------------------------------------------------------------------------------------------------------------------------------------------
 >>> rdd1 = sc.textFile("/user/cddacmaylab407/txn.txt")                                                                                                                                     
 >>> rdd1.count()                                                                                                                                                                           
