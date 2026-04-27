@@ -398,3 +398,38 @@ Mary	Smith		2200
 ('Dana Chapman', 596.98)                                                                                                  
 ('Eddie George', 534.44)                                                                                                  
 ('Joanne Stokes', 368.79)
+
+
+-------------------------------------------------------------
+
+>>> rdd17 = rdd41.sortBy(lambda a : -a[1])
+>>> for line in rdd17.take(10):
+...     print(line)
+...                    
+('Stuart House', 1973.3)     
+('Joe Burns', 1732.0900000000001)
+('Glenda Boswell', 1671.4700000000003)
+('Elsie Newton', 1640.63)
+('Jackie Lewis', 1628.94)
+('Evelyn Monroe', 1605.95) 
+('Joan Lowry', 1576.71) 
+('Paul Carey', 1560.79)
+('Julie Galloway', 1557.82)                        
+('Arlene Higgins', 1488.67)  
+
+-------------------------------------------------------------
+
+>>> rdd18 = rdd17.map(lambda a : a[0]+" "+str(a[1]) )
+>>> for line in rdd18.take(10):     
+...     print(line)                     
+...     
+Stuart House 1973.3
+Joe Burns 1732.0900000000001
+Glenda Boswell 1671.4700000000003    
+Elsie Newton 1640.63    
+Jackie Lewis 1628.94   
+Evelyn Monroe 1605.95      
+Joan Lowry 1576.71      
+Paul Carey 1560.79  
+Julie Galloway 1557.82 
+Arlene Higgins 1488.67 
