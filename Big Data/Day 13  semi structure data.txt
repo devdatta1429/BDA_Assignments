@@ -1,0 +1,490 @@
+
+
+ip-172-31-14-185 login: cddacmaylab407                                                                                                                                  
+Password:                                                                                                                                                               
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.15.0-1084-aws x86_64)                                                                                                        
+                                                                                                                                                                        
+  System information as of Fri May  1 04:07:26 UTC 2026                                                                                                                 
+                                                                                                                                                                        
+  System load:  0.18               Processes:             218                                                                                                           
+  Usage of /:   83.2% of 30.83GB   Users logged in:       1                                                                                                             
+  Memory usage: 14%                IPv4 address for ens5: 172.31.14.185                                                                                                 
+  Swap usage:   0%                                                                                                                                                      
+                                                                                                                                                                        
+  => There is 1 zombie process.                                                                                                                                         
+                                                                                                                                                                        
+Last login: Thu Apr 30 06:55:18 UTC 2026 from 127.0.0.1, 14.139.112.69 on pts/8                                                                                         
+cddacmaylab407@ip-172-31-14-185:~$ export PYSPARK_PYTHON=/opt/anaconda3/bin/python                                                                                      
+cddacmaylab407@ip-172-31-14-185:~$ export PYSPARK_DRIVER_PYTHON=/opt/anaconda3/bin/python                                                                               
+cddacmaylab407@ip-172-31-14-185:~$                                                                                                                                      
+cddacmaylab407@ip-172-31-14-185:~$ pyspark                                                                                                                              
+Python 3.9.13 (main, Aug 25 2022, 23:26:10)                                                                                                                             
+[GCC 11.2.0] :: Anaconda, Inc. on linux                                                                                                                                 
+Type "help", "copyright", "credits" or "license" for more information.                                                                                                  
+26/05/01 04:10:45 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable                          
+Setting default log level to "WARN".                                                                                                                                    
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).                                                                            
+26/05/01 04:10:46 WARN Utils: Service 'SparkUI' could not bind on port 4040. Attempting port 4041.                                                                      
+26/05/01 04:10:47 WARN Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME.                             
+Welcome to                                                                                                                                                              
+      ____              __                                                                                                                                              
+     / __/__  ___ _____/ /__                                                                                                                                            
+    _\ \/ _ \/ _ `/ __/  '_/                                                                                                                                            
+   /__ / .__/\_,_/_/ /_/\_\   version 3.1.2                                                                                                                             
+      /_/                                                                                                                                                               
+                                                                                                                                                                        
+Using Python version 3.9.13 (main, Aug 25 2022 23:26:10)                                                                                                                
+Spark context Web UI available at http://ip-172-31-14-185.ap-south-1.compute.internal:4041                                                                              
+Spark context available as 'sc' (master = yarn, app id = application_1777434385998_0160).                                                                               
+SparkSession available as 'spark'.                                                                                                                                      
+>>>                                                                                                                                                                     
+>>> import sys                                                                                                                                                          
+>>> rdd.parallelize([1])                                                                                                                                                
+Traceback (most recent call last):                                                                                                                                      
+  File "<stdin>", line 1, in <module>                                                                                                                                   
+NameError: name 'rdd' is not defined                                                                                                                                    
+>>> rdd = sc.parallelize([1])                                                                                                                                           
+>>> rdd.map(lambda x: __import__("sys").version).collect()                                                                                                              
+['3.9.13 (main, Aug 25 2022, 23:26:10) \n[GCC 11.2.0]']
+>>>                                                                                                                                                                     
+>>>                                                                                                                                                                     
+>>> from pyspark.sql.functions import array, col, explode                                                                                                               
+>>>                                                                                                                                                                     
+>>> df = spark.createDataFrame([(1, [1, 2, 3]), (2, [4, 5])], ["id", "values"])                                                                                         
+>>>                                                                                                                                                                     
+>>> df.printSchema                                                                                                                                                      
+<bound method DataFrame.printSchema of DataFrame[id: bigint, values: array<bigint>]>                                                                                    
+>>> df.printSchema()                                                                                                                                                    
+root                                                                                                                                                                    
+ |-- id: long (nullable = true)                                                                                                                                         
+ |-- values: array (nullable = true)                                                                                                                                    
+ |    |-- element: long (containsNull = true)                                                                                                                           
+                                                                                                                                                                        
+>>>                                                                                                                                                                     
+>>> df.show()                                                                                                                                                           
++---+---------+
+| id|   values|                                                                                                                                                         
++---+---------+                                                                                                                                                         
+|  1|[1, 2, 3]|                                                                                                                                                         
+|  2|   [4, 5]|                                                                                                                                                         
++---+---------+                                                                                                                                                         
+                                                                                                                                                                        
+>>> show tables;                                                                                                                                                        
+  File "<stdin>", line 1                                                                                                                                                
+    show tables;                                                                                                                                                        
+         ^                                                                                                                                                              
+SyntaxError: invalid syntax                                                                                                                                             
+>>> show Tables;                                                                                                                                                        
+  File "<stdin>", line 1                                                                                                                                                
+    show Tables;                                                                                                                                                        
+         ^                                                                                                                                                              
+SyntaxError: invalid syntax                                                                                                                                             
+>>> show Tables;                                                                                                                                                        
+  File "<stdin>", line 1                                                                                                                                                
+    show Tables;                                                                                                                                                        
+         ^                                                                                                                                                              
+SyntaxError: invalid syntax                                                                                                                                             
+>>> df1=                                                                                                                                                                
+  File "<stdin>", line 1                                                                                                                                                
+    df1   =                                                                                                                                                             
+            ^                                                                                                                                                           
+SyntaxError: invalid syntax                                                                                                                                             
+>>> df1 = df.withColumn("values",explode(col('value')))                                                                                                                 
+Traceback (most recent call last):                                                                                                                                      
+  File "<stdin>", line 1, in <module>                                                                                                                                   
+  File "/opt/spark-3.1.2/python/pyspark/sql/dataframe.py", line 2455, in withColumn                                                                                     
+    return DataFrame(self._jdf.withColumn(colName, col._jc), self.sql_ctx)                                                                                              
+  File "/opt/spark-3.1.2/python/lib/py4j-0.10.9-src.zip/py4j/java_gateway.py", line 1304, in __call__                                                                   
+  File "/opt/spark-3.1.2/python/pyspark/sql/utils.py", line 117, in deco                                                                                                
+    raise converted from None                                                                                                                                           
+pyspark.sql.utils.AnalysisException: cannot resolve '`value`' given input columns: [id, values];                                                                        
+'Project [id#0L, explode('value) AS values#13]                                                                                                                          
++- LogicalRDD [id#0L, values#1], false                                                                                                                                  
+                                                                                                                                                                        
+>>> df1 = df.withColumn("value",explode(col('values')))                                                                                                                 
+>>> df1.show()                                                                                                                                                          
++---+---------+-----+                                                                                                                                                   
+| id|   values|value|                                                                                                                                                   
++---+---------+-----+                                                                                                                                                   
+|  1|[1, 2, 3]|    1|                                                                                                                                                   
+|  1|[1, 2, 3]|    2|                                                                                                                                                   
+|  1|[1, 2, 3]|    3|                                                                                                                                                   
+|  2|   [4, 5]|    4|                                                                                                                                                   
+|  2|   [4, 5]|    5|                                                                                                                                                   
++---+---------+-----+                                                                                                                                                   
+                                                                                                                                                                        
+>>> df.select(col("values")[0].show())                                                                                                                                  
+Traceback (most recent call last):                                                                                                                                      
+  File "<stdin>", line 1, in <module>                                                                                                                                   
+TypeError: 'Column' object is not callable                                                                                                                              
+>>> df.select(col("values")[0]).show()                                                                                                                                  
++---------+                                                                                                                                                             
+|values[0]|                                                                                                                                                             
++---------+                                                                                                                                                             
+|        1|                                                                                                                                                             
+|        4|                                                                                                                                                             
++---------+                                                                                                                                                             
+                                                                                                                                                                        
+>>> df.select(col("values")[2]).show()                                                                                                                                  
++---------+                                                                                                                                                             
+|values[2]|                                                                                                                                                             
++---------+                                                                                                                                                             
+|        3|                                                                                                                                                             
+|     null|                                                                                                                                                             
++---------+                                                                                                                                                             
+                                                                                                                                                                        
+### >>> spark = SparkSession.builder.appName("ComplexTypes").getOrCreate()                                                                                                  
+                                                                                                                                                                                                                                                       
+>>> from pyspark.sql.types import StructType, StringType, IntegerType, StructField                                                                                      
+
+>>> schema = StructType([     StructField("name", StringType(), True),     StructField("info", StructType([         StructField("age", IntegerType(), True),         Str
+uctField("address", StringType(), True)     ]), True) ])                                                                                                                
+>>>                                                                                                                                                                     
+>>> data = [("John", (30, "1234 Elm St")), ("Jane", (25, "5678 Oak St"))]                                                                                               
+>>>                                                                                                                                                                     
+>>> df = spark.createDataFrame(data, schema)                                                                                                                            
+>>>                                                                                                                                                                     
+>>> df.show()                                                                                                                                                           
++----+-----------------+                                                                                                                                                
+|name|             info|                                                                                                                                                
++----+-----------------+                                                                                                                                                
+|John|{30, 1234 Elm St}|                                                                                                                                                
+|Jane|{25, 5678 Oak St}|                                                                                                                                                
++----+-----------------+                                                                                                                                                
+                                                                                                                                                                        
+>>>                                                                                                                                                                     
+>>> df1.printSchema()                                                                                                                                                   
+root                                                                                                                                                                    
+ |-- id: long (nullable = true)                                                                                                                                         
+ |-- values: array (nullable = true)                                                                                                                                    
+ |    |-- element: long (containsNull = true)                                                                                                                           
+ |-- value: long (nullable = true)                                                                                                                                      
+                                                                                                                                                                        
+>>>                                                                                                                                                                     
+>>> df.select(col("name"),col("info.age"),col("info.address"))                                                                                                          
+DataFrame[name: string, age: int, address: string]                                                                                                                      
+>>>                                                                                                                                                                     
+>>> df2 = df.select(col("name"),col("info.age"),col("info.address"))                                                                                                    
+>>> df2.show()                                                                                                                                                          
++----+---+-----------+                                                                                                                                                  
+|name|age|    address|                                                                                                                                                  
++----+---+-----------+                                                                                                                                                  
+|John| 30|1234 Elm St|                                                                                                                                                  
+|Jane| 25|5678 Oak St|                                                                                                                                                  
++----+---+-----------+                                                                                                                                                  
+                                                                                                                                                                                                                                                                                   
+>>>                                                                                                                                                                     
+>>> 
+>>> #### Maptype                                                                                                                                                        
+>>>                                                                                                                                                                     
+>>> from pyspark.sql.types import MapType                                                                                                                               
+>>>                                                                                                                                                                     
+>>> schema = StructType([     StructField("name", StringType(), True),     StructField("attributes", MapType(StringType(), StringType()), True) ])                      
+>>>                                                                                                                                                                     
+>>> data = [("John", {"height": "6ft", "eye_color": "blue", "weight":"60"}), ("Jane", {"height": "5.5ft", "eye_color": "green"})]                                       
+>>>                                                                                                                                                                                                  
+
+>>> df2 = spark.createDataFrame(data,schema)                                                                                                                            
+>>>                                                                                                                                                                     
+>>> df2.show()                                                                                                                                                          
++----+--------------------+                                                                                                                                             
+|name|          attributes|                                                                                                                                             
++----+--------------------+                                                                                                                                             
+|John|{weight -> 60, ey...|                                                                                                                                             
+|Jane|{eye_color -> gre...|                                                                                                                                             
++----+--------------------+                                                                                                                                             
+                                                                                                                                                                        
+>>> df2.printSchema()                                                                                                                                                   
+root                                                                                                                                                                    
+ |-- name: string (nullable = true)                                                                                                                                     
+ |-- attributes: map (nullable = true)                                                                                                                                  
+ |    |-- key: string                                                                                                                                                   
+ |    |-- value: string (valueContainsNull = true)                                                                                                                      
+                                                                                                                                                                        
+>>>                                                                                                                                                                     
+>>> df3 = df2.select("name",df2.attributes["height"].alias("height"),df2.attributes["eye_color"].alias("eye_color"),df2.attributes["weight"].alias("weight"))           
+>>> df3.show()                                                                                                                                                          
++----+------+---------+------+                                                                                                                                          
+|name|height|eye_color|weight|                                                                                                                                          
++----+------+---------+------+                                                                                                                                          
+|John|   6ft|     blue|    60|                                                                                                                                          
+|Jane| 5.5ft|    green|  null|                                                                                                                                          
++----+------+---------+------+       
+
+
+
+## -----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+>>> res = spark.read.json("/user/cddacmaylab407/restaurants.json")   
+                                                                                                                      
+>>> res.show(truncate=False)        
+                                                                                                                                                       
++----------------------------------------------------------------+-------------+-------------------------------+---------------------------------------------------------------------------
+-------------------------------------------------------------------------------+------------------------------+-------------+                                                              
+|address                                                         |borough      |cuisine                        |grades                                                                     
+                                                                               |name                          |restaurant_id|                                                              
++----------------------------------------------------------------+-------------+-------------------------------+---------------------------------------------------------------------------
+-------------------------------------------------------------------------------+------------------------------+-------------+                                                              
+|{1007, [-73.856077, 40.848447], Morris Park Ave, 10462}         |Bronx        |Bakery                         |[{{1393804800000}, A, 2}, {{1378857600000}, A, 6}, {{1358985600000}, A, 10}
+, {{1322006400000}, A, 9}, {{1299715200000}, B, 14}]                           |Morris Park Bake Shop         |30075445     |                                                              
+|{469, [-73.961704, 40.662942], Flatbush Avenue, 11225}          |Brooklyn     |Hamburgers                     |[{{1419897600000}, A, 8}, {{1404172800000}, B, 23}, {{1367280000000}, A, 12
+}, {{1336435200000}, A, 12}]                                                   |Wendy'S                       |30112340     |                                                              
+|{351, [-73.98513559999999, 40.7676919], West   57 Street, 10019}|Manhattan    |Irish                          |[{{1409961600000}, A, 2}, {{1374451200000}, A, 11}, {{1343692800000}, A, 12
+}, {{1325116800000}, A, 12}]                                                   |Dj Reynolds Pub And Restaurant|30191841     |                                                              
+|{2780, [-73.98241999999999, 40.579505], Stillwell Avenue, 11224}|Brooklyn     |American                       |[{{1402358400000}, A, 5}, {{1370390400000}, A, 7}, {{1334275200000}, A, 12}
+, {{1318377600000}, A, 12}]                                                    |Riviera Caterer               |40356018     |                                                              
+|{97-22, [-73.8601152, 40.7311739], 63 Road, 11374}              |Queens       |Jewish/Kosher                  |[{{1416787200000}, Z, 20}, {{1358380800000}, A, 13}, {{1343865600000}, A, 1
+3}, {{1323907200000}, B, 25}]                                                  |Tov Kosher Kitchen            |40356068     |                                                              
+|{8825, [-73.8803827, 40.7643124], Astoria Boulevard, 11369}     |Queens       |American                       |[{{1416009600000}, Z, 38}, {{1398988800000}, A, 10}, {{1362182400000}, A, 7
+}, {{1328832000000}, A, 13}]                                                   |Brunos On The Boulevard       |40356151     |                                                              
+|{2206, [-74.1377286, 40.6119572], Victory Boulevard, 10314}     |Staten Island|Jewish/Kosher                  |[{{1412553600000}, A, 9}, {{1400544000000}, A, 12}, {{1365033600000}, A, 12
+}, {{1327363200000}, A, 9}]                                                    |Kosher Island                 |40356442     |                                                              
+|{7114, [-73.9068506, 40.6199034], Avenue U, 11234}              |Brooklyn     |Delicatessen                   |[{{1401321600000}, A, 10}, {{1389657600000}, A, 10}, {{1375488000000}, A, 8
+}, {{1342569600000}, A, 10}, {{1331251200000}, A, 13}, {{1318550400000}, A, 9}]|Wilken'S Fine Food            |40356483     |                                                              
+|{6409, [-74.00528899999999, 40.628886], 11 Avenue, 11219}       |Brooklyn     |American                       |[{{1405641600000}, A, 12}, {{1375142400000}, A, 12}, {{1360713600000}, A, 1
+1}, {{1345075200000}, A, 2}, {{1313539200000}, A, 11}]                         |Regina Caterers               |40356649     |                                                              
+|{1839, [-73.9482609, 40.6408271], Nostrand Avenue, 11226}       |Brooklyn     |Ice Cream, Gelato, Yogurt, Ices|[{{1405296000000}, A, 12}, {{1373414400000}, A, 8}, {{1341964800000}, A, 5}
+, {{1329955200000}, A, 8}]                                                     |Taste The Tropics Ice Cream   |40356731     |                                                              
+|{2300, [-73.8786113, 40.8502883], Southern Boulevard, 10460}    |Bronx        |American                       |[{{1401235200000}, A, 11}, {{1371600000000}, A, 4}, {{1339718400000}, A, 3}
+]                                                                              |Wild Asia                     |40357217     |                                                              
+|{7715, [-73.9973325, 40.61174889999999], 18 Avenue, 11214}      |Brooklyn     |American                       |[{{1397606400000}, A, 5}, {{1366675200000}, A, 2}, {{1335225600000}, A, 5},
+ {{1323993600000}, A, 2}]                                                      |C & C Catering Service        |40357437     |                                                              
+|{1269, [-73.871194, 40.6730975], Sutter Avenue, 11208}          |Brooklyn     |Chinese                        |[{{1410825600000}, B, 21}, {{1377648000000}, A, 7}, {{1364860800000}, C, 56
+}, {{1344988800000}, B, 27}, {{1332892800000}, B, 27}]                         |May May Kitchen               |40358429     |                                                              
+|{1, [-73.96926909999999, 40.7685235], East   66 Street, 10065}  |Manhattan    |American                       |[{{1399420800000}, A, 3}, {{1367539200000}, A, 4}, {{1335744000000}, A, 6},
+ {{1324944000000}, A, 0}]                                                      |1 East 66Th Street Kitchen    |40359480     |                                                              
+|{705, [-73.9653967, 40.6064339], Kings Highway, 11223}          |Brooklyn     |Jewish/Kosher                  |[{{1415577600000}, A, 11}, {{1381363200000}, A, 13}, {{1349308800000}, A, 7
+}, {{1337558400000}, A, 9}, {{1325203200000}, B, 19}]                          |Seuda Foods                   |40360045     |                                                              
+|{203, [-73.97822040000001, 40.6435254], Church Avenue, 11218}   |Brooklyn     |Ice Cream, Gelato, Yogurt, Ices|[{{1391990400000}, A, 2}, {{1357084800000}, A, 13}, {{1326067200000}, A, 3}
+, {{1320624000000}, P, 12}, {{1311206400000}, A, 13}]                          |Carvel Ice Cream              |40360076     |                                                              
+|{265-15, [-73.7032601, 40.7386417], Hillside Avenue, 11004}     |Queens       |Ice Cream, Gelato, Yogurt, Ices|[{{1414454400000}, A, 9}, {{1379462400000}, A, 10}, {{1348099200000}, A, 13
+}]                                                                             |Carvel Ice Cream              |40361322     |                                                              
+|{6909, [-74.0259567, 40.6353674], 3 Avenue, 11209}              |Brooklyn     |Delicatessen                   |[{{1408579200000}, A, 4}, {{1393977600000}, A, 3}, {{1357776000000}, A, 10}
+]                                                                              |Nordic Delicacies             |40361390     |                                                              
+|{522, [-73.95171, 40.767461], East   74 Street, 10021}          |Manhattan    |American                       |[{{1409616000000}, A, 12}, {{1387411200000}, B, 16}, {{1369699200000}, A, 9
+}, {{1354838400000}, A, 13}, {{1332979200000}, A, 11}]                         |Glorious Food                 |40361521     |                                                              
+|{284, [-73.9829239, 40.6580753], Prospect Park West, 11215}     |Brooklyn     |American                       |[{{1416355200000}, A, 11}, {{1384387200000}, A, 2}, {{1354665600000}, A, 13
+}, {{1337212800000}, A, 11}]                                                   |The Movable Feast             |40361606     |                                                              
++----------------------------------------------------------------+-------------+-------------------------------+---------------------------------------------------------------------------
+-------------------------------------------------------------------------------+------------------------------+-------------+                                                              
+only showing top 20 rows                                                                                                                                                                   
+                                                                                                                                                                                           
+>>> res.show(3)                                                                                                                                                         
++--------------------+---------+----------+--------------------+--------------------+-------------+                                                                     
+|             address|  borough|   cuisine|              grades|                name|restaurant_id|                                                                     
++--------------------+---------+----------+--------------------+--------------------+-------------+                                                                     
+|{1007, [-73.85607...|    Bronx|    Bakery|[{{1393804800000}...|Morris Park Bake ...|     30075445|                                                                     
+|{469, [-73.961704...| Brooklyn|Hamburgers|[{{1419897600000}...|             Wendy'S|     30112340|                                                                     
+|{351, [-73.985135...|Manhattan|     Irish|[{{1409961600000}...|Dj Reynolds Pub A...|     30191841|                                                                     
++--------------------+---------+----------+--------------------+--------------------+-------------+                                                                     
+only showing top 3 rows                                                                                                                                                 
+                                                                                                                                                                        
+>>>                                                                                                                                                            
+                                  
+>>> spark.sql("select address.zipcode ,count(restaurant_id) from res where cuisine='Indian' group by address.zipcode").count()                                                             
+28
+>>> spark.sql("select address.zipcode ,count(restaurant_id) as cnt from res where cuisine='Indian' group by address.zipcode").show(28)                                                     
++-------+---+                                                                                                                                                                              
+|zipcode|cnt|                                                                                                                                                                              
++-------+---+                                                                                                                                                                              
+|  11106|  1|                                                                                                                                                                              
+|  10012|  1|                                                                                                                                                                              
+|  11367|  1|                                                                                                                                                                              
+|  11355|  2|                                                                                                                                                                              
+|  11004|  1|                                                                                                                                                                              
+|  10014|  1|                                                                                                                                                                              
+|  10001|  1|                                                                                                                                                                              
+|  10003|  4|                                                                                                                                                                              
+|  10023|  2|                                                                                                                                                                              
+|  10040|  1|                                                                                                                                                                              
+|  10022|  2|                                                                                                                                                                              
+|  11209|  2|                                                                                                                                                                              
+|  10065|  1|                                                                                                                                                                              
+|  11372|  3|                                                                                                                                                                              
+|  11430|  1|                                                                                                                                                                              
+|  11415|  1|                                                                                                                                                                              
+|  11432|  2|                                                                                                                                                                              
+|  10027|  1|                                                                                                                                                                              
+|  10036|  2|                                                                                                                                                                              
+|  11374|  1|                                                                                                                                                                              
+|  10025|  1|                                                                                                                                                                              
+|  10007|  1|                                                                                                                                                                              
+|  10019|  1|                                                                                                                                                                              
+|  11103|  1|                                                                                                                                                                              
+|  10005|  2|                                                                                                                                                                              
+|  10017|  1|                                                                                                                                                                              
+|  10306|  1|                                                                                                                                                                              
+|  10016|  4|                                                                                                                                                                              
++-------+---+    
+
+>>> from pyspark.sql.functions import explode                                                                                                                                              
+>>>                                                                                                                                                                                        
+>>> df= res.select('restaurant_id', 'name', explode(res.grades).alias('Grades'))                                                                                                           
+>>>                                                                                                                                                                                        
+>>> df2 = df.select('restaurant_id', 'name', 'Grades.date', 'Grades.grade', 'Grades.score')                                                                                                
+>>>   
+>>> df2.show(5)                                                                                                                                                                            
++-------------+--------------------+---------------+-----+-----+                                                                                                                           
+|restaurant_id|                name|           date|grade|score|                                                                                                                           
++-------------+--------------------+---------------+-----+-----+                                                                                                                           
+|     30075445|Morris Park Bake ...|{1393804800000}|    A|    2|                                                                                                                           
+|     30075445|Morris Park Bake ...|{1378857600000}|    A|    6|                                                                                                                           
+|     30075445|Morris Park Bake ...|{1358985600000}|    A|   10|                                                                                                                           
+|     30075445|Morris Park Bake ...|{1322006400000}|    A|    9|                                                                                                                           
+|     30075445|Morris Park Bake ...|{1299715200000}|    B|   14|                                                                                                                           
++-------------+--------------------+---------------+-----+-----+                                                                                                                           
+only showing top 5 rows                                                                                                                                                                    
+                                                                                                                                                                                           
+>>> df2.show(2,truncate=False)                                                                                                                                                             
++-------------+---------------------+---------------+-----+-----+                                                                                                                          
+|restaurant_id|name                 |date           |grade|score|                                                                                                                          
++-------------+---------------------+---------------+-----+-----+                                                                                                                          
+|30075445     |Morris Park Bake Shop|{1393804800000}|A    |2    |                                                                                                                          
+|30075445     |Morris Park Bake Shop|{1378857600000}|A    |6    |                                                                                                                          
++-------------+---------------------+---------------+-----+-----+                                                                                                                          
+only showing top 2 rows                                                                                                                                                                    
+                                                                                                                                                                                           
+>>>    
+
+>>> spark.sql("select restaurant_id, name, max(score) from grade group by restaurant_id, name").show()                                                                  
++-------------+--------------------+----------+
+|restaurant_id|                name|max(score)|                                                                                                                         
++-------------+--------------------+----------+                                                                                                                         
+|     40363151|             Olive'S|        13|                                                                                                                         
+|     40363426|         Lexler Deli|        12|                                                                                                                         
+|     40365644|Joe Allen Restaurant|        13|                                                                                                                         
+|     40370519|         Divers Cove|        13|                                                                                                                         
+|     40373889|  Felidia Restaurant|        13|                                                                                                                         
+|     40375972|         Vegas Diner|        13|                                                                                                                         
+|     40390814|        Loui Seafood|        13|                                                                                                                         
+|     40391531|    Tea And Sympathy|        10|                                                                                                                         
+|     40402145|Bali Nusa Indones...|        25|                                                                                                                         
+|     40604740|     T.G.I. Friday'S|        18|                                                                                                                         
+|     40649463|La Boina Roja Ste...|        15|                                                                                                                         
+|     40698823|Union Cafe Restau...|        12|                                                                                                                         
+|     40852397|         Candies Bar|        25|                                                                                                                         
+|     40879245|Grand Hyatt New Y...|        40|                                                                                                                         
+|     40369017|            Palm Too|        12|                                                                                                                         
+|     40383799|        Jackson Hole|        14|                                                                                                                         
+|     40394957|       Tuscany Grill|        19|                                                                                                                         
+|     40397723|        White Castle|        13|                                                                                                                         
+|     40398910|         Joe'S Pizza|        30|                                                                                                                         
+|     40399285|Bangkok Grand Palace|        24|                                                                                                                         
++-------------+--------------------+----------+                                                                                                                         
+only showing top 20 rows
+
+>>> df4 = df2.select("restaurant_id", "name", "date.$date", "grade", "score")                                                                                           
+>>> df4.show()                                                                                                                                                          
++-------------+--------------------+-------------+-----+-----+                                                                                                          
+|restaurant_id|                name|        $date|grade|score|                                                                                                          
++-------------+--------------------+-------------+-----+-----+                                                                                                          
+|     30075445|Morris Park Bake ...|1393804800000|    A|    2|                                                                                                          
+|     30075445|Morris Park Bake ...|1378857600000|    A|    6|                                                                                                          
+|     30075445|Morris Park Bake ...|1358985600000|    A|   10|                                                                                                          
+|     30075445|Morris Park Bake ...|1322006400000|    A|    9|                                                                                                          
+|     30075445|Morris Park Bake ...|1299715200000|    B|   14|                                                                                                          
+|     30112340|             Wendy'S|1419897600000|    A|    8|                                                                                                          
+|     30112340|             Wendy'S|1404172800000|    B|   23|                                                                                                          
+|     30112340|             Wendy'S|1367280000000|    A|   12|                                                                                                          
+|     30112340|             Wendy'S|1336435200000|    A|   12|                                                                                                          
+|     30191841|Dj Reynolds Pub A...|1409961600000|    A|    2|                                                                                                          
+|     30191841|Dj Reynolds Pub A...|1374451200000|    A|   11|                                                                                                          
+|     30191841|Dj Reynolds Pub A...|1343692800000|    A|   12|                                                                                                          
+|     30191841|Dj Reynolds Pub A...|1325116800000|    A|   12|                                                                                                          
+|     40356018|     Riviera Caterer|1402358400000|    A|    5|                                                                                                          
+|     40356018|     Riviera Caterer|1370390400000|    A|    7|                                                                                                          
+|     40356018|     Riviera Caterer|1334275200000|    A|   12|                                                                                                          
+|     40356018|     Riviera Caterer|1318377600000|    A|   12|                                                                                                          
+|     40356068|  Tov Kosher Kitchen|1416787200000|    Z|   20|                                                                                                          
+|     40356068|  Tov Kosher Kitchen|1358380800000|    A|   13|                                                                                                          
+|     40356068|  Tov Kosher Kitchen|1343865600000|    A|   13|                                                                                                          
++-------------+--------------------+-------------+-----+-----+                                                                                                          
+only showing top 20 rows                                                                                                                                                
+                                                                                                                                                                        
+>>> df4.printSchema()                                                                                                                                                   
+root                                                                                                                                                                    
+ |-- restaurant_id: string (nullable = true)                                                                                                                            
+ |-- name: string (nullable = true)                                                                                                                                     
+ |-- $date: long (nullable = true)                                                                                                                                      
+ |-- grade: string (nullable = true)                                                                                                                                    
+ |-- score: long (nullable = true)                                                                                                                                      
+                                                                                                                                                                        
+>>> from pyspark.sql.functions import from_unixtime,col                                                                                                                 
+>>> df5=df4.select("restaurant_id", "name", from_unixtime(col("$date")/1000, "yyyy-MM-dd").alias("grade_dt"))                                                           
+>>> df5.show(5)                                                                                                                                                         
++-------------+--------------------+----------+                                                                                                                         
+|restaurant_id|                name|  grade_dt|                                                                                                                         
++-------------+--------------------+----------+                                                                                                                         
+|     30075445|Morris Park Bake ...|2014-03-03|                                                                                                                         
+|     30075445|Morris Park Bake ...|2013-09-11|                                                                                                                         
+|     30075445|Morris Park Bake ...|2013-01-24|                                                                                                                         
+|     30075445|Morris Park Bake ...|2011-11-23|                                                                                                                         
+|     30075445|Morris Park Bake ...|2011-03-10|                                                                                                                         
++-------------+--------------------+----------+                                                                                                                         
+only showing top 5 rows                                                                                                                                                 
+                                                                                                                                                                        
+>>>                                                                                                                                                                     
+>>> df5.printSchema                                                                                                                                                     
+<bound method DataFrame.printSchema of DataFrame[restaurant_id: string, name: string, grade_dt: string]>                                                                
+>>> df5.printSchema()                                                                                                                                                   
+root                                                                                                                                                                    
+ |-- restaurant_id: string (nullable = true)                                                                                                                            
+ |-- name: string (nullable = true)                                                                                                                                     
+ |-- grade_dt: string (nullable = true)                                                                                                                                 
+                                                                                                                                                                        
+>>>                                                                                                                                                                     
+>>> from pyspark.sql.functions import from_unixtime                                                                                                                     
+>>>                                                                                                                                                                     
+>>> df6 = df5.withColumn("grade_dt", to_date( col("grade_dt"), "yyyy-MM-dd" ))                                                                                          
+Traceback (most recent call last):                                                                                                                                      
+  File "<stdin>", line 1, in <module>                                                                                                                                   
+NameError: name 'to_date' is not defined                                                                                                                                
+>>>                                                                                                                                                                     
+>>>                                                                                                                                                                     
+>>> from pyspark.sql.functions import to_date                                                                                                                           
+>>> df6 = df5.withColumn("grade_dt", to_date( col("grade_dt"), "yyyy-MM-dd" ))                                                                                          
+>>> df6.show(2)                                                                                                                                                         
++-------------+--------------------+----------+                                                                                                                         
+|restaurant_id|                name|  grade_dt|                                                                                                                         
++-------------+--------------------+----------+                                                                                                                         
+|     30075445|Morris Park Bake ...|2014-03-03|                                                                                                                         
+|     30075445|Morris Park Bake ...|2013-09-11|                                                                                                                         
++-------------+--------------------+----------+                                                                                                                         
+only showing top 2 rows                                                                                                                                                 
+                                                                                                                                                                        
+>>>                                                                                                                                                                     
+>>>                                                                                                                                                                     
+>>> df6.createOrReplaceTempView("dateWiseTable")                                                                                                                                                                   
+>>> spark.sql("select name, year(grade_dt), count(*) from dateWiseTable where name = 'Morris Park Bake Shop' group by name, year(grade_dt)").show()                                                                
++--------------------+--------------+--------+                                                                                                                                                                     
+|                name|year(grade_dt)|count(1)|                                                                                                                                                                     
++--------------------+--------------+--------+                                                                                                                                                                     
+|Morris Park Bake ...|          2014|       1|                                                                                                                                                                     
+|Morris Park Bake ...|          2011|       2|                                                                                                                                                                     
+|Morris Park Bake ...|          2013|       2|                                                                                                                                                                     
++--------------------+--------------+--------+                                                                                                                                                                     
+                                                                                                                                                                                                                   
+>>> 
+>>> df_arrayCoord = res.select('restaurant_id', 'name', res.address.coord[0].alias('longitude'),res.address.coord[1].alias('latitude') )                                                                           
+                                                                                                                                           
+>>> df_arrayCoord.show(2)                                                                                                                                                                  
++-------------+--------------------+----------+---------+                                                                                                                                  
+|restaurant_id|                name| longitude| latitude|                                                                                                                                  
++-------------+--------------------+----------+---------+                                                                                                                                  
+|     30075445|Morris Park Bake ...|-73.856077|40.848447|                                                                                                                                  
+|     30112340|             Wendy'S|-73.961704|40.662942|                                                                                                                                  
++-------------+--------------------+----------+---------+                                                                                                                                  
+only showing top 2 rows                                                                                                                                                                    
+                                                                                                                                                                                           
+>>> df_arrayCoord.show(2,truncate= False)                                                                                                                                                  
++-------------+---------------------+----------+---------+                                                                                                                                 
+|restaurant_id|name                 |longitude |latitude |                                                                                                                                 
++-------------+---------------------+----------+---------+                                                                                                                                 
+|30075445     |Morris Park Bake Shop|-73.856077|40.848447|                                                                                                                                 
+|30112340     |Wendy'S              |-73.961704|40.662942|                                                                                                                                 
++-------------+---------------------+----------+---------+                                                                                                                                 
+only showing top 2 rows                                                                                                                                                                    
+                                                                                                                                                                                           
+>>>                                                                                                                                                                                        
+                                         
+
