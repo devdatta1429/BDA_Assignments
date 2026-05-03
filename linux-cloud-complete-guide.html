@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux & Cloud Computing — The Complete Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+:root {
+  --bg: #F4F7F4;
+  --bg2: #E8EFE8;
+  --bg3: #DDE8DD;
+  --ink: #0F1A0F;
+  --ink2: #243324;
+  --ink3: #4A634A;
+  --green: #1A6B2A;
+  --green2: #228B36;
+  --blue: #0B4D8C;
+  --blue2: #1A6BC4;
+  --gold: #B87C0B;
+  --gold2: #D49A17;
+  --border: #C8D8C8;
+  --border2: #B0C4B0;
+  --white: #FFFFFF;
+  --shadow: rgba(10,30,10,0.12);
+  --nav-bg: rgba(244,247,244,0.96);
+  --hero-bg: #0F1A0F;
+  --code-bg: #0F1A0F;
+  --code-border: #1A2A1A;
+  --code-text: #B0C8B0;
+  --story-bg: #0F1A0F;
+  --arch-bg: #0F1A0F;
+  --aws-bg: linear-gradient(135deg,#0D1117,#1A2A1A);
+}
+
+[data-theme="dark"] {
+  --bg: #111814;
+  --bg2: #1A2218;
+  --bg3: #202C20;
+  --ink: #E8F0E8;
+  --ink2: #C0D0C0;
+  --ink3: #88A888;
+  --green: #4ABA5A;
+  --green2: #5ED46E;
+  --blue: #5A9FE0;
+  --blue2: #7AB8F0;
+  --gold: #D4A827;
+  --gold2: #E8C040;
+  --border: #2A3A2A;
+  --border2: #364836;
+  --white: #1E2A1E;
+  --shadow: rgba(0,0,0,0.4);
+  --nav-bg: rgba(17,24,20,0.97);
+  --hero-bg: #060E06;
+  --code-bg: #080F08;
+  --code-border: #1A2A1A;
+  --code-text: #A8C8A8;
+  --story-bg: #0A1410;
+  --arch-bg: #0A1410;
+  --aws-bg: linear-gradient(135deg,#080D08,#0F1A10);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--green);
+  background: var(--bg3);
+}
+
+.theme-toggle-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--ink3);
+  user-select: none;
+}
+
+.theme-toggle-track {
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--border);
+  position: relative;
+  transition: background 0.25s;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .theme-toggle-track {
+  background: var(--green);
+}
+
+.theme-toggle-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.25s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+[data-theme="dark"] .theme-toggle-thumb {
+  transform: translateX(16px);
+}
+
+.theme-icon { font-size: 13px; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 17px;
+  line-height: 1.85;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 80px 40px;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(100,200,100,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100,200,100,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.hero-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,107,42,0.3) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.hero-content { position:relative; z-index:1; max-width:860px; }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--gold2);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(44px, 8vw, 90px);
+  font-weight: 900;
+  color: var(--bg);
+  line-height: 0.95;
+  margin-bottom: 8px;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--green2);
+}
+
+.hero-divider {
+  width: 80px; height: 3px;
+  background: linear-gradient(90deg, var(--green), var(--gold2));
+  margin: 32px 0;
+}
+
+.hero-intro {
+  font-size: 19px;
+  color: #B0C4B0;
+  line-height: 1.75;
+  max-width: 640px;
+  font-weight: 300;
+}
+
+.hero-intro strong { color: var(--bg); font-weight: 500; }
+
+.hero-badges {
+  display: flex;
+  gap: 12px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.hero-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #888;
+}
+
+.hero-scroll {
+  margin-top: 48px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #444;
+  letter-spacing: 0.3em;
+}
+
+/* ===== NAV ===== */
+.nav-sticky {
+  position: sticky;
+  top: 0;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  z-index: 200;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+}
+
+.nav-sticky a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ink3);
+  text-decoration: none;
+  padding: 16px 14px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+.nav-sticky a:hover { color: var(--green); border-bottom-color: var(--green); }
+
+/* ===== CHAPTER ===== */
+.chapter {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 80px 32px;
+  border-bottom: 1px solid var(--border);
+  animation: fadeUp 0.5s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(20px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+.chapter-header { margin-bottom: 48px; }
+
+.chapter-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  color: var(--green);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.chapter h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(30px, 5vw, 50px);
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+.chapter h2 em { font-style: italic; color: var(--green); }
+.chapter h2 .blue { color: var(--blue); }
+
+.chapter-lead {
+  font-size: 20px;
+  color: var(--ink2);
+  line-height: 1.6;
+  font-weight: 400;
+  border-left: 4px solid var(--green);
+  padding-left: 20px;
+}
+
+/* PROSE */
+.prose p {
+  color: var(--ink2);
+  margin-bottom: 22px;
+  font-size: 17px;
+}
+
+.prose p strong { color: var(--ink); font-weight: 600; }
+
+.prose h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 48px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.prose h4 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin: 32px 0 12px;
+}
+
+/* STORY BOX */
+.story {
+  background: var(--story-bg);
+  color: var(--bg);
+  border-radius: 12px;
+  padding: 36px;
+  margin: 36px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.story::before {
+  content: '"';
+  font-family: 'Playfair Display', serif;
+  font-size: 200px;
+  color: rgba(255,255,255,0.03);
+  position: absolute;
+  top: -40px; left: 20px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.story-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: var(--gold2);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.story p {
+  color: #B0C4B0;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.story p:last-child { margin-bottom: 0; }
+.story p strong { color: var(--bg); }
+
+/* HIGHLIGHT */
+.highlight {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+
+.highlight p { color: var(--ink2); margin-bottom: 0; font-size: 16px; }
+.highlight p strong { color: var(--ink); }
+
+/* IMPORTANT */
+.important {
+  background: linear-gradient(135deg, rgba(26,107,42,0.07), rgba(26,107,42,0.03));
+  border: 1px solid rgba(26,107,42,0.3);
+  border-radius: 8px;
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+
+.important-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--green);
+  font-weight: 500;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.important p { color: var(--ink2); margin-bottom: 0; font-size: 16px; }
+.important p strong { color: var(--green); }
+
+/* FLOW */
+.flow {
+  margin: 36px 0;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.flow-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--ink3);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.flow-steps { display: flex; flex-direction: column; gap: 0; }
+
+.flow-step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.flow-step:last-child { border-bottom: none; padding-bottom: 0; }
+.flow-step:first-child { padding-top: 0; }
+
+.flow-icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.flow-text strong {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.flow-text span { font-size: 14px; color: var(--ink3); line-height: 1.65; }
+
+/* ARCH VISUAL */
+.arch-visual {
+  margin: 36px 0;
+  background: var(--arch-bg);
+  border-radius: 16px;
+  padding: 40px 32px;
+  color: var(--bg);
+}
+
+.arch-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: var(--gold2);
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.arch-layer {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.arch-layer:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(26,107,42,0.6);
+  transform: translateX(4px);
+}
+
+.arch-layer .al-icon { font-size: 24px; flex-shrink:0; }
+.arch-layer .al-name { font-size: 15px; font-weight: 600; color: var(--bg); display: block; }
+.arch-layer .al-sub { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #777; display: block; margin-top: 2px; }
+.arch-layer .al-desc { font-size: 13px; color: #A0B8A0; margin-left: auto; text-align: right; max-width: 220px; }
+
+.arch-arrow { text-align: center; font-size: 18px; color: var(--green2); margin: 4px 0; opacity: 0.7; }
+
+/* COMPARE GRID */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 28px 0;
+}
+@media(max-width:600px){ .compare-grid{grid-template-columns:1fr;} }
+
+.cg-box {
+  border-radius: 10px;
+  padding: 24px;
+  border: 1px solid var(--border);
+}
+
+.cg-box.a { background: linear-gradient(135deg, #F0FFF0, var(--bg)); border-color: var(--green2); }
+.cg-box.b { background: var(--bg2); }
+.cg-box.c { background: linear-gradient(135deg, #F0F4FF, var(--bg)); border-color: var(--blue2); }
+
+.cg-box .cg-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.cg-box.a .cg-label { color: var(--green); }
+.cg-box.b .cg-label { color: var(--ink3); }
+.cg-box.c .cg-label { color: var(--blue); }
+
+.cg-box .cg-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.cg-box.a .cg-title { color: var(--green); }
+.cg-box.b .cg-title { color: var(--ink2); }
+.cg-box.c .cg-title { color: var(--blue); }
+
+.cg-box p { font-size: 14px; color: var(--ink3); line-height: 1.7; margin-bottom: 0; }
+
+/* CODE */
+.code-block {
+  background: var(--code-bg);
+  border-radius: 10px;
+  padding: 28px;
+  margin: 24px 0;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--code-text);
+  border: 1px solid var(--code-border);
+  white-space: pre;
+  display: block;
+}
+
+.code-block .kw  { color: #5EC45E; }
+.code-block .fn  { color: #D4A017; }
+.code-block .str { color: #7ABDAB; }
+.code-block .cm  { color: #445544; font-style: italic; }
+.code-block .num { color: #7AABBD; }
+.code-block .prompt { color: var(--green2); font-weight: 500; }
+
+/* INFO TABLE */
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+}
+
+.info-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  padding: 12px 16px;
+  text-align: left;
+  background: var(--bg2);
+  border-bottom: 2px solid var(--border);
+}
+
+.info-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink2);
+  vertical-align: top;
+}
+
+.info-table td strong { color: var(--ink); font-weight: 600; }
+.info-table tr:hover td { background: var(--bg2); }
+
+/* CHECKLIST */
+.checklist { list-style: none; margin: 20px 0; }
+
+.checklist li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  color: var(--ink2);
+}
+
+.checklist li:last-child { border-bottom: none; }
+.check-icon { font-size: 16px; margin-top: 2px; flex-shrink: 0; }
+.checklist li strong { color: var(--ink); font-weight: 600; }
+
+/* HFLOW */
+.hflow {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  overflow-x: auto;
+  margin: 28px 0;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hstep {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  text-align: center;
+  min-width: 110px;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.hstep .hs-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--green);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.hstep .hs-name {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.harrow {
+  display: flex;
+  align-items: center;
+  color: var(--green);
+  font-size: 20px;
+  flex-shrink: 0;
+  padding: 0 4px;
+}
+
+/* SECTION BREAK */
+.section-break {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 20px 32px 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.section-break span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--border2);
+  flex-shrink: 0;
+}
+
+.section-break::before, .section-break::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* AWS EXAMPLE BOX */
+.aws-box {
+  background: var(--aws-bg);
+  border: 1px solid rgba(100,200,100,0.2);
+  border-radius: 10px;
+  padding: 28px;
+  margin: 28px 0;
+}
+
+.aws-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--gold2);
+  margin-bottom: 14px;
+  display: block;
+}
+
+.aws-box p {
+  color: #A0C0A8;
+  font-size: 15px;
+  line-height: 1.75;
+  margin-bottom: 12px;
+}
+
+.aws-box p:last-child { margin-bottom: 0; }
+.aws-box p strong { color: #E0F0E0; }
+
+/* TAG PILLS */
+.tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin: 2px;
+}
+
+.tag.saas { background: rgba(26,107,42,0.1); color: var(--green); border: 1px solid rgba(26,107,42,0.3); }
+.tag.paas { background: rgba(11,77,140,0.1); color: var(--blue); border: 1px solid rgba(11,77,140,0.3); }
+.tag.iaas { background: rgba(184,124,11,0.1); color: var(--gold); border: 1px solid rgba(184,124,11,0.3); }
+.tag.cmd  { background: rgba(10,20,10,0.07); color: var(--ink2); border: 1px solid var(--border); }
+
+/* THREE TIER GRID */
+.tier-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin: 28px 0;
+}
+
+@media(max-width:650px){ .tier-grid{grid-template-columns:1fr;} }
+
+.tier-card {
+  border-radius: 10px;
+  padding: 24px 20px;
+  border: 1px solid var(--border);
+}
+
+.tier-card.saas-card { background: linear-gradient(135deg, #F0FFF0, var(--bg)); border-top: 3px solid var(--green); }
+.tier-card.paas-card { background: linear-gradient(135deg, #F0F4FF, var(--bg)); border-top: 3px solid var(--blue); }
+.tier-card.iaas-card { background: linear-gradient(135deg, #FFFAF0, var(--bg)); border-top: 3px solid var(--gold); }
+
+.tier-card .tc-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  margin-bottom: 10px;
+  display: block;
+}
+.saas-card .tc-label { color: var(--green); }
+.paas-card .tc-label { color: var(--blue); }
+.iaas-card .tc-label { color: var(--gold); }
+
+.tier-card .tc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.saas-card .tc-title { color: var(--green); }
+.paas-card .tc-title { color: var(--blue); }
+.iaas-card .tc-title { color: var(--gold); }
+
+.tier-card p { font-size: 13px; color: var(--ink3); line-height: 1.65; margin-bottom: 10px; }
+.tier-card .tc-example { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink3); }
+
+/* FOOTER */
+.footer {
+  background: var(--ink);
+  color: var(--bg);
+  text-align: center;
+  padding: 60px 40px;
+}
+
+.footer h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 900;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--gold2), var(--green2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #444;
+  letter-spacing: 0.25em;
+}
+
+@media(max-width:700px){
+  .chapter { padding: 60px 20px; }
+  .hero { padding: 60px 24px; }
+  .arch-layer { flex-direction: column; gap: 10px; }
+  .arch-layer .al-desc { margin-left: 0; text-align: left; max-width: 100%; }
+  .compare-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ======= HERO ======= -->
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">🐧 PGCP-BDA · The Complete Story</div>
+    <h1>Linux &amp; <em>Cloud</em><br>Computing</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-intro">
+      Not just commands and bullet points. A <strong>real, complete explanation</strong> — from the kernel that runs your computer to the global data centers that run the internet. Built for people who want to truly <strong>understand</strong>, not just pass an exam.
+    </p>
+    <div class="hero-badges">
+      <span class="hero-badge">LINUX PROGRAMMING</span>
+      <span class="hero-badge">SHELL SCRIPTING</span>
+      <span class="hero-badge">CLOUD COMPUTING</span>
+      <span class="hero-badge">AWS · AZURE · GIT</span>
+    </div>
+    <div class="hero-scroll">scroll to begin ↓</div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav-sticky">
+  <a href="#linux-intro">Linux Basics</a>
+  <a href="#commands">Commands</a>
+  <a href="#permissions">Permissions</a>
+  <a href="#shell">Shell Scripting</a>
+  <a href="#git">Git & GitHub</a>
+  <a href="#cloud-intro">What is Cloud</a>
+  <a href="#models">SaaS / PaaS / IaaS</a>
+  <a href="#virtualization">Virtualization</a>
+  <a href="#admin">Cloud Admin</a>
+  <a href="#aws">AWS Deep Dive</a>
+  <a href="#azure">Azure</a>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode">
+    <span class="theme-icon" id="theme-icon">🌙</span>
+    <div class="theme-toggle-track"><div class="theme-toggle-thumb"></div></div>
+    <span class="theme-toggle-label" id="theme-label">DARK</span>
+  </button>
+</nav>
+
+
+<!-- ======= CHAPTER 1: LINUX INTRO ======= -->
+<article class="chapter" id="linux-intro">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 01 — Linux Fundamentals</div>
+    <h2>What <em>Linux</em> Actually Is</h2>
+    <p class="chapter-lead">Before you type a single command, you need to understand what you're really talking to — and why Linux became the foundation of almost all modern computing.</p>
+  </div>
+
+  <div class="prose">
+    <div class="story">
+      <span class="story-tag">📖 THE ORIGIN STORY</span>
+      <p>In 1991, a Finnish university student named Linus Torvalds was frustrated. He had a PC but couldn't afford a proper Unix operating system, and the free alternatives were either too limited or had restrictive licenses. So he did what programmers do — he built his own.</p>
+      <p>He posted to a mailing list: <strong>"I'm doing a (free) operating system (just a hobby, won't be big and professional like GNU) for 386(486) AT clones."</strong> Thirty years later, Linux runs 97% of the world's top supercomputers, all of Android, most of the internet's servers, and every major cloud platform. Not bad for a hobby project.</p>
+    </div>
+
+    <h3>The Architecture of Linux</h3>
+
+    <p>Linux is not just a bunch of commands. It has a layered architecture where each layer has a specific job. Understanding this makes everything else click.</p>
+
+    <div class="arch-visual">
+      <div class="arch-title">LINUX ARCHITECTURE — LAYERS FROM BOTTOM TO TOP</div>
+
+      <div class="arch-layer">
+        <div class="al-icon">🔩</div>
+        <div>
+          <span class="al-name">Hardware</span>
+          <span class="al-sub">CPU · RAM · Disk · Network card · USB</span>
+        </div>
+        <div class="al-desc">Physical silicon. The actual machine.</div>
+      </div>
+      <div class="arch-arrow">↑</div>
+
+      <div class="arch-layer">
+        <div class="al-icon">⚙️</div>
+        <div>
+          <span class="al-name">Kernel (Core of Linux)</span>
+          <span class="al-sub">Process management · Memory management · Device drivers · File systems</span>
+        </div>
+        <div class="al-desc">The brain. Talks directly to hardware. Lives in kernel space.</div>
+      </div>
+      <div class="arch-arrow">↑</div>
+
+      <div class="arch-layer">
+        <div class="al-icon">📞</div>
+        <div>
+          <span class="al-name">System Calls Interface</span>
+          <span class="al-sub">open(), read(), write(), fork(), exec(), socket()</span>
+        </div>
+        <div class="al-desc">The bridge between user programs and the kernel.</div>
+      </div>
+      <div class="arch-arrow">↑</div>
+
+      <div class="arch-layer">
+        <div class="al-icon">📚</div>
+        <div>
+          <span class="al-name">C Standard Library (glibc)</span>
+          <span class="al-sub">printf, malloc, fopen — wrappers around system calls</span>
+        </div>
+        <div class="al-desc">Makes system calls easier for programmers to use.</div>
+      </div>
+      <div class="arch-arrow">↑</div>
+
+      <div class="arch-layer">
+        <div class="al-icon">🐚</div>
+        <div>
+          <span class="al-name">Shell (BASH, sh, zsh)</span>
+          <span class="al-sub">The command interpreter — reads what you type, executes programs</span>
+        </div>
+        <div class="al-desc">Lives in user space. Your primary interface.</div>
+      </div>
+      <div class="arch-arrow">↑</div>
+
+      <div class="arch-layer">
+        <div class="al-icon">👤</div>
+        <div>
+          <span class="al-name">User Applications</span>
+          <span class="al-sub">ls, grep, vim, Firefox, Python — everything you run</span>
+        </div>
+        <div class="al-desc">User space programs. Cannot touch hardware directly.</div>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <p><strong>Kernel Space vs User Space:</strong> This is the most important boundary in Linux. The kernel runs in a privileged mode and can directly access hardware. Your programs run in unprivileged user space — they must ask the kernel for everything via system calls. This is what makes Linux secure and stable: a buggy user program crashes itself, not the whole system.</p>
+    </div>
+
+    <h3>The GNU Movement — Why Linux is Actually "GNU/Linux"</h3>
+
+    <p>Linus built the kernel, but a kernel alone is useless — you can't do anything without programs. In the 1980s, Richard Stallman started the <strong>GNU project</strong> to build a complete free Unix-like system. He created all the tools: gcc (compiler), bash (shell), coreutils (ls, cp, mv, grep…), glibc, and much more.</p>
+
+    <p>When Linus built his kernel in 1991, he combined it with GNU tools. The result? A complete, free, usable operating system. The kernel is Linux; the surrounding system is GNU. This is why purists say "GNU/Linux" — it acknowledges both contributions.</p>
+
+    <p>The whole thing is distributed under the <strong>GPL (GNU General Public License)</strong> — a "copyleft" license that says: you can use, modify, and distribute this software freely, but if you distribute a modified version, you must also release your source code. This legal structure is what kept Linux free and ensured the whole community benefits from every improvement.</p>
+
+    <h3>Linux as a Server — Why It Dominates</h3>
+
+    <p>You might use Windows or macOS on your laptop. But the server running the website you visit, the database storing your data, the cloud instance running your code — almost certainly runs Linux. Why?</p>
+
+    <ul class="checklist">
+      <li><span class="check-icon">⚡</span><div><strong>Stability:</strong> Linux servers routinely run for years without rebooting. Windows servers need regular restarts for updates. A server reboot costs money and availability.</div></li>
+      <li><span class="check-icon">🔒</span><div><strong>Security:</strong> Multi-user design baked in from day one. Every file has an owner. Every process runs as a user. The principle of least privilege is the default.</div></li>
+      <li><span class="check-icon">💰</span><div><strong>Cost:</strong> Linux is free. Windows Server licenses cost hundreds to thousands of dollars per server. When you have 10,000 servers (like AWS does), this matters enormously.</div></li>
+      <li><span class="check-icon">🛠️</span><div><strong>Automation:</strong> Everything is a file or a command. Shell scripts can automate anything. This is why DevOps and cloud automation love Linux.</div></li>
+      <li><span class="check-icon">🌐</span><div><strong>Community:</strong> Millions of developers worldwide. Every problem has been solved and the solution is a Google search away.</div></li>
+    </ul>
+  </div>
+</article>
+
+
+<!-- ======= CHAPTER 2: COMMANDS ======= -->
+<article class="chapter" id="commands">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 02 — Linux Commands</div>
+    <h2>Speaking the <em>Language</em> of Linux</h2>
+    <p class="chapter-lead">The command line is not a relic of the past. It is the most powerful interface ever built for controlling a computer. Every cloud operation, every automation script, every server configuration starts here.</p>
+  </div>
+
+  <div class="prose">
+    <div class="story">
+      <span class="story-tag">📖 THE MENTAL MODEL</span>
+      <p>Think of the Linux shell like having a conversation. You type a command (a request), the kernel processes it, and the shell prints the result. Commands follow a pattern: <strong>command [options] [arguments]</strong>. The command is <em>what</em> to do, options are <em>how</em> to do it, and arguments are <em>what to do it on</em>.</p>
+      <p>For example: <strong>ls -la /home/user</strong> — ls is the command (list), -la are options (long format + show hidden files), and /home/user is the argument (list this directory). Once you see this pattern, every command makes sense.</p>
+    </div>
+
+    <h3>Navigating the File System</h3>
+
+    <p>Linux organizes everything in a single tree starting from <strong>/</strong> (root). There are no drive letters like C: or D: — everything hangs off root. Your files live in /home/yourname, system programs in /usr/bin, configuration in /etc, and temporary files in /tmp.</p>
+
+    <div class="code-block">
+<span class="prompt">$</span> <span class="kw">pwd</span>           <span class="cm"># Print Working Directory — where am I right now?</span>
+/home/student
+
+<span class="prompt">$</span> <span class="kw">ls</span>            <span class="cm"># List files in current directory</span>
+<span class="prompt">$</span> <span class="kw">ls -l</span>         <span class="cm"># Long format: permissions, owner, size, date</span>
+<span class="prompt">$</span> <span class="kw">ls -la</span>        <span class="cm"># Long format + hidden files (those starting with .)</span>
+<span class="prompt">$</span> <span class="kw">ls -lh</span>        <span class="cm"># Human readable sizes (KB, MB instead of bytes)</span>
+
+<span class="prompt">$</span> <span class="kw">cd</span> /home/user  <span class="cm"># Change Directory to absolute path</span>
+<span class="prompt">$</span> <span class="kw">cd</span> Documents   <span class="cm"># Change to relative path</span>
+<span class="prompt">$</span> <span class="kw">cd</span> ..          <span class="cm"># Go up one level</span>
+<span class="prompt">$</span> <span class="kw">cd</span> ~           <span class="cm"># Go to your home directory</span>
+<span class="prompt">$</span> <span class="kw">cd</span> -           <span class="cm"># Go back to previous directory</span>
+    </div>
+
+    <h3>Working with Files and Directories</h3>
+
+    <div class="code-block">
+<span class="cm"># Create</span>
+<span class="prompt">$</span> <span class="kw">mkdir</span> mydir           <span class="cm"># Make a directory</span>
+<span class="prompt">$</span> <span class="kw">mkdir -p</span> a/b/c        <span class="cm"># Create nested dirs in one shot (-p = parents)</span>
+<span class="prompt">$</span> <span class="kw">touch</span> file.txt        <span class="cm"># Create empty file (or update timestamp)</span>
+
+<span class="cm"># The classic lab task: create 100 files in one command</span>
+<span class="prompt">$</span> <span class="kw">mkdir -p</span> dbda/test &amp;&amp; <span class="kw">touch</span> dbda/test/file{1..100}
+
+<span class="cm"># Copy, Move, Remove</span>
+<span class="prompt">$</span> <span class="kw">cp</span> source.txt dest.txt         <span class="cm"># Copy file</span>
+<span class="prompt">$</span> <span class="kw">cp -r</span> sourcedir/ destdir/      <span class="cm"># Copy directory recursively</span>
+<span class="prompt">$</span> <span class="kw">mv</span> old.txt new.txt             <span class="cm"># Move/rename file</span>
+<span class="prompt">$</span> <span class="kw">rm</span> file.txt                    <span class="cm"># Remove file</span>
+<span class="prompt">$</span> <span class="kw">rm -rf</span> directory/              <span class="cm"># Remove directory and all contents (be careful!)</span>
+<span class="prompt">$</span> <span class="kw">rmdir</span> emptydir/                <span class="cm"># Remove empty directory only</span>
+
+<span class="cm"># Links</span>
+<span class="prompt">$</span> <span class="kw">ln</span> file.txt hardlink.txt       <span class="cm"># Hard link — same file, two names</span>
+<span class="prompt">$</span> <span class="kw">ln -s</span> file.txt symlink.txt     <span class="cm"># Symbolic link — like a shortcut/alias</span>
+    </div>
+
+    <h3>Reading and Searching Files</h3>
+
+    <div class="code-block">
+<span class="prompt">$</span> <span class="kw">cat</span> file.txt          <span class="cm"># Print entire file to screen</span>
+<span class="prompt">$</span> <span class="kw">head</span> -20 file.txt     <span class="cm"># First 20 lines</span>
+<span class="prompt">$</span> <span class="kw">tail</span> -20 file.txt     <span class="cm"># Last 20 lines</span>
+<span class="prompt">$</span> <span class="kw">tail -f</span> /var/log/syslog  <span class="cm"># Follow a log file in real-time (Ctrl+C to stop)</span>
+
+<span class="prompt">$</span> <span class="kw">grep</span> "error" file.txt       <span class="cm"># Find lines containing "error"</span>
+<span class="prompt">$</span> <span class="kw">grep -i</span> "error" file.txt    <span class="cm"># Case-insensitive search</span>
+<span class="prompt">$</span> <span class="kw">grep -r</span> "error" /var/log/   <span class="cm"># Recursive search in directory</span>
+<span class="prompt">$</span> <span class="kw">grep -n</span> "error" file.txt    <span class="cm"># Show line numbers</span>
+
+<span class="prompt">$</span> <span class="kw">find</span> /home -name "*.txt"    <span class="cm"># Find all .txt files under /home</span>
+<span class="prompt">$</span> <span class="kw">find</span> / -user alice          <span class="cm"># Find all files owned by alice</span>
+<span class="prompt">$</span> <span class="kw">locate</span> filename            <span class="cm"># Faster search using pre-built index</span>
+
+<span class="prompt">$</span> <span class="kw">sort</span> names.txt             <span class="cm"># Sort lines alphabetically</span>
+<span class="prompt">$</span> <span class="kw">sort -n</span> numbers.txt        <span class="cm"># Sort numerically</span>
+<span class="prompt">$</span> <span class="kw">diff</span> file1.txt file2.txt   <span class="cm"># Show differences between two files</span>
+    </div>
+
+    <h3>Compression and Archiving</h3>
+
+    <p>In Linux, archiving (bundling files together) and compression (making them smaller) are separate operations. <strong>tar</strong> bundles files into a single archive. <strong>gzip</strong> compresses them. Often both are done together.</p>
+
+    <div class="code-block">
+<span class="cm"># tar — Tape ARchive</span>
+<span class="prompt">$</span> <span class="kw">tar -cvf</span> archive.tar files/   <span class="cm"># Create archive (c=create, v=verbose, f=file)</span>
+<span class="prompt">$</span> <span class="kw">tar -xvf</span> archive.tar          <span class="cm"># Extract archive (x=extract)</span>
+<span class="prompt">$</span> <span class="kw">tar -cvzf</span> archive.tar.gz files/ <span class="cm"># Create + compress with gzip (z flag)</span>
+<span class="prompt">$</span> <span class="kw">tar -xvzf</span> archive.tar.gz       <span class="cm"># Extract + decompress</span>
+<span class="prompt">$</span> <span class="kw">tar -tvf</span> archive.tar           <span class="cm"># List contents without extracting</span>
+
+<span class="cm"># gzip / gunzip</span>
+<span class="prompt">$</span> <span class="kw">gzip</span> bigfile.txt     <span class="cm"># Compress → creates bigfile.txt.gz, original deleted</span>
+<span class="prompt">$</span> <span class="kw">gunzip</span> bigfile.txt.gz  <span class="cm"># Decompress</span>
+
+<span class="cm"># zip / unzip (compatible with Windows)</span>
+<span class="prompt">$</span> <span class="kw">zip</span> archive.zip file1 file2
+<span class="prompt">$</span> <span class="kw">unzip</span> archive.zip
+    </div>
+
+    <h3>Process Management</h3>
+
+    <div class="code-block">
+<span class="prompt">$</span> <span class="kw">ps</span>            <span class="cm"># List processes running in your current session</span>
+<span class="prompt">$</span> <span class="kw">ps aux</span>        <span class="cm"># List ALL processes on the system</span>
+<span class="prompt">$</span> <span class="kw">ps aux | grep</span> python  <span class="cm"># Find python processes specifically</span>
+
+<span class="prompt">$</span> <span class="kw">kill</span> 1234     <span class="cm"># Send SIGTERM (graceful stop) to process with PID 1234</span>
+<span class="prompt">$</span> <span class="kw">kill -9</span> 1234  <span class="cm"># Send SIGKILL (force stop) — cannot be ignored</span>
+
+<span class="prompt">$</span> <span class="kw">who</span>           <span class="cm"># Who is logged into the system</span>
+<span class="prompt">$</span> <span class="kw">whoami</span>        <span class="cm"># Which user you are</span>
+<span class="prompt">$</span> <span class="kw">echo</span> "hello"  <span class="cm"># Print text to screen</span>
+    </div>
+
+    <h3>Remote Access Commands</h3>
+
+    <p>These commands are critical for server administration — and for cloud computing, where you almost never have physical access to a machine.</p>
+
+    <div class="code-block">
+<span class="cm"># SSH — Secure Shell (encrypted remote login)</span>
+<span class="prompt">$</span> <span class="kw">ssh</span> user@192.168.1.10         <span class="cm"># Login to remote machine by IP</span>
+<span class="prompt">$</span> <span class="kw">ssh</span> -i mykey.pem ec2-user@54.12.34.56  <span class="cm"># Login to AWS EC2 with key file</span>
+
+<span class="cm"># SFTP — Secure File Transfer Protocol</span>
+<span class="prompt">$</span> <span class="kw">sftp</span> user@server.com         <span class="cm"># Connect, then use put/get to transfer files</span>
+
+<span class="cm"># Note: telnet and ftp are UNENCRYPTED — never use on public networks</span>
+<span class="cm"># Always prefer ssh and sftp in modern environments</span>
+    </div>
+  </div>
+</article>
+
+
+<!-- ======= CHAPTER 3: PERMISSIONS ======= -->
+<article class="chapter" id="permissions">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 03 — File Permissions & Security</div>
+    <h2>Who Gets to <em>Touch</em> What</h2>
+    <p class="chapter-lead">Linux was designed from day one as a multi-user system. The permission model is not a feature bolt-on — it is the core of Linux security, and understanding it deeply is non-negotiable for any server work.</p>
+  </div>
+
+  <div class="prose">
+    <h3>The Three-Layer Permission System</h3>
+
+    <p>Every file and directory in Linux has three permission sets: one for the <strong>owner</strong> (the user who created it), one for the <strong>group</strong> (a set of users), and one for <strong>others</strong> (everyone else). Each set has three permission bits: <strong>read (r)</strong>, <strong>write (w)</strong>, and <strong>execute (x)</strong>.</p>
+
+    <div class="code-block">
+<span class="cm"># When you run: ls -l</span>
+-rwxr-xr--  1  alice  developers  4096  Jan 10  script.sh
+
+<span class="cm">#  -   rwx   r-x   r--</span>
+<span class="cm">#  |    |     |     |</span>
+<span class="cm">#  |    |     |     └── Others: read only</span>
+<span class="cm">#  |    |     └── Group (developers): read + execute</span>
+<span class="cm">#  |    └── Owner (alice): read + write + execute</span>
+<span class="cm">#  └── File type (- = file, d = directory, l = symlink)</span>
+    </div>
+
+    <h3>chmod — Changing Permissions</h3>
+
+    <p>You can set permissions two ways: symbolic (using letters) or numeric (using octal numbers). Both are important to know.</p>
+
+    <div class="code-block">
+<span class="cm"># Symbolic mode — readable but verbose</span>
+<span class="prompt">$</span> <span class="kw">chmod u+x</span> script.sh   <span class="cm"># Add execute for user (owner)</span>
+<span class="prompt">$</span> <span class="kw">chmod g-w</span> file.txt    <span class="cm"># Remove write for group</span>
+<span class="prompt">$</span> <span class="kw">chmod o+r</span> file.txt    <span class="cm"># Add read for others</span>
+<span class="prompt">$</span> <span class="kw">chmod a+x</span> script.sh   <span class="cm"># Add execute for ALL (u+g+o)</span>
+
+<span class="cm"># Numeric (octal) mode — compact and common</span>
+<span class="cm"># r=4, w=2, x=1. Add them: rwx=7, rw-=6, r-x=5, r--=4</span>
+<span class="prompt">$</span> <span class="kw">chmod 755</span> script.sh   <span class="cm"># owner=rwx(7), group=r-x(5), others=r-x(5)</span>
+<span class="prompt">$</span> <span class="kw">chmod 644</span> file.txt    <span class="cm"># owner=rw-(6), group=r--(4), others=r--(4)</span>
+<span class="prompt">$</span> <span class="kw">chmod 600</span> private.key <span class="cm"># owner=rw-(6), group=---(0), others=---(0) — SSH keys!</span>
+
+<span class="cm"># Change owner and group</span>
+<span class="prompt">$</span> <span class="kw">chown</span> alice file.txt         <span class="cm"># Change owner to alice</span>
+<span class="prompt">$</span> <span class="kw">chown</span> alice:developers file.txt  <span class="cm"># Change owner and group</span>
+<span class="prompt">$</span> <span class="kw">chgrp</span> developers file.txt    <span class="cm"># Change group only</span>
+    </div>
+
+    <h3>Access Control Lists (ACLs) — Fine-Grained Permissions</h3>
+
+    <p>The traditional owner/group/others system works well, but sometimes it's not flexible enough. What if you want Alice to have read access, Bob to have read+write, but Charlie to have no access at all — while the file is owned by root and in the 'admin' group?</p>
+
+    <p>This is where <strong>ACLs (Access Control Lists)</strong> come in. ACLs let you set individual permissions for any specific user or group, independent of the file's owner and group.</p>
+
+    <div class="code-block">
+<span class="cm"># First, create the file</span>
+<span class="prompt">$</span> <span class="kw">touch</span> /tmp/acl_file
+
+<span class="cm"># Grant Larry and Curly: read + write + execute</span>
+<span class="prompt">$</span> <span class="kw">setfacl -m u:larry:rwx</span> /tmp/acl_file
+<span class="prompt">$</span> <span class="kw">setfacl -m u:curly:rwx</span> /tmp/acl_file
+
+<span class="cm"># Deny Moe all access</span>
+<span class="prompt">$</span> <span class="kw">setfacl -m u:moe:---</span> /tmp/acl_file
+
+<span class="cm"># Allow group 'stooges' read+write (Moe's individual denial still applies)</span>
+<span class="prompt">$</span> <span class="kw">setfacl -m g:stooges:rw</span> /tmp/acl_file
+
+<span class="cm"># View the ACL</span>
+<span class="prompt">$</span> <span class="kw">getfacl</span> /tmp/acl_file
+
+<span class="cm"># Remove an ACL entry</span>
+<span class="prompt">$</span> <span class="kw">setfacl -x u:moe</span> /tmp/acl_file
+
+<span class="cm"># Remove ALL ACL entries</span>
+<span class="prompt">$</span> <span class="kw">setfacl -b</span> /tmp/acl_file
+    </div>
+
+    <div class="highlight">
+      <p><strong>ACL Priority Rule:</strong> When both a user-specific ACL and a group ACL apply, the most specific rule wins. A user-specific ACL for Moe (---, no access) overrides the group ACL giving stooges read+write. This is what makes ACLs powerful — fine-grained exceptions without changing the overall structure.</p>
+    </div>
+
+    <h3>The vi/vim Editor</h3>
+
+    <p>On servers (including cloud VMs), graphical editors don't exist. vi is always available, even on minimal systems. You must know it. The key insight: vi is a <em>modal</em> editor — it has different modes, and knowing which mode you're in is everything.</p>
+
+    <table class="info-table">
+      <tr><th>Mode</th><th>How to Enter</th><th>What You Can Do</th></tr>
+      <tr><td><strong>Normal Mode</strong></td><td>Press Esc (always returns here)</td><td>Navigate, copy, paste, delete, search. This is the default mode.</td></tr>
+      <tr><td><strong>Insert Mode</strong></td><td>Press i (insert before cursor) or a (append after)</td><td>Type text. What you expect from a normal editor.</td></tr>
+      <tr><td><strong>Visual Mode</strong></td><td>Press v</td><td>Select text by moving cursor. Then copy (y) or delete (d).</td></tr>
+      <tr><td><strong>Command Mode</strong></td><td>Press : (from Normal mode)</td><td>Save (:w), quit (:q), find and replace (:%s/old/new/g)</td></tr>
+    </table>
+
+    <div class="code-block">
+<span class="cm"># Essential vi commands (in Normal mode unless noted)</span>
+
+<span class="cm"># Navigation</span>
+h j k l    <span class="cm"># Move left, down, up, right</span>
+gg         <span class="cm"># Go to first line</span>
+G          <span class="cm"># Go to last line</span>
+:50        <span class="cm"># Go to line 50</span>
+
+<span class="cm"># Editing</span>
+i          <span class="cm"># Enter insert mode</span>
+dd         <span class="cm"># Delete (cut) entire current line</span>
+yy         <span class="cm"># Yank (copy) current line</span>
+p          <span class="cm"># Paste below current line</span>
+u          <span class="cm"># Undo</span>
+Ctrl+r     <span class="cm"># Redo</span>
+
+<span class="cm"># Search</span>
+/pattern   <span class="cm"># Search forward for 'pattern'</span>
+n          <span class="cm"># Next match</span>
+N          <span class="cm"># Previous match</span>
+
+<span class="cm"># Find & Replace (in Command mode)</span>
+:%s/old/new/g    <span class="cm"># Replace all occurrences in file</span>
+:5,10s/old/new/g <span class="cm"># Replace in lines 5 to 10</span>
+
+<span class="cm"># Save and Quit</span>
+:w         <span class="cm"># Write (save)</span>
+:q         <span class="cm"># Quit</span>
+:wq        <span class="cm"># Save and quit</span>
+:q!        <span class="cm"># Quit without saving (force)</span>
+    </div>
+  </div>
+</article>
+
+
+<!-- ======= CHAPTER 4: SHELL SCRIPTING ======= -->
+<article class="chapter" id="shell">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 04 — Shell Scripting</div>
+    <h2>Automating the World with <em>BASH</em></h2>
+    <p class="chapter-lead">A shell script is a program. You write instructions, and the shell executes them one by one. This is how servers are configured, data pipelines are run, backups are scheduled, and cloud infrastructure is managed at scale.</p>
+  </div>
+
+  <div class="prose">
+    <div class="story">
+      <span class="story-tag">📖 WHY SCRIPTING MATTERS FOR BIG DATA</span>
+      <p>Imagine you work at a company processing 10TB of log data every night. Someone has to write the script that starts the Spark job at 2 AM, checks if it succeeded, moves the output files to S3, sends an alert if anything failed, and cleans up temporary files. That "someone" is a shell script. <strong>Shell scripting is the glue that holds the entire data engineering world together.</strong></p>
+    </div>
+
+    <h3>Your First Script</h3>
+
+    <div class="code-block">
+<span class="cm">#!/bin/bash</span>
+<span class="cm"># The shebang line ↑ tells the OS to use bash to run this script</span>
+<span class="cm"># Everything after # is a comment</span>
+
+<span class="cm"># Variables — no spaces around =</span>
+NAME="Alice"
+AGE=25
+GREETING="Hello, $NAME! You are $AGE years old."
+
+<span class="kw">echo</span> $GREETING
+
+<span class="cm"># Reading input from user</span>
+<span class="kw">read</span> -p "Enter your name: " USERNAME
+<span class="kw">echo</span> "Welcome, $USERNAME!"
+
+<span class="cm"># Command line arguments</span>
+<span class="cm"># $0 = script name, $1 = first argument, $2 = second, $# = count</span>
+<span class="kw">echo</span> "Script name: $0"
+<span class="kw">echo</span> "First arg: $1"
+<span class="kw">echo</span> "Total args: $#"
+
+<span class="cm"># Arithmetic</span>
+A=10
+B=3
+<span class="kw">echo</span> $((A + B))   <span class="cm"># 13 — double parentheses for arithmetic</span>
+<span class="kw">echo</span> $((A * B))   <span class="cm"># 30</span>
+<span class="kw">echo</span> $((A / B))   <span class="cm"># 3 (integer division)</span>
+    </div>
+
+    <h3>Making Decisions — if/else</h3>
+
+    <div class="code-block">
+<span class="cm">#!/bin/bash</span>
+
+NUM=42
+
+<span class="cm"># Basic if-then-fi</span>
+<span class="kw">if</span> [ $NUM -gt 40 ]; <span class="kw">then</span>
+    <span class="kw">echo</span> "Greater than 40"
+<span class="kw">fi</span>
+
+<span class="cm"># if-then-else-fi</span>
+<span class="kw">if</span> [ $NUM -eq 42 ]; <span class="kw">then</span>
+    <span class="kw">echo</span> "The answer to everything!"
+<span class="kw">else</span>
+    <span class="kw">echo</span> "Just a number"
+<span class="kw">fi</span>
+
+<span class="cm"># Numeric tests: -eq -ne -gt -ge -lt -le</span>
+<span class="cm"># String tests:  = != -z (empty) -n (not empty)</span>
+<span class="cm"># File tests:    -f (is file) -d (is directory) -e (exists) -r (readable)</span>
+
+<span class="cm"># File test example</span>
+<span class="kw">if</span> [ -f /etc/passwd ]; <span class="kw">then</span>
+    <span class="kw">echo</span> "/etc/passwd exists"
+<span class="kw">fi</span>
+
+<span class="cm"># Case statement — cleaner than many if-elif</span>
+DAY="Monday"
+<span class="kw">case</span> $DAY <span class="kw">in</span>
+    "Monday")    <span class="kw">echo</span> "Start of work week" ;;
+    "Friday")    <span class="kw">echo</span> "Almost weekend!" ;;
+    "Saturday" | "Sunday") <span class="kw">echo</span> "Weekend!" ;;
+    *)           <span class="kw">echo</span> "Midweek" ;;
+<span class="kw">esac</span>
+    </div>
+
+    <h3>Loops</h3>
+
+    <div class="code-block">
+<span class="cm">#!/bin/bash</span>
+
+<span class="cm"># for loop — iterate over a list</span>
+<span class="kw">for</span> fruit <span class="kw">in</span> apple banana mango; <span class="kw">do</span>
+    <span class="kw">echo</span> "Fruit: $fruit"
+<span class="kw">done</span>
+
+<span class="cm"># for loop over range</span>
+<span class="kw">for</span> i <span class="kw">in</span> {1..10}; <span class="kw">do</span>
+    <span class="kw">echo</span> "Number $i"
+<span class="kw">done</span>
+
+<span class="cm"># C-style for loop</span>
+<span class="kw">for</span> ((i=0; i&lt;5; i++)); <span class="kw">do</span>
+    <span class="kw">echo</span> "i = $i"
+<span class="kw">done</span>
+
+<span class="cm"># while loop</span>
+COUNT=0
+<span class="kw">while</span> [ $COUNT -lt 5 ]; <span class="kw">do</span>
+    <span class="kw">echo</span> "Count: $COUNT"
+    COUNT=$((COUNT + 1))
+<span class="kw">done</span>
+
+<span class="cm"># until loop — opposite of while (runs until condition is TRUE)</span>
+<span class="kw">until</span> [ $COUNT -ge 10 ]; <span class="kw">do</span>
+    COUNT=$((COUNT + 1))
+<span class="kw">done</span>
+
+<span class="cm"># break and continue work just like in other languages</span>
+<span class="kw">for</span> i <span class="kw">in</span> {1..10}; <span class="kw">do</span>
+    <span class="kw">if</span> [ $i -eq 5 ]; <span class="kw">then</span>
+        <span class="kw">continue</span>   <span class="cm"># Skip 5</span>
+    <span class="kw">fi</span>
+    <span class="kw">if</span> [ $i -eq 8 ]; <span class="kw">then</span>
+        <span class="kw">break</span>      <span class="cm"># Stop at 8</span>
+    <span class="kw">fi</span>
+    <span class="kw">echo</span> $i
+<span class="kw">done</span>
+    </div>
+
+    <h3>Functions and Real-World Script</h3>
+
+    <div class="code-block">
+<span class="cm">#!/bin/bash</span>
+<span class="cm"># A real-world style script: backup files to a dated folder</span>
+
+<span class="kw">function</span> log_message() {
+    <span class="kw">echo</span> "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+}
+
+<span class="kw">function</span> backup_data() {
+    SOURCE_DIR="$1"
+    DEST_DIR="/backup/$(date '+%Y%m%d')"
+
+    <span class="kw">if</span> [ ! -d "$SOURCE_DIR" ]; <span class="kw">then</span>
+        log_message "ERROR: Source $SOURCE_DIR does not exist"
+        <span class="kw">return</span> 1
+    <span class="kw">fi</span>
+
+    <span class="kw">mkdir -p</span> "$DEST_DIR"
+    <span class="kw">cp -r</span> "$SOURCE_DIR" "$DEST_DIR"
+    log_message "Backup complete: $SOURCE_DIR → $DEST_DIR"
+}
+
+<span class="cm"># Call the function</span>
+backup_data "/home/student/data"
+    </div>
+  </div>
+</article>
+
+
+<!-- ======= CHAPTER 5: GIT ======= -->
+<article class="chapter" id="git">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 05 — Git & GitHub</div>
+    <h2>Never Lose Your Work <em>Again</em></h2>
+    <p class="chapter-lead">Version control is not optional in modern software development. Git is the system that tracks every change, who made it, and why — making collaboration, rollback, and deployment possible at scale.</p>
+  </div>
+
+  <div class="prose">
+    <div class="story">
+      <span class="story-tag">📖 WHAT HAPPENS WITHOUT VERSION CONTROL</span>
+      <p>Imagine five developers editing the same Python file. Developer A makes a change. Developer B also makes a change — to the same file. They share it over email. Now there are two versions: <em>analytics_v2_final.py</em> and <em>analytics_v2_final_bob_edit.py</em>. Next week: <em>analytics_v2_final_FINAL_use_this_one.py</em>. A month later: nobody knows which version is production. A critical bug fix exists in only one version. This is hell. Git solves all of it.</p>
+    </div>
+
+    <h3>How Git Actually Works</h3>
+
+    <p>Git doesn't just save file copies. It takes <strong>snapshots</strong> of your entire project at each commit. It stores these efficiently — if a file hasn't changed, it just stores a reference to the previous snapshot. Every snapshot has a unique ID (a hash like <code>a3f2c1d</code>), an author, a timestamp, and a message.</p>
+
+    <div class="flow">
+      <div class="flow-title">GIT WORKFLOW — THE THREE AREAS</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-icon">📁</div>
+          <div class="flow-text">
+            <strong>Working Directory</strong>
+            <span>Where you actually edit files. Your normal file system. Changes here are "unstaged" — Git sees them as modified but hasn't tracked them yet.</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon">📋</div>
+          <div class="flow-text">
+            <strong>Staging Area (Index)</strong>
+            <span>A preparation area. You <code>git add</code> files here to say "include these changes in my next commit." You can stage only some changes from a file, giving you precise control over what goes into each commit.</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon">🗄️</div>
+          <div class="flow-text">
+            <strong>Local Repository (.git folder)</strong>
+            <span>The full history, stored locally. When you <code>git commit</code>, a permanent snapshot goes here. This is entirely on your machine — no internet needed.</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon">☁️</div>
+          <div class="flow-text">
+            <strong>Remote Repository (GitHub)</strong>
+            <span>The shared copy on the internet. <code>git push</code> sends your commits here. <code>git pull</code> brings others' commits to you. GitHub is the most popular host — it adds a web UI, pull requests, and collaboration features on top of raw Git.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-block">
+<span class="cm"># One-time setup</span>
+<span class="prompt">$</span> <span class="kw">git config</span> --global user.name "Your Name"
+<span class="prompt">$</span> <span class="kw">git config</span> --global user.email "you@example.com"
+
+<span class="cm"># Start a new project</span>
+<span class="prompt">$</span> <span class="kw">git init</span>             <span class="cm"># Initialize a new repo in current directory</span>
+<span class="prompt">$</span> <span class="kw">git clone</span> https://github.com/user/repo.git  <span class="cm"># Clone an existing repo</span>
+
+<span class="cm"># Daily workflow</span>
+<span class="prompt">$</span> <span class="kw">git status</span>           <span class="cm"># See what's changed</span>
+<span class="prompt">$</span> <span class="kw">git add</span> filename.py  <span class="cm"># Stage a specific file</span>
+<span class="prompt">$</span> <span class="kw">git add</span> .            <span class="cm"># Stage ALL changes</span>
+<span class="prompt">$</span> <span class="kw">git commit</span> -m "Add data validation function"  <span class="cm"># Commit with message</span>
+<span class="prompt">$</span> <span class="kw">git push</span> origin main  <span class="cm"># Push to GitHub</span>
+<span class="prompt">$</span> <span class="kw">git pull</span>              <span class="cm"># Get latest from GitHub</span>
+
+<span class="cm"># Viewing history</span>
+<span class="prompt">$</span> <span class="kw">git log</span>              <span class="cm"># Full history</span>
+<span class="prompt">$</span> <span class="kw">git log</span> --oneline    <span class="cm"># Compact view</span>
+<span class="prompt">$</span> <span class="kw">git diff</span>             <span class="cm"># See what changed since last commit</span>
+
+<span class="cm"># Branching — work on features without breaking main</span>
+<span class="prompt">$</span> <span class="kw">git branch</span> feature-x    <span class="cm"># Create branch</span>
+<span class="prompt">$</span> <span class="kw">git checkout</span> feature-x  <span class="cm"># Switch to it</span>
+<span class="prompt">$</span> <span class="kw">git merge</span> feature-x     <span class="cm"># Merge back to main</span>
+    </div>
+
+    <div class="aws-box">
+      <span class="aws-tag">☁️ AWS REAL-WORLD CONNECTION</span>
+      <p>In the lab, you'll deploy an application to AWS directly from GitHub. AWS CodePipeline watches your GitHub repository — the moment you <strong>git push</strong> to the main branch, it automatically pulls your code, runs tests, and deploys to your EC2 instance or Lambda function. This is <strong>CI/CD (Continuous Integration / Continuous Deployment)</strong> — the modern way software reaches production. No manual uploads. No FTP. Just: git push → your app is live.</p>
+    </div>
+  </div>
+</article>
+
+
+<!-- ======= CHAPTER 6: CLOUD INTRO ======= -->
+<article class="chapter" id="cloud-intro">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 06 — Introduction to Cloud Computing</div>
+    <h2>What the <em>Cloud</em> Actually Is</h2>
+    <p class="chapter-lead">The cloud is not magic, and it's not just "someone else's computer" — though that's a good starting point. It's a radically different way of thinking about computing resources, and it has changed every industry on Earth.</p>
+  </div>
+
+  <div class="prose">
+    <div class="story">
+      <span class="story-tag">📖 THE PROBLEM THAT CREATED CLOUD COMPUTING</span>
+      <p>Imagine you're starting an e-commerce company in 2005. Before you can sell a single product, you must: buy servers (₹50 lakhs minimum), find a data center to host them, hire people to manage them, buy networking equipment, set up cooling and power, and wait 3 months for everything to arrive. Then, on launch day, if 10x more people visit than expected — your servers crash. On quiet days — your expensive servers sit idle at 5% capacity.</p>
+      <p><strong>You're paying for peak capacity even on average days. You're paying for hardware that takes months to provision.</strong> This is insane for a business. Cloud computing was built to solve exactly this.</p>
+    </div>
+
+    <h3>The Five Essential Characteristics of Cloud</h3>
+
+    <p>NIST (National Institute of Standards and Technology) defines cloud computing by five characteristics. If something doesn't have all five, it's not really "cloud" — it's just hosting.</p>
+
+    <div class="flow">
+      <div class="flow-title">THE FIVE PILLARS OF CLOUD COMPUTING</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-icon">📱</div>
+          <div class="flow-text">
+            <strong>1. On-Demand Self-Service</strong>
+            <span>You provision resources yourself, instantly, without talking to a human. Log into AWS, click "Launch Instance," and in 90 seconds you have a server. No procurement form, no 3-month wait, no IT ticket. The entire process takes less time than making a cup of chai.</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon">🌐</div>
+          <div class="flow-text">
+            <strong>2. Broad Network Access</strong>
+            <span>Resources are available over the network and accessible from any device — laptop, phone, tablet — from anywhere in the world. Your AWS EC2 instance in Mumbai is reachable from your home in Pune, your office in Bangalore, or a coffee shop in London.</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon">🏊</div>
+          <div class="flow-text">
+            <strong>3. Resource Pooling</strong>
+            <span>The provider's computing resources serve multiple customers (multi-tenancy) from a shared pool, dynamically assigned based on demand. You don't know or care which physical server your VM runs on. AWS has millions of servers — they're shared intelligently across millions of customers.</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon">📈</div>
+          <div class="flow-text">
+            <strong>4. Rapid Elasticity</strong>
+            <span>Resources can be scaled out (add more) or in (remove some) rapidly — automatically if needed. Your application can handle 100 users at 3 AM and 1 million users at 3 PM without any manual intervention. This is the most game-changing characteristic for business.</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon">📊</div>
+          <div class="flow-text">
+            <strong>5. Measured Service</strong>
+            <span>Resource usage is monitored, controlled, and reported. You pay only for what you use — like your electricity bill. 10 hours of a server running costs exactly 10× the hourly rate. You use 500 GB of storage, you pay for 500 GB. No flat fees for unused capacity.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>The Big Three Cloud Vendors</h3>
+
+    <div class="compare-grid">
+      <div class="cg-box a">
+        <span class="cg-label">MARKET LEADER</span>
+        <div class="cg-title">AWS</div>
+        <p>Amazon Web Services. Launched 2006 — the original cloud. Largest market share (~33%). Most mature services, largest community, most job postings. If you learn one cloud, learn this one.</p>
+      </div>
+      <div class="cg-box c">
+        <span class="cg-label">ENTERPRISE FAVOURITE</span>
+        <div class="cg-title">Azure</div>
+        <p>Microsoft Azure. Dominant in enterprises already using Microsoft stack (Office 365, Active Directory, SQL Server). Deep hybrid cloud support for companies transitioning from on-premise.</p>
+      </div>
+      <div class="cg-box b">
+        <span class="cg-label">DATA & AI POWERHOUSE</span>
+        <div class="cg-title">GCP</div>
+        <p>Google Cloud Platform. Strongest in data analytics (BigQuery), machine learning (Vertex AI), and Kubernetes (they invented it). Preferred by data engineering and ML teams.</p>
+      </div>
+    </div>
+
+    <div class="important">
+      <span class="important-tag">KEY INSIGHT</span>
+      <p>All three clouds offer essentially the same core services (VMs, storage, databases, functions). The difference is in <strong>ecosystem depth, pricing, support, and specific strengths</strong>. Most large companies use 2–3 clouds (multi-cloud strategy) to avoid vendor lock-in. In this course, we'll use <strong>AWS as our primary example</strong> with Azure as a secondary platform.</p>
+    </div>
+  </div>
+</article>
+
+
+<!-- ======= CHAPTER 7: SERVICE MODELS ======= -->
+<article class="chapter" id="models">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 07 — Cloud Service Models</div>
+    <h2>SaaS, PaaS, <em>IaaS</em> — What You Manage</h2>
+    <p class="chapter-lead">These three letters are the most important framework for understanding cloud services. They define how much of the stack the cloud vendor manages — and how much is your responsibility.</p>
+  </div>
+
+  <div class="prose">
+    <div class="story">
+      <span class="story-tag">📖 THE PIZZA ANALOGY</span>
+      <p>Think of computing like making pizza. <strong>On-premise</strong>: you buy a pizza oven, make dough from scratch, source ingredients, bake everything yourself — total control, total effort. <strong>IaaS</strong>: you rent a commercial kitchen with ovens already installed — you still make the pizza, but you didn't buy the oven. <strong>PaaS</strong>: you rent a kitchen where the dough is already made — you just add toppings and bake. <strong>SaaS</strong>: you order Domino's — you don't even see the kitchen. Each step: less control, less effort, more convenience.</p>
+    </div>
+
+    <div class="tier-grid">
+      <div class="tier-card saas-card">
+        <span class="tc-label">FULLY MANAGED</span>
+        <div class="tc-title">SaaS</div>
+        <p>Software as a Service. A complete application delivered over the internet. The vendor manages everything — servers, OS, middleware, the application itself, updates, backups.</p>
+        <p><strong>You manage:</strong> Only your data and user settings.</p>
+        <span class="tc-example">Examples: Gmail, Salesforce, Slack, Zoom, Microsoft 365, Google Workspace</span>
+      </div>
+      <div class="tier-card paas-card">
+        <span class="tc-label">PLATFORM MANAGED</span>
+        <div class="tc-title">PaaS</div>
+        <p>Platform as a Service. A development platform where you deploy your code, and the cloud manages the OS, runtime, scaling, and infrastructure automatically.</p>
+        <p><strong>You manage:</strong> Your application code and data.</p>
+        <span class="tc-example">Examples: AWS Elastic Beanstalk, Heroku, Google App Engine, Azure App Service</span>
+      </div>
+      <div class="tier-card iaas-card">
+        <span class="tc-label">INFRASTRUCTURE MANAGED</span>
+        <div class="tc-title">IaaS</div>
+        <p>Infrastructure as a Service. Raw computing infrastructure — virtual machines, storage, networking. You get a machine; you're responsible for everything above the hardware.</p>
+        <p><strong>You manage:</strong> OS, runtime, applications, data, security patches.</p>
+        <span class="tc-example">Examples: AWS EC2, Azure VMs, Google Compute Engine, DigitalOcean Droplets</span>
+      </div>
+    </div>
+
+    <table class="info-table">
+      <tr><th>What You Manage</th><th>On-Premise</th><th>IaaS</th><th>PaaS</th><th>SaaS</th></tr>
+      <tr><td>Application</td><td>✅ You</td><td>✅ You</td><td>✅ You</td><td>☁️ Vendor</td></tr>
+      <tr><td>Data</td><td>✅ You</td><td>✅ You</td><td>✅ You</td><td>✅ You</td></tr>
+      <tr><td>Runtime / Middleware</td><td>✅ You</td><td>✅ You</td><td>☁️ Vendor</td><td>☁️ Vendor</td></tr>
+      <tr><td>Operating System</td><td>✅ You</td><td>✅ You</td><td>☁️ Vendor</td><td>☁️ Vendor</td></tr>
+      <tr><td>Virtualization</td><td>✅ You</td><td>☁️ Vendor</td><td>☁️ Vendor</td><td>☁️ Vendor</td></tr>
+      <tr><td>Servers / Networking</td><td>✅ You</td><td>☁️ Vendor</td><td>☁️ Vendor</td><td>☁️ Vendor</td></tr>
+      <tr><td>Data Center / Power</td><td>✅ You</td><td>☁️ Vendor</td><td>☁️ Vendor</td><td>☁️ Vendor</td></tr>
+    </table>
+
+    <h3>SaaS in Detail — Why It Changed Everything</h3>
+
+    <p>Before SaaS, software was a product you bought on a CD, installed on your machine, and that was it. When version 2.0 came out, you bought another CD. No updates unless you paid again. No collaboration. Works on one machine only.</p>
+
+    <p>SaaS changed this model fundamentally. With Gmail, there's no "install Gmail." It's just there, in your browser, always on the latest version, accessible from any device, with 15 GB of storage that lives in Google's cloud. When Google adds a feature, you have it instantly. When Google upgrades their servers, your Gmail gets faster automatically.</p>
+
+    <p>For businesses, the SaaS model means: no software licenses to buy, no servers to maintain, monthly/annual subscription pricing (operational expense, not capital expense), automatic updates, and access from anywhere. This is why companies like Salesforce, valued at hundreds of billions of dollars, sell software that requires you to install absolutely nothing.</p>
+
+    <h3>IaaS in Detail — The Foundation of Cloud</h3>
+
+    <p>IaaS is the base layer — raw compute, storage, and networking. Think of it as the data center without the physical building. AWS EC2 is the defining example of IaaS. You launch a virtual machine, choose its size (2 CPUs + 8GB RAM? 96 CPUs + 768GB RAM?), pick an operating system, and 90 seconds later you have a fully functional server.</p>
+
+    <div class="aws-box">
+      <span class="aws-tag">☁️ AWS EC2 EXAMPLE — IaaS IN ACTION</span>
+      <p>When you launch an EC2 instance on AWS: you choose an <strong>AMI (Amazon Machine Image)</strong> — a snapshot of an OS (Ubuntu 22.04, Amazon Linux, Windows Server). You choose an <strong>instance type</strong> — t3.micro (2 vCPU, 1GB RAM) for small tasks, or c7g.48xlarge (192 vCPU, 384 GB RAM) for serious compute. You set up <strong>Security Groups</strong> — firewall rules controlling which ports accept traffic. You attach <strong>EBS volumes</strong> for persistent disk storage. And you pay only while the instance is running — stop it, and billing stops.</p>
+      <p>This is IaaS: the hardware, network, and virtualization are AWS's problem. The OS configuration, software installation, application deployment, security patching — <strong>that's your job.</strong></p>
+    </div>
+  </div>
+</article>
+
+
+<!-- ======= CHAPTER 8: VIRTUALIZATION ======= -->
+<article class="chapter" id="virtualization">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 08 — Virtualization</div>
+    <h2>The Technology That <em>Makes Cloud Possible</em></h2>
+    <p class="chapter-lead">Cloud computing is built on virtualization. Without it, you couldn't have hundreds of customers sharing the same physical server, or launch a new VM in 90 seconds. Understanding virtualization is understanding the engine of the cloud.</p>
+  </div>
+
+  <div class="prose">
+    <h3>What is Virtualization?</h3>
+
+    <p>Virtualization is the creation of a virtual (software-defined) version of something — a server, storage device, or network — that behaves exactly like the real thing. A <strong>Virtual Machine (VM)</strong> is a software emulation of a complete computer, including CPU, RAM, disk, and network interfaces.</p>
+
+    <p>The magic ingredient is the <strong>Hypervisor</strong> — software that runs on the physical host machine and creates, manages, and isolates VMs. It intercepts all hardware access requests from VMs and manages them so multiple VMs can safely share one physical machine without interfering with each other.</p>
+
+    <div class="arch-visual">
+      <div class="arch-title">VIRTUALIZATION ARCHITECTURE</div>
+
+      <div class="arch-layer">
+        <div class="al-icon">🖥️</div>
+        <div>
+          <span class="al-name">VM 1 — Customer A</span>
+          <span class="al-sub">Ubuntu 22.04 · 8 vCPU · 32 GB RAM · Running web app</span>
+        </div>
+        <div class="al-desc">Thinks it has its own server. Has no idea other VMs exist.</div>
+      </div>
+
+      <div class="arch-layer">
+        <div class="al-icon">🖥️</div>
+        <div>
+          <span class="al-name">VM 2 — Customer B</span>
+          <span class="al-sub">Windows Server 2022 · 4 vCPU · 16 GB RAM · Running database</span>
+        </div>
+        <div class="al-desc">Completely isolated from VM 1. Different OS, same machine.</div>
+      </div>
+
+      <div class="arch-layer">
+        <div class="al-icon">🖥️</div>
+        <div>
+          <span class="al-name">VM 3 — Customer C</span>
+          <span class="al-sub">CentOS 8 · 16 vCPU · 64 GB RAM · Running ML workload</span>
+        </div>
+        <div class="al-desc">Gets more resources when it needs them, less when idle.</div>
+      </div>
+
+      <div class="arch-arrow">↕ Hypervisor manages all VMs</div>
+
+      <div class="arch-layer" style="border-color: rgba(212,154,23,0.5);">
+        <div class="al-icon">🔧</div>
+        <div>
+          <span class="al-name">Hypervisor (e.g., KVM, Xen, VMware ESXi)</span>
+          <span class="al-sub">Manages CPU time-sharing · Memory isolation · Virtual networking · Virtual disk I/O</span>
+        </div>
+        <div class="al-desc">The orchestrator. Invisible to VMs.</div>
+      </div>
+
+      <div class="arch-arrow">↕</div>
+
+      <div class="arch-layer" style="border-color: rgba(212,154,23,0.4);">
+        <div class="al-icon">🔩</div>
+        <div>
+          <span class="al-name">Physical Server</span>
+          <span class="al-sub">96 physical CPUs · 768 GB RAM · 100 TB NVMe Storage · 100 Gbps Network</span>
+        </div>
+        <div class="al-desc">One machine serving dozens of VMs simultaneously.</div>
+      </div>
+    </div>
+
+    <h3>Types of Hypervisors</h3>
+
+    <div class="compare-grid">
+      <div class="cg-box a">
+        <span class="cg-label">TYPE 1 — BARE METAL</span>
+        <div class="cg-title">Native Hypervisor</div>
+        <p>Runs directly on hardware. No host OS underneath. Most efficient and performant. Used in all enterprise cloud environments. <br><br><strong>Examples:</strong> VMware ESXi, Microsoft Hyper-V, KVM (used by AWS), Xen (used by many cloud providers).</p>
+      </div>
+      <div class="cg-box b">
+        <span class="cg-label">TYPE 2 — HOSTED</span>
+        <div class="cg-title">Hosted Hypervisor</div>
+        <p>Runs on top of a host OS. Easier to use but less efficient. Good for personal development and testing on your laptop. <br><br><strong>Examples:</strong> VirtualBox (Oracle), VMware Workstation, Parallels (Mac). Good for DBDA students to experiment with Linux locally.</p>
+      </div>
+    </div>
+
+    <h3>Virtual Machine Migration — Live Migration</h3>
+
+    <p>One of the most powerful capabilities of virtualization is <strong>live migration</strong> — moving a running VM from one physical server to another with zero downtime. This allows cloud providers to do maintenance on physical hardware without disrupting customer workloads.</p>
+
+    <p>AWS uses live migration constantly. When a physical server needs maintenance, AWS migrates all running EC2 instances to other physical servers transparently. From your VM's perspective, nothing happened. This is why cloud providers can guarantee 99.99% uptime — hardware failures don't cause outages because VMs are automatically migrated.</p>
+
+    <h3>Cloud Deployment Models — Where Does the Cloud Live?</h3>
+
+    <table class="info-table">
+      <tr><th>Model</th><th>What It Means</th><th>Who Uses It</th></tr>
+      <tr><td><strong>Public Cloud</strong></td><td>Cloud infrastructure owned by a provider (AWS, Azure, GCP) and shared among many customers. You use it over the internet.</td><td>Startups, small businesses, most companies. AWS's default model.</td></tr>
+      <tr><td><strong>Private Cloud</strong></td><td>Cloud infrastructure dedicated to a single organization. May be on-premises or hosted by a provider.</td><td>Banks, governments, highly regulated industries needing full control.</td></tr>
+      <tr><td><strong>Hybrid Cloud</strong></td><td>A mix of public and private. Sensitive data stays on-premise; burst capacity and non-critical workloads go to public cloud.</td><td>Enterprises transitioning to cloud. Regulatory compliance use cases.</td></tr>
+      <tr><td><strong>Multi-Cloud</strong></td><td>Using services from multiple public cloud providers simultaneously to avoid vendor lock-in.</td><td>Large enterprises. Most Fortune 500 companies.</td></tr>
+    </table>
+  </div>
+</article>
+
+
+<!-- ======= CHAPTER 9: CLOUD ADMIN ======= -->
+<article class="chapter" id="admin">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 09 — Administering Cloud Services</div>
+    <h2>Monitoring, Pricing, and the <em>Shared Responsibility</em> Model</h2>
+    <p class="chapter-lead">Launching a cloud resource is the easy part. The real skill is keeping it running efficiently, securely, and cost-effectively. Cloud administration is a full-time discipline.</p>
+  </div>
+
+  <div class="prose">
+    <h3>The Shared Responsibility Model — Who Secures What?</h3>
+
+    <p>This is one of the most important concepts in cloud computing, and it's also the source of most cloud security breaches. The cloud provider is responsible for the security <em>of</em> the cloud. You are responsible for the security <em>in</em> the cloud. The line between these two is called the Shared Responsibility Model.</p>
+
+    <div class="arch-visual">
+      <div class="arch-title">SHARED RESPONSIBILITY — AWS EXAMPLE</div>
+
+      <div class="arch-layer" style="border-color: rgba(200,160,20,0.5); background: rgba(200,160,20,0.07);">
+        <div class="al-icon">👤</div>
+        <div>
+          <span class="al-name">YOUR RESPONSIBILITY (Security IN the Cloud)</span>
+          <span class="al-sub">Your data · Your OS patches · Your app security · IAM user permissions · Security group rules · Encryption configuration</span>
+        </div>
+        <div class="al-desc" style="color: var(--gold2);">You own this.</div>
+      </div>
+
+      <div class="arch-layer" style="border-color: rgba(26,107,42,0.5); background: rgba(26,107,42,0.07);">
+        <div class="al-icon">☁️</div>
+        <div>
+          <span class="al-name">AWS RESPONSIBILITY (Security OF the Cloud)</span>
+          <span class="al-sub">Physical servers · Network hardware · Data center access control · Hypervisor security · Base storage/compute/networking infrastructure</span>
+        </div>
+        <div class="al-desc" style="color: var(--green2);">AWS owns this.</div>
+      </div>
+    </div>
+
+    <div class="important">
+      <span class="important-tag">WHY THIS CAUSES BREACHES</span>
+      <p>Most cloud security incidents are not AWS's fault — they're the customer's. Someone leaves an S3 bucket set to public. Someone gives an IAM user admin permissions they don't need. Someone doesn't patch their EC2 instance's OS for 6 months. <strong>The cloud is as secure as you configure it to be.</strong> AWS secures the hardware; your job is to secure everything above the hypervisor.</p>
+    </div>
+
+    <h3>Cloud Pricing — You Only Pay for What You Use</h3>
+
+    <p>Cloud pricing is fundamentally different from buying hardware. Instead of large upfront capital expenditure, you pay small ongoing operational costs. The main pricing dimensions in AWS:</p>
+
+    <ul class="checklist">
+      <li><span class="check-icon">⚙️</span><div><strong>Compute (EC2):</strong> Charged per second (for Linux) or per hour (for Windows) while the instance is running. Stop the instance — billing stops. An m5.large costs about $0.096/hour. Run it 24/7 for a month = ~$70. Run it only during business hours (10 hrs/day) = ~$29.</div></li>
+      <li><span class="check-icon">💾</span><div><strong>Storage (S3, EBS):</strong> Charged per GB per month. S3 standard storage = ~$0.023/GB/month. If you store 1 TB of data, you pay ~$23/month regardless of whether anyone downloads it.</div></li>
+      <li><span class="check-icon">🌐</span><div><strong>Data Transfer:</strong> Incoming data (ingress) is free. Outgoing data (egress) — sending data from AWS to the internet — costs money. ~$0.09/GB. This catches many beginners off guard.</div></li>
+      <li><span class="check-icon">📞</span><div><strong>API Calls:</strong> Some services charge per API call. Lambda charges per invocation + duration. DynamoDB charges per read/write unit. This is how you can have "serverless" services with no minimum cost.</div></li>
+    </ul>
+
+    <h3>Cloud Monitoring — Knowing What's Happening</h3>
+
+    <p>In a data center, you can walk up to a server and see if it's on. In the cloud, you need monitoring tools. AWS provides <strong>CloudWatch</strong> — a monitoring service that collects metrics (CPU usage, memory, network traffic, disk I/O), logs from your applications and services, and can trigger alerts or even automatic actions when metrics cross thresholds.</p>
+
+    <div class="aws-box">
+      <span class="aws-tag">☁️ AWS CLOUDWATCH EXAMPLE</span>
+      <p>You set up a CloudWatch alarm: "If the CPU utilization of my EC2 instance exceeds 80% for more than 5 minutes, send me an email AND automatically add two more EC2 instances to my Auto Scaling group." This is <strong>automated scaling</strong> — your application handles a traffic surge automatically, without you waking up at 3 AM to manually add servers. When traffic drops, CloudWatch triggers another rule to remove the extra instances to save cost. This is the cloud's elastic nature in action.</p>
+    </div>
+  </div>
+</article>
+
+
+<!-- ======= CHAPTER 10: AWS DEEP DIVE ======= -->
+<article class="chapter" id="aws">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 10 — AWS Deep Dive</div>
+    <h2>Amazon Web Services — <em>The Full Picture</em></h2>
+    <p class="chapter-lead">AWS is not one service. It's over 200 services that work together to cover every possible computing need. You don't need to know all of them — but you must deeply understand the core ones.</p>
+  </div>
+
+  <div class="prose">
+    <h3>EC2 — Elastic Cloud Compute</h3>
+
+    <p>EC2 is the heart of AWS. It provides virtual machines — called <strong>instances</strong> — on demand. "Elastic" means you can scale the count up or down based on demand. Understanding EC2 means understanding several key concepts:</p>
+
+    <div class="flow">
+      <div class="flow-title">LAUNCHING AN EC2 INSTANCE — WHAT HAPPENS</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-icon">📸</div>
+          <div class="flow-text">
+            <strong>1. Choose an AMI (Amazon Machine Image)</strong>
+            <span>A pre-built OS snapshot. Choose Ubuntu 22.04 LTS, Amazon Linux 2023, or Windows Server 2022. The AMI determines your base OS. You can also create custom AMIs from your configured instances — like saving a checkpoint.</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon">📦</div>
+          <div class="flow-text">
+            <strong>2. Choose an Instance Type</strong>
+            <span>Instance types define how much CPU, RAM, and network capacity the VM gets. Types: General Purpose (t3, m6i), Compute Optimized (c7g — for CPU-heavy workloads), Memory Optimized (r6i — for in-memory databases), Storage Optimized (i3 — for massive disk I/O like Hadoop), GPU Instances (p4d — for deep learning).</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon">🔑</div>
+          <div class="flow-text">
+            <strong>3. Configure Key Pair</strong>
+            <span>AWS generates an RSA key pair. The public key is stored on the EC2 instance; you download the private key (.pem file). To SSH into your instance: <code>ssh -i mykey.pem ec2-user@&lt;public-ip&gt;</code>. Never share your .pem file — it's your password.</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon">🔥</div>
+          <div class="flow-text">
+            <strong>4. Set Up Security Groups</strong>
+            <span>Security Groups are virtual firewalls for your instance. You define inbound rules (what traffic can reach the instance) and outbound rules (what traffic can leave). To allow SSH: allow port 22 from your IP. To serve a web app: allow port 80 (HTTP) and 443 (HTTPS) from anywhere. Everything else is blocked by default.</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon">💿</div>
+          <div class="flow-text">
+            <strong>5. Attach EBS Storage</strong>
+            <span>EBS (Elastic Block Store) volumes are virtual hard drives that attach to your instance. They persist even if the instance stops (unlike instance store, which is temporary). Choose size (8 GB to 64 TB) and type (gp3 for general purpose, io2 for high-performance databases).</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon">🚀</div>
+          <div class="flow-text">
+            <strong>6. Launch — Ready in ~90 Seconds</strong>
+            <span>AWS provisions a physical machine, sets up the hypervisor, starts your VM, boots the OS, and assigns a public IP. You can now SSH in and do anything: install software, run code, host a web server, run a Spark job, process data.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>AWS Lambda — Serverless Computing</h3>
+
+    <p>Lambda is the opposite of EC2. With EC2, you manage a server. With Lambda, <strong>there is no server to manage</strong>. You just upload code (a function), and AWS runs it whenever it's triggered — handling all the infrastructure, scaling, and availability automatically.</p>
+
+    <p>Lambda is "serverless" — not that there's no server, but that you don't see, manage, or pay for a server when it's not doing work. You pay only per invocation and per millisecond of execution time. A Lambda that runs 1 million times for 200ms each costs about $0.20 — effectively free for many use cases.</p>
+
+    <div class="code-block">
+<span class="cm"># A simple AWS Lambda function in Python</span>
+<span class="cm"># This function runs when triggered (e.g., new file uploaded to S3)</span>
+
+<span class="kw">import</span> json
+
+<span class="kw">def</span> <span class="fn">lambda_handler</span>(event, context):
+    <span class="cm"># 'event' contains information about what triggered the function</span>
+    <span class="cm"># Could be: S3 file upload, API Gateway request, DynamoDB change, schedule</span>
+
+    bucket = event[<span class="str">'Records'</span>][<span class="num">0</span>][<span class="str">'s3'</span>][<span class="str">'bucket'</span>][<span class="str">'name'</span>]
+    key    = event[<span class="str">'Records'</span>][<span class="num">0</span>][<span class="str">'s3'</span>][<span class="str">'object'</span>][<span class="str">'key'</span>]
+
+    print(f<span class="str">"New file uploaded: s3://{bucket}/{key}"</span>)
+    <span class="cm"># Process the file, transform data, send notification, etc.</span>
+
+    <span class="kw">return</span> {
+        <span class="str">'statusCode'</span>: <span class="num">200</span>,
+        <span class="str">'body'</span>: json.dumps(<span class="str">'File processed successfully'</span>)
+    }
+    </div>
+
+    <h3>S3 — Simple Storage Service</h3>
+
+    <p>S3 is object storage — not a file system, not a database, but a massive key-value store where the key is an object's path (like <code>data/2024/january/sales.csv</code>) and the value is any file up to 5 TB in size. S3 stores trillions of objects and provides 99.999999999% (eleven nines) of durability — meaning if you store 10 million files in S3, you'd statistically lose less than one every 10,000 years.</p>
+
+    <ul class="checklist">
+      <li><span class="check-icon">📁</span><div><strong>Buckets:</strong> Top-level containers (like folders), globally unique names. You create a bucket named "my-company-data" — no other AWS customer can use that name.</div></li>
+      <li><span class="check-icon">📄</span><div><strong>Objects:</strong> Files stored in buckets. Each object has a key (path), data (the file), and metadata (content type, size, custom tags).</div></li>
+      <li><span class="check-icon">🔐</span><div><strong>Access Control:</strong> By default, everything is private. You control access via bucket policies and ACLs. Public buckets are explicitly opted-in. This is a common misconfiguration that leads to data leaks.</div></li>
+      <li><span class="check-icon">💰</span><div><strong>Storage Classes:</strong> S3 Standard (frequently accessed), S3-IA (infrequent access, cheaper), S3 Glacier (archival, very cheap but slow retrieval). Choose based on how often data is needed.</div></li>
+    </ul>
+
+    <h3>VPC — Virtual Private Cloud</h3>
+
+    <p>A VPC is your own isolated section of the AWS cloud — a virtual network that you define and control. When you create an AWS account, you get a default VPC in each region. Inside a VPC, you create <strong>subnets</strong> (sub-networks) — some public (internet-accessible) and some private (internal only).</p>
+
+    <div class="arch-visual">
+      <div class="arch-title">TYPICAL VPC ARCHITECTURE — PRODUCTION SETUP</div>
+
+      <div class="arch-layer">
+        <div class="al-icon">🌐</div>
+        <div>
+          <span class="al-name">Internet Gateway</span>
+          <span class="al-sub">The door between your VPC and the public internet</span>
+        </div>
+      </div>
+      <div class="arch-arrow">↕</div>
+
+      <div class="arch-layer" style="border-color: rgba(26,107,42,0.5);">
+        <div class="al-icon">🟢</div>
+        <div>
+          <span class="al-name">Public Subnet (10.0.1.0/24)</span>
+          <span class="al-sub">Load Balancer · NAT Gateway · Bastion Host</span>
+        </div>
+        <div class="al-desc" style="color: var(--green2);">Internet can reach these.</div>
+      </div>
+      <div class="arch-arrow">↕</div>
+
+      <div class="arch-layer" style="border-color: rgba(11,77,140,0.4);">
+        <div class="al-icon">🔵</div>
+        <div>
+          <span class="al-name">Private Subnet — App Tier (10.0.2.0/24)</span>
+          <span class="al-sub">EC2 instances running your web application servers</span>
+        </div>
+        <div class="al-desc" style="color: var(--blue2);">Internet cannot reach directly. Only via load balancer.</div>
+      </div>
+      <div class="arch-arrow">↕</div>
+
+      <div class="arch-layer" style="border-color: rgba(184,124,11,0.4);">
+        <div class="al-icon">🟡</div>
+        <div>
+          <span class="al-name">Private Subnet — Data Tier (10.0.3.0/24)</span>
+          <span class="al-sub">RDS Database · ElastiCache · S3 VPC Endpoint</span>
+        </div>
+        <div class="al-desc" style="color: var(--gold2);">Most isolated. Only app tier can reach this.</div>
+      </div>
+    </div>
+
+    <p>VPCs provide <strong>network-level isolation</strong>. Your EC2 instances in a private subnet cannot be reached from the internet at all — even if someone knows their IP addresses. They can only be reached from other resources inside your VPC. This is a fundamental security architecture pattern in every production cloud deployment.</p>
+  </div>
+</article>
+
+
+<!-- ======= CHAPTER 11: AZURE ======= -->
+<article class="chapter" id="azure">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 11 — Microsoft Azure</div>
+    <h2>The Enterprise <em>Cloud</em></h2>
+    <p class="chapter-lead">Azure is Microsoft's cloud platform — the second-largest in the world and dominant in enterprise environments. If you work in a company that uses Office 365, SQL Server, or Active Directory, you'll almost certainly encounter Azure.</p>
+  </div>
+
+  <div class="prose">
+    <h3>Azure vs AWS — A Conceptual Comparison</h3>
+
+    <p>Azure and AWS offer similar capabilities, but their design philosophy and naming conventions differ. Understanding the mapping helps you transfer knowledge between them.</p>
+
+    <table class="info-table">
+      <tr><th>Concept</th><th>AWS Service</th><th>Azure Service</th></tr>
+      <tr><td>Virtual Machine</td><td>EC2 (Elastic Compute Cloud)</td><td>Azure Virtual Machines</td></tr>
+      <tr><td>Serverless Functions</td><td>Lambda</td><td>Azure Functions</td></tr>
+      <tr><td>Object Storage</td><td>S3</td><td>Azure Blob Storage</td></tr>
+      <tr><td>Managed SQL Database</td><td>RDS</td><td>Azure SQL Database</td></tr>
+      <tr><td>NoSQL Database</td><td>DynamoDB</td><td>Cosmos DB</td></tr>
+      <tr><td>Virtual Network</td><td>VPC</td><td>Azure Virtual Network (VNet)</td></tr>
+      <tr><td>CI/CD Pipelines</td><td>CodePipeline</td><td>Azure DevOps</td></tr>
+      <tr><td>Management Console</td><td>AWS Management Console</td><td>Azure Portal</td></tr>
+      <tr><td>CLI Tool</td><td>AWS CLI</td><td>Azure CLI (az commands)</td></tr>
+    </table>
+
+    <h3>Azure Storage — Three Types</h3>
+
+    <p>Azure offers three distinct storage services for different use cases, all accessible from the same storage account:</p>
+
+    <ul class="checklist">
+      <li><span class="check-icon">📦</span><div><strong>Blob Storage (Binary Large Object):</strong> Azure's equivalent of S3. Stores unstructured data — documents, images, videos, backups, big data files. Ideal for data lake scenarios where you store raw data in any format for later processing.</div></li>
+      <li><span class="check-icon">📂</span><div><strong>File Storage:</strong> A fully managed file share accessible via the industry-standard SMB protocol. Think of it as a network drive in the cloud. Multiple VMs can mount and access the same file share simultaneously — useful for shared application configurations and legacy applications that need file system access.</div></li>
+      <li><span class="check-icon">📬</span><div><strong>Queue Storage:</strong> A message queue for asynchronous communication between application components. One part of your application writes messages to the queue; another part reads and processes them at its own pace. Enables decoupling of system components for reliability and scalability.</div></li>
+    </ul>
+
+    <h3>Azure Functions — Serverless in Azure</h3>
+
+    <p>Azure Functions is Azure's serverless compute service — equivalent to AWS Lambda. You write a function, define what triggers it (HTTP request, timer schedule, new blob in storage, new queue message), and Azure handles everything else.</p>
+
+    <div class="aws-box">
+      <span class="aws-tag">🔷 AZURE DEVOPS — CI/CD IN PRACTICE</span>
+      <p>Azure DevOps is a complete platform for the entire software development lifecycle. It includes <strong>Azure Repos</strong> (Git hosting, like GitHub), <strong>Azure Pipelines</strong> (automated build, test, and deployment), <strong>Azure Boards</strong> (work item tracking), and <strong>Azure Artifacts</strong> (package management). In the lab, you'll deploy an application to Azure using Azure DevOps Pipelines — committing code triggers an automatic pipeline that builds your app, runs tests, and deploys to your Azure VM or App Service, with zero manual steps.</p>
+    </div>
+
+    <h3>Azure Data Services for Big Data</h3>
+
+    <p>Since this is a PGCP-BDA (Big Data Analytics) program, it's worth understanding how Azure specifically supports data workloads:</p>
+
+    <ul class="checklist">
+      <li><span class="check-icon">🗄️</span><div><strong>Azure SQL Database:</strong> Fully managed relational database in the cloud. No server to manage. Automatic backups, high availability, and intelligent performance optimization built in. Pay for compute + storage separately.</div></li>
+      <li><span class="check-icon">🌌</span><div><strong>Cosmos DB:</strong> Microsoft's globally distributed NoSQL database. Supports multiple data models (document, key-value, graph, column-family) through different APIs. Designed to serve data with single-digit millisecond latency from anywhere in the world simultaneously — useful for global real-time analytics applications.</div></li>
+      <li><span class="check-icon">📊</span><div><strong>Azure Synapse Analytics:</strong> A unified analytics service combining big data processing (Spark) and enterprise data warehousing (SQL pools) into one platform. Similar to combining AWS EMR and Redshift.</div></li>
+    </ul>
+
+    <h3>Deploying AI and Analytics Workloads on Cloud</h3>
+
+    <p>The cloud has become the natural home for AI and big data workloads because of three reasons: <strong>elastic compute</strong> (training a deep learning model might require 100 GPUs for 6 hours — cloud lets you do this and pay only for those 600 GPU-hours), <strong>managed services</strong> (both AWS SageMaker and Azure Machine Learning provide managed environments for training and deploying ML models without managing infrastructure), and <strong>data proximity</strong> (your training data is already in S3 or Blob Storage — keeping compute in the same cloud avoids massive data transfer costs).</p>
+
+    <div class="important">
+      <span class="important-tag">THE PGCP-BDA CONNECTION</span>
+      <p>Everything in this course connects. <strong>Linux</strong> is the OS running every cloud VM and every Spark worker node. <strong>Shell scripting</strong> is how you automate data pipeline orchestration. <strong>Git</strong> is how you version control and deploy your data engineering code. <strong>Cloud (AWS/Azure)</strong> is where big data workloads actually run in the real world — Spark on EMR, data warehouses in Redshift, ML models in SageMaker. You are not learning isolated subjects — you are learning the complete modern data engineering stack.</p>
+    </div>
+  </div>
+</article>
+
+
+<!-- THEME TOGGLE SCRIPT -->
+<script>
+  const html = document.documentElement;
+  const icon = document.getElementById('theme-icon');
+  const label = document.getElementById('theme-label');
+
+  // Load saved preference
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    html.setAttribute('data-theme', 'dark');
+    icon.textContent = '☀️';
+    label.textContent = 'LIGHT';
+  }
+
+  function toggleTheme() {
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      html.removeAttribute('data-theme');
+      icon.textContent = '🌙';
+      label.textContent = 'DARK';
+      localStorage.setItem('theme', 'light');
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      icon.textContent = '☀️';
+      label.textContent = 'LIGHT';
+      localStorage.setItem('theme', 'dark');
+    }
+  }
+</script>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <h3>Linux &amp; Cloud Computing</h3>
+  <p>PGCP-BDA · ACTS PUNE · FEBRUARY 2026 · THE COMPLETE GUIDE</p>
+</footer>
+
+</body>
+</html>
