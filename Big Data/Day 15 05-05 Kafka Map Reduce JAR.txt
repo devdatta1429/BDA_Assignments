@@ -1,0 +1,456 @@
+# ============================================   Zookeeper By KAFKA ===================================================
+# =================================================================================================================
+
+### starting Zookeeper
+
+ubh01@ubh01:~$ sudo $KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties
+[sudo] password for ubh01: root
+
+## Stay as it is
+
+###########################################################################
+
+## Open new terminal
+
+ubh01@ubh01:~$ sudo $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
+[sudo] password for ubh01: root
+
+## Stay as it is
+
+###########################################################################
+
+## Open new terminal & check  
+ 
+ubh01@ubh01:~$ sudo jps
+[sudo] password for ubh01: 
+9755 Jps
+9324 Kafka
+8941 QuorumPeerMain
+
+ubh01@ubh01:~$ $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic training1
+Created topic training1.
+ubh01@ubh01:~$ 
+ubh01@ubh01:~$ 
+ubh01@ubh01:~$ $KAFKA_HOME/bin/kafka-topics.sh --list --zookeeper localhost:2181training1
+
+
+
+## producer-api-console Giving Inputs
+## --------------------
+ubh01@ubh01:~$ $KAFKA_HOME/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic training1
+>ffff gjj
+>ghgfyfyh
+>devdatta Eknath Thorat
+>dev
+>
+
+
+## consumer-api-console Receiving Inputs
+## --------------------
+ubh01@ubh01:~$ $KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092  --topic training1 --from-beginning
+ffff gjj
+ghgfyfyh
+devdatta Eknath Thorat
+dev
+
+
+
+import from a text file into kafka
+--------------------------------------
+
+$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic iiht2
+
+$KAFKA_HOME/bin/kafka-topics.sh --list --zookeeper localhost:2181
+
+$KAFKA_HOME/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic iiht2 < ~/custs.txt
+
+$KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092  --topic iiht2 --from-beginning
+
+
+# =================================================================================================================
+# ========================================   Map Reduce BY JAR file    ===========================================
+# =================================================================================================================
+
+upfront investment
+(capex) initial capital expenditures
+
+ip-172-31-12-74 login: cddacmaylab407                                                                                                                                                      
+Password:                                                                                                                                                                                  
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.15.0-1084-aws x86_64)                                                                                                                           
+                                                                                                                                                                                           
+  System information as of Tue May  5 11:14:30 UTC 2026                                                                                                                                    
+                                                                                                                                                                                           
+  System load:  0.5                Processes:             299                                                                                                                              
+  Usage of /:   82.2% of 30.83GB   Users logged in:       18                                                                                                                               
+  Memory usage: 11%                IPv4 address for ens5: 172.31.12.74                                                                                                                     
+  Swap usage:   0%                                                                                                                                                                         
+                                                                                                                                                                                           
+  => There is 1 zombie process.                                                                                                                                                            
+                                                                                                                                                                                           
+Last login: Mon May  4 08:39:16 UTC 2026 from 127.0.0.1, 14.139.112.69 on pts/8                                                                                                            
+cddacmaylab407@ip-172-31-12-74:~$ java -version                                                                                                                                            
+openjdk version "1.8.0_452"                                                                                                                                                                
+OpenJDK Runtime Environment (build 1.8.0_452-8u452-ga~us1-0ubuntu1~20.04-b09)                                                                                                              
+OpenJDK 64-Bit Server VM (build 25.452-b09, mixed mode)                                                                                                                                    
+cddacmaylab407@ip-172-31-12-74:~$ ls                                                                                                                                                       
+ Final_airlines   airports_mod.dat   books.xml  'map reduce dev.jar'   mysql-connector-java-8.0.28.jar   nyse   nyse.csv   persons.xml   routes.dat
+cddacmaylab407@ip-172-31-12-74:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-12-74:~$ hdfs dfs -ls                                                                                                                                             
+Found 17 items                                                                                                                                                                             
+                                                                                                         
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407   40990862 2026-04-28 09:36 nyse.csv                                                                                                          
+                                                                                                        
+cddacmaylab407@ip-172-31-12-74:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-12-74:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-12-74:~$ hdfs dfs -mkdir input                                                                                                                                    
+cddacmaylab407@ip-172-31-12-74:~$ hdfs dfs -put nyse.csv input                                                                                                                             
+                                                                                                                                               
+cddacmaylab407@ip-172-31-12-74:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-12-74:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-12-74:~$ hdfs dfs -put map_reduce_dev.jar input                                                                                                                   
+cddacmaylab407@ip-172-31-12-74:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-12-74:~$ hdfs dfs -ls                                                                                                                                             
+Found 18 items                                                                                                                                                                             
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-05-04 10:30 .sparkStaging                                                                                                     
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407     509262 2026-04-26 10:52 ICICIBANK.csv                                                                                                     
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-05-04 08:43 airline                                                                                                           
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407       5542 2026-05-01 09:57 books.xml                                                                                                         
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407     391894 2026-04-25 12:50 custs.txt                                                                                                         
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-23 06:44 data                                                                                                              
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-05-05 11:38 input                                                                                                             
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-23 06:43 new_data                                                                                                          
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407   40990862 2026-04-28 09:36 nyse.csv                                                                                                          
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-28 11:23 nyse_sparksql                                                                                                     
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407       1408 2026-05-01 09:57 persons.xml                                                                                                       
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407    2031189 2026-05-01 06:01 restaurants.json                                                                                                  
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-23 09:48 spark1                                                                                                            
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-23 10:16 spark2                                                                                                            
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407    4518136 2026-04-25 12:50 txn.txt                                                                                                           
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407    4418144 2026-04-23 12:30 txns1.txt                                                                                                         
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-29 12:04 usa                                                                                                               
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-29 12:09 usa_new                                                                                                           
+cddacmaylab407@ip-172-31-12-74:~$ hdfs dfs -ls input                                                                                                                                       
+Found 2 items                                                                                                                                                                              
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407       4849 2026-05-05 11:38 input/map_reduce_dev.jar                                                                                          
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407   40990862 2026-05-05 11:35 input/nyse.csv                                                                                                    
+                                                                                                                                                         cddacmaylab407@ip-172-31-12-74:~$ jar tvf map_dev.jar                                                                                                                                      
+    25 Tue May 05 17:00:34 UTC 2026 META-INF/MANIFEST.MF                                                                                                                                   
+   550 Tue May 05 16:58:06 UTC 2026 .classpath                                                                                                                                             
+   386 Tue May 05 16:55:44 UTC 2026 .project                                                                                                                                               
+  2905 Tue May 05 17:00:34 UTC 2026 NYSEAvgClose$AvgCloseMapper.class                                                                                                                      
+  3048 Tue May 05 17:00:34 UTC 2026 NYSEAvgClose$AvgCloseReducer.class                                                                                                                     
+  1920 Tue May 05 17:00:34 UTC 2026 NYSEAvgClose.class                                                                                                                                     
+cddacmaylab407@ip-172-31-12-74:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-12-74:~$                                                                                                                                                          
+
+cddacmaylab407@ip-172-31-12-74:~$ hadoop jar map_dev.jar mapreduce.NYSEAvgClose input/nyse.csv /user/cddacmaylab407/output    
+                                                             
+Exception in thread "main" java.lang.ClassNotFoundException: mapreduce.NYSEAvgClose                                                                                                        
+        at java.net.URLClassLoader.findClass(URLClassLoader.java:387)                                                                                                                      
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:418)                                                                                                                           
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:351)                                                                                                                           
+        at java.lang.Class.forName0(Native Method)                                                                                                                                         
+        at java.lang.Class.forName(Class.java:348)                                                                                                                                         
+        at org.apache.hadoop.util.RunJar.run(RunJar.java:316)                                                                                                                              
+        at org.apache.hadoop.util.RunJar.main(RunJar.java:236)       
+                                                                                                                      
+cddacmaylab407@ip-172-31-12-74:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-12-74:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-12-74:~$ hadoop jar map_dev.jar NYSEAvgClose input/nyse.csv /user/cddacmaylab407/output 
+                                                                          
+2026-05-05 11:50:10,149 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at master/172.31.64.10:8032                                                          
+2026-05-05 11:50:10,361 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to 
+remedy this.                                                                                                                                                                               
+2026-05-05 11:50:10,383 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/cddacmaylab407/.staging/job_1777697970059_0125                     
+2026-05-05 11:50:10,692 INFO input.FileInputFormat: Total input files to process : 1                                                                                                       
+2026-05-05 11:50:11,132 INFO mapreduce.JobSubmitter: number of splits:1                                                                                                                    
+2026-05-05 11:50:11,398 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1777697970059_0125                                                                                     
+2026-05-05 11:50:11,398 INFO mapreduce.JobSubmitter: Executing with tokens: []                                                                                                             
+2026-05-05 11:50:11,503 INFO conf.Configuration: resource-types.xml not found                                                                                                              
+2026-05-05 11:50:11,503 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.                                                                                                  
+2026-05-05 11:50:11,549 INFO impl.YarnClientImpl: Submitted application application_1777697970059_0125                                                                                     
+2026-05-05 11:50:11,572 INFO mapreduce.Job: The url to track the job: http://master:6318/proxy/application_1777697970059_0125/                                                             
+2026-05-05 11:50:11,572 INFO mapreduce.Job: Running job: job_1777697970059_0125                                                                                                            
+2026-05-05 11:50:19,715 INFO mapreduce.Job: Job job_1777697970059_0125 running in uber mode : false                                                                                        
+2026-05-05 11:50:19,716 INFO mapreduce.Job:  map 0% reduce 0%                                                                                                                              
+2026-05-05 11:50:29,794 INFO mapreduce.Job:  map 100% reduce 0%
+2026-05-05 11:50:36,828 INFO mapreduce.Job:  map 100% reduce 100%                                                                                                                          
+2026-05-05 11:50:37,839 INFO mapreduce.Job: Job job_1777697970059_0125 completed successfully                                                                                              
+2026-05-05 11:50:37,928 INFO mapreduce.Job: Counters: 54                                                                                                                                   
+        File System Counters                                                                                                                                                               
+                FILE: Number of bytes read=9979178                                                                                                                                         
+                FILE: Number of bytes written=20758022                                                                                                                                     
+                FILE: Number of read operations=0                                                                                                                                          
+                FILE: Number of large read operations=0                                                                                                                                    
+                FILE: Number of write operations=0                                                                                                                                         
+                HDFS: Number of bytes read=40990980                                                                                                                                        
+                HDFS: Number of bytes written=1983                                                                                                                                         
+                HDFS: Number of read operations=13                                                                                                                                         
+                HDFS: Number of large read operations=0                                                                                                                                    
+                HDFS: Number of write operations=4                                                                                                                                         
+                HDFS: Number of bytes read erasure-coded=0                                                                                                                                 
+        Job Counters                                                                                                                                                                       
+                Launched map tasks=1                                                                                                                                                       
+                Launched reduce tasks=2                                                                                                                                                    
+                Data-local map tasks=1                                                                                                                                                     
+                Total time spent by all maps in occupied slots (ms)=30544                                                                                                                  
+                Total time spent by all reduces in occupied slots (ms)=31048                                                                                                               
+                Total time spent by all map tasks (ms)=7636                                                                                                                                
+                Total time spent by all reduce tasks (ms)=7762                                                                                                                             
+                Total vcore-milliseconds taken by all map tasks=15272                                                                                                                      
+                Total vcore-milliseconds taken by all reduce tasks=7762                                                                                                                    
+                Total megabyte-milliseconds taken by all map tasks=31277056                                                                                                                
+                Total megabyte-milliseconds taken by all reduce tasks=31793152                                                                                                             
+        Map-Reduce Framework                                                                                                                                                               
+                Map input records=735026                                                                                                                                                   
+                Map output records=735026                                                                                                                                                  
+                Map output bytes=8509114                                                                                                                                                   
+                Map output materialized bytes=9979178                                                                                                                                      
+                Input split bytes=118                                                                                                                                                      
+                Combine input records=0                                                                                                                                                    
+                Combine output records=0                                                                                                                                                   
+                Reduce input groups=203                                                                                                                                                    
+                Reduce shuffle bytes=9979178                                                                                                                                               
+                Reduce input records=735026                                                                                                                                                
+                Reduce output records=203                                                                                                                                                  
+                Spilled Records=1470052                                                                                                                                                    
+                Shuffled Maps =2                                                                                                                                                           
+                Failed Shuffles=0                                                                                                                                                          
+                Merged Map outputs=2                                                                                                                                                       
+                GC time elapsed (ms)=363                                                                                                                                                   
+                CPU time spent (ms)=11950                                                                                                                                                  
+                Physical memory (bytes) snapshot=1482592256                                                                                                                                
+                Virtual memory (bytes) snapshot=11723472896                                                                                                                                
+                Total committed heap usage (bytes)=1591214080                                                                                                                              
+                Peak Map Physical memory (bytes)=1001783296                                                                                                                                
+                Peak Map Virtual memory (bytes)=2770927616                                                                                                                                 
+                Peak Reduce Physical memory (bytes)=240939008                                                                                                                              
+                Peak Reduce Virtual memory (bytes)=4476403712                                                                                                                              
+        Shuffle Errors                                                                                                                                                                     
+                BAD_ID=0                                                                                                                                                                   
+                CONNECTION=0                                                                                                                                                               
+                IO_ERROR=0                                                                                                                                                                 
+                WRONG_LENGTH=0                                                                                                                                                             
+                WRONG_MAP=0                                                                                                                                                                
+                WRONG_REDUCE=0                                                                                                                                                             
+        File Input Format Counters                                                                                                                                                         
+                Bytes Read=40990862                                                                                                                                                        
+        File Output Format Counters                                                                                                                                                        
+                Bytes Written=1983                                                                                                                                                         
+cddacmaylab407@ip-172-31-12-74:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-12-74:~$      
+                                                                                                                                                    
+cddacmaylab407@ip-172-31-12-74:~$ hdfs dfs -ls output                                                                                                                                      
+Found 3 items                                                                                                                                                                              
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407          0 2026-05-05 11:50 output/_SUCCESS                                                                                                   
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407        925 2026-05-05 11:50 output/part-r-00000                                                                                               
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407       1058 2026-05-05 11:50 output/part-r-00001                                                                                               
+cddacmaylab407@ip-172-31-12-74:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-12-74:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-12-74:~$ hdfs dfs -getmerge /user/cddacmaylab407/output combine_data.txt                                                                                          
+cddacmaylab407@ip-172-31-12-74:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-12-74:~$ cat combine_data.txt                                                                                                                                     
+AAI     10.27                                                                                                                                                                              
+AB      30.25                                                                                                                                                                              
+ABB     12.43                                                                                                                                                                              
+ABD     15.45                                                                                                                                                                              
+ABR     18.18                                                                                                                                                                              
+ABT     47.64                                                                                                                                                                              
+ABV     31.51                                                                                                                                                                              
+ABVT    48.51                                                                                                                                                                              
+ABX     22.35                                                                                                                                                                              
+ACC     25.13                                                                                                                                                                              
+ACE     42.21                                                                                                                                                                              
+ACG     9.38                                                                                                                                                                               
+ACI     25.49                                                                                                                                                                              
+ACM     27.31                                                                                                                                                                              
+ACO     15.48                                                                                                                                                                              
+ACS     46.98                                                                                                                                                                              
+ADP     46.81                                                                                                                                                                              
+ADX     12.84                                                                                                                                                                              
+AEA     10.58                                                                                                                                                                              
+AEC     10.67                                                                                                                                                                              
+AEE     41.68                                                                                                                                                                              
+AEG     38.05                                                                                                                                                                              
+AEM     16.71                                                                                                                                                                              
+AEO     25.97                                                                                                                                                                              
+AES     27.07                                                                                                                                                                              
+AF      32.8                                                                                                                                                                               
+AFB     13.97                                                                                                                                                                              
+AFF     14.85                                                                                                                                                                              
+AFL     33.67                                                                                                                                                                              
+AFN     6.17                                                                                                                                                                               
+AGC     10.87                                                                                                                                                                              
+AGM     27.66                                                                                                                                                                              
+AGO     20.72                                                                                                                                                                              
+AGU     22.86                                                                                                                                                                              
+AHD     20.22                                                                                                                                                                              
+AHL     25.19                                                                                                                                                                              
+AHT     8.38                                                                                                                                                                               
+AIG     81                                                                                                                                                                                 
+AIQ     7.9                                                                                                                                                                                
+AKS     20.01                                                                                                                                                                              
+ALB     27.32                                                                                                                                                                              
+ALD     18.01                                                                                                                                                                              
+ALF     24.44                                                                                                                                                                              
+ALJ     21.17                                                                                                                                                                              
+ALL     43.48                                                                                                                                                                              
+ALV     35.92                                                                                                                                                                              
+ALX     112.68                                                                                                                                                                             
+ALZ     24.35                                                                                                                                                                              
+AME     25.62                                                                                                                                                                              
+AMG     63.27                                                                                                                                                                              
+AN      15.38                                                                                                                                                                              
+ANF     41.17                                                                                                                                                                              
+ANH     8.19                                                                                                                                                                               
+ANN     26.36                                                                                                                                                                              
+ANR     30.01                                                                                                                                                                              
+AOI     8.17                                                                                                                                                                               
+AOS     26.8                                                                                                                                                                               
+AP      14.92                                                                                                                                                                              
+APB     11.29                                                                                                                                                                              
+APD     53.59                                                                                                                                                                              
+APF     11.5                                                                                                                                                                               
+APH     36.65                                                                                                                                                                              
+APL     31.05                                                                                                                                                                              
+APX     9.62                                                                                                                                                                               
+ARB     36.26                                                                                                                                                                              
+ARD     27.43                                                                                                                                                                              
+ARJ     25.59                                                                                                                                                                              
+ARL     9.5                                                                                                                                                                                
+ARP     19.3                                                                                                                                                                               
+ART     24.94                                                                                                                                                                              
+ASA     30.67                                                                                                                                                                              
+ASG     6.17                                                                                                                                                                               
+ASI     12.36                                                                                                                                                                              
+ATR     36.67                                                                                                                                                                              
+ATT     24.93                                                                                                                                                                              
+ATV     8.55                                                                                                                                                                               
+AUO     12.98                                                                                                                                                                              
+AUY     8.55                                                                                                                                                                               
+AV      13.03                                                                                                                                                                              
+AVB     64.7                                                                                                                                                                               
+AVD     14.49                                                                                                                                                                              
+AVF     14.72                                                                                                                                                                              
+AVP     36.29                                                                                                                                                                              
+AVT     30.9                                                                                                                                                                               
+AVX     19.31                                                                                                                                                                              
+AWC     16.54                                                                                                                                                                              
+AWI     34.42                                                                                                                                                                              
+AWK     20.14                                                                                                                                                                              
+AXL     19.41                                                                                                                                                                              
+AXP     46.46                                                                                                                                                                              
+AXR     15.58                                                                                                                                                                              
+AYE     33.63                                                                                                                                                                              
+AYI     31.53                                                                                                                                                                              
+AZN     48.01                                                                                                                                                                              
+AZZ     12.54                                                                                                                                                                              
+AA      51.91                                                                                                                                                                              
+AAN     19.53                                                                                                                                                                              
+AAP     44.16                                                                                                                                                                              
+AAR     18.98                                                                                                                                                                              
+AAV     12.33                                                                                                                                                                              
+ABA     25.83                                                                                                                                                                              
+ABC     47.17                                                                                                                                                                              
+ABG     15.15                                                                                                                                                                              
+ABK     50.76                                                                                                                                                                              
+ABM     24.29                                                                                                                                                                              
+ACF     16.17                                                                                                                                                                              
+ACH     41.8                                                                                                                                                                               
+ACL     98.78                                                                                                                                                                              
+ACN     28.17                                                                                                                                                                              
+ACV     32.18                                                                                                                                                                              
+ADC     20.2                                                                                                                                                                               
+ADI     28.54                                                                                                                                                                              
+ADM     19.88                                                                                                                                                                              
+ADS     42.12                                                                                                                                                                              
+ADY     10.25                                                                                                                                                                              
+AEB     18.93                                                                                                                                                                              
+AED     19.97                                                                                                                                                                              
+AEF     17.97                                                                                                                                                                              
+AEH     20.37                                                                                                                                                                              
+AEL     10.09                                                                                                                                                                              
+AEP     29.75                                                                                                                                                                              
+AER     15.65                                                                                                                                                                              
+AET     51.48                                                                                                                                                                              
+AEV     19.94                                                                                                                                                                              
+AFC     15.43                                                                                                                                                                              
+AFE     23.21                                                                                                                                                                              
+AFG     26.36                                                                                                                                                                              
+AGCO    24.89                                                                                                                                                                              
+AGD     15.91                                                                                                                                                                              
+AGL     22.28                                                                                                                                                                              
+AGN     52.76                                                                                                                                                                              
+AGP     32.48                                                                                                                                                                              
+AHC     4.62                                                                                                                                                                               
+AHS     17                                                                                                                                                                                 
+AI      9.44                                                                                                                                                                               
+AIB     33.36                                                                                                                                                                              
+AIN     21.3                                                                                                                                                                               
+AIR     17.14                                                                                                                                                                              
+AIT     26.96                                                                                                                                                                              
+AIV     34.42                                                                                                                                                                              
+AIZ     41.81                                                                                                                                                                              
+AJG     29.2                                                                                                                                                                               
+AKF     19.05                                                                                                                                                                              
+AKP     13.91                                                                                                                                                                              
+AKR     12.01                                                                                                                                                                              
+AKT     18.37                                                                                                                                                                              
+ALC     10.9                                                                                                                                                                               
+ALE     30.87                                                                                                                                                                              
+ALEX    27.51                                                                                                                                                                              
+ALG     16.48                                                                                                                                                                              
+ALK     23.96                                                                                                                                                                              
+ALM     24.51                                                                                                                                                                              
+ALQ     24.62                                                                                                                                                                              
+ALU     18.82                                                                                                                                                                              
+ALY     6.37                                                                                                                                                                               
+AM      27.09                                                                                                                                                                              
+AMB     33.44                                                                                                                                                                              
+AMD     19.96                                                                                                                                                                              
+AMN     46.15                                                                                                                                                                              
+AMP     43.48                                                                                                                                                                              
+AMR     21.11                                                                                                                                                                              
+AMT     25.28                                                                                                                                                                              
+AMX     35.31                                                                                                                                                                              
+ANW     24.19                                                                                                                                                                              
+AOB     5.57                                                                                                                                                                               
+AOD     12.7                                                                                                                                                                               
+AOL     24.36                                                                                                                                                                              
+AON     39.94                                                                                                                                                                              
+APA     36.68                                                                                                                                                                              
+APC     45.46                                                                                                                                                                              
+APU     24.65                                                                                                                                                                              
+ARE     57.32                                                                                                                                                                              
+ARG     23.24                                                                                                                                                                              
+ARI     17.97                                                                                                                                                                              
+ARK     5.83                                                                                                                                                                               
+ARM     15.85                                                                                                                                                                              
+ARO     27.98                                                                                                                                                                              
+ARW     24.33                                                                                                                                                                              
+ASF     25.83                                                                                                                                                                              
+ASH     41.28                                                                                                                                                                              
+ASP     12.03                                                                                                                                                                              
+ASR     29.9                                                                                                                                                                               
+ASX     4.06                                                                                                                                                                               
+ATE     22.9                                                                                                                                                                               
+ATI     35.05                                                                                                                                                                              
+ATK     60.59                                                                                                                                                                              
+ATO     21.05                                                                                                                                                                              
+ATU     35.68                                                                                                                                                                              
+ATW     34.16                                                                                                                                                                              
+AU      32.02                                                                                                                                                                              
+AVA     17.46                                                                                                                                                                              
+AVK     22.35                                                                                                                                                                              
+AVY     40.77                                                                                                                                                                              
+AWF     9.72                                                                                                                                                                               
+AWH     42.38                                                                                                                                                                              
+AWP     9.6                                                                                                                                                                                
+AWR     29.43                                                                                                                                                                              
+AXA     35.39                                                                                                                                                                              
+AXE     27.43                                                                                                                                                                              
+AXS     30.12                                                                                                                                                                              
+AYN     13.55                                                                                                                                                                              
+AYR     18.75                                                                                                                                                                              
+AZO     63.41                                                                                                                                                                              
+cddacmaylab407@ip-172-31-12-74:~$    
