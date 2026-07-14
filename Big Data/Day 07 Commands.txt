@@ -1,0 +1,435 @@
+Assignment
+
+Using txn and cust data find the following insights 
+
+structure of the txn dataset
+
+txn id
+txn dt (mm-dd-yyyy)
+cust id
+sale amount
+category
+product name
+city
+state
+mode of payment
+
+structure of the cust dataset
+
+cust id
+firstname
+lastname
+age
+profession
+
+queries
+
+1) Top Selling Cities
+CityName	Total amount
+
+
+# =================================================================================================================
+# =================================================================================================================
+ip-172-31-14-185 login: cddacmaylab407                                             
+Password:                                                                          
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.15.0-1084-aws x86_64)                   
+
+  System information as of Sat Apr 25 12:52:31 UTC 2026                                
+
+  System load:  0.3                Processes:             247                          
+  Usage of /:   77.7% of 30.83GB   Users logged in:       7                            
+  Memory usage: 21%                IPv4 address for ens5: 172.31.14.185                
+  Swap usage:   0%                                                                     
+
+  => There is 1 zombie process.                                                                  
+
+Last login: Sat Apr 25 12:30:43 UTC 2026 from 127.0.0.1, 14.139.112.69 on pts/2                          
+cddacmaylab407@ip-172-31-14-185:~$ export PYSPARK_PYTHON=/opt/anaconda3/bin/python     
+cddacmaylab407@ip-172-31-14-185:~$ export PYSPARK_DRIVER_PYTHON=/opt/anaconda3/bin/python
+on                                                                                     
+cddacmaylab407@ip-172-31-14-185:~$                                                     
+cddacmaylab407@ip-172-31-14-185:~$ pyspark                                                               
+Python 3.9.13 (main, Aug 25 2022, 23:26:10)                                                              
+[GCC 11.2.0] :: Anaconda, Inc. on linux                                                                  
+Type "help", "copyright", "credits" or "license" for more information.                                   
+26/04/25 12:53:49 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using 
+tin-java classes where applicable                                                                        
+Setting default log level to "WARN".                                                                     
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).             
+26/04/25 12:53:50 WARN Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to upl
+ng libraries under SPARK_HOME.                                                                           
+Welcome to                                                                                               
+      ____              __                                                                               
+     / __/__  ___ _____/ /__                                                                             
+    _\ \/ _ \/ _ `/ __/  '_/                                                                             
+   /__ / .__/\_,_/_/ /_/\_\   version 3.1.2                                                              
+      /_/                                                                                                
+
+Using Python version 3.9.13 (main, Aug 25 2022 23:26:10)                                                     
+Spark context Web UI available at http://ip-172-31-14-185.ap-south-1.compute.internal:4040                   
+Spark context available as 'sc' (master = yarn, app id = application_1777085723191_0209).                    
+SparkSession available as 'spark'.                                                                           
+>>> import sys                                                                                               
+>>>                                                                                                          
+>>> rdd = sc.parallelize([1])                                                                                
+>>> rdd.map(lambda x: __import__("sys").version).collect()                                                   
+['3.9.13 (main, Aug 25 2022, 23:26:10) \n[GCC 11.2.0]']
+>>> 
+# =================================================================================================================
+## -----------------------------------------------------------------------------------------------------------------------------------------------------------
+>>> rdd1 = sc.textFile("/user/cddacmaylab407/txn.txt")                                                                                                                                     
+>>> rdd1.count()                                                                                                                                                                           
+50000
+>>>   
+-------------------------------------------------------------------
+>>> for line in rdd1.take(20):                                                                                                                                                             
+...     print(line)                                                                                                                                                                        
+...                                                                                                                                                                                        
+00000000,06-26-2011,4007024,040.33,Exercise & Fitness,Cardio Machine Accessories,Clarksville,Tennessee,credit                                                                              
+00000001,05-26-2011,4006742,198.44,Exercise & Fitness,Weightlifting Gloves,Long Beach,California,credit                                                                                    
+00000002,06-01-2011,4009775,005.58,Exercise & Fitness,Weightlifting Machine Accessories,Anaheim,California,credit                                                                          
+00000003,06-05-2011,4002199,198.19,Gymnastics,Gymnastics Rings,Milwaukee,Wisconsin,credit                                                                                                  
+00000004,12-17-2011,4002613,098.81,Team Sports,Field Hockey,Nashville  ,Tennessee,credit                                                                                                   
+00000005,02-14
+
+>>> 
+>>> sc.defaultParallelism                                                                   
+2                                                                                           
+>>> rdd1.getNumPartitions()     
+-------------------------------------------------------------------
+
+>>> rdd2 = rdd1.map(lambda a : (a.split(",")[6],float (a.split(",")[3])) )                  
+>>> for line in rdd2.take(50):                                                              
+...     print(line)                                                                         
+...                                                                                         
+('Clarksville', 40.33)                                                                      
+('Long Beach', 198.44)                                                                      
+('Anaheim', 5.58)                                                                           
+('Milwaukee', 198.19)                                                                       
+('Nashville  ', 98.81)                                                                      
+('Chicago', 193.63)                                                                         
+('Charleston', 27.89)                                                                       
+('Columbus', 96.01)                                                                         
+('Des Moines', 10.44)                                                                       
+('St. Petersburg', 152.46)       
+
+
+-------------------------------------------------------------------
+>>> rdd3 = rdd2.reduceByKey(lambda a,b : a+b)                                               
+>>> for line in rdd3.take(10):                                                              
+...     print(line)                                                                         
+...                                                                                         
+[Stage 6:>                                                                                  
+===================================================================================
+>                                                                                  (1 + 1) 
+('Chicago', 46556.619999999995)
+('Columbus', 90586.09999999999)                                                             
+('St. Petersburg', 45927.28)                                                                
+('San Francisco', 45340.95)                                                                 
+('Los Angeles', 45167.46000000002)                                                          
+('Columbia', 93853.11000000004)                                                             
+('Omaha', 44414.16)                                                                         
+('Salt Lake City', 49338.79)                                                                
+('Newark', 45386.53999999999)                                                               
+('Saint Paul', 48107.83)        
+-------------------------------------------------------------------
+
+>>> rdd4 = rdd3.sortBy(lambda a : -a[1])                                                                                  
+>>> for line in rdd4.take(10):                                                                                            
+...     print(line)                                                                                                       
+...                                                                                                                       
+('Pasadena', 95533.97999999995)                                                                                           
+('Columbia', 93853.11000000004)                                                                                           
+('Kansas City', 92750.95999999999)                                                                                        
+('Columbus', 90586.09999999999)                                                                                           
+('Long Beach', 52686.70000000001)                                                                                         
+('Cincinnati', 52008.21)                                                                                                  
+('Buffalo', 50933.81999999999)                                                                                            
+('Detroit', 50878.04000000001)                                                                                            
+('Boston', 50532.34999999999)                                                                                             
+('Oakland', 49764.81000000001) 
+-------------------------------------------------------------------
+
+
+# =================================================================================================================
+2) Month-wise Sales (month and year). Print Jan onwards.
+Jan 	total1
+Feb	total2
+-------------------------------------------------------------
+
+>>> from datetime import datetime                                                                                         
+>>> from_date = "%m-%d-%Y"
+
+>>> print(datetime.strptime("05-17-2011",from_date))                                                                      
+2011-05-17 00:00:00 
+-------------------------------------------------------------
+
+>>> rdd6 = rdd1.map(lambda a: datetime.strptime(a.split(",")[1],from_date))                                               
+>>> for line in rdd6.take(10):                                                                                            
+...     print(line)                                                                                                       
+...                                                                                                                       
+2011-06-26 00:00:00                                                                                                       
+2011-05-26 00:00:00                                                                                                       
+2011-06-01 00:00:00                                                                                                       
+2011-06-05 00:00:00                                                                                                       
+2011-12-17 00:00:00                                                                                                       
+2011-02-14 00:00:00                                                                                                       
+2011-10-28 00:00:00                                                                                                       
+2011-07-14 00:00:00                                                                                                       
+2011-01-17 00:00:00 
+-------------------------------------------------------------
+
+>>> rdd6 = rdd1.map(lambda a: datetime.strptime(a.split(",")[1],from_date).strftime("%B"))                                
+>>> for line in rdd6.take(10):                                                                                            
+...     print(line)                                                                                                       
+...                                                                                                                       
+June                                                                                                                      
+May                                                                                                                       
+June                                                                                                                      
+June                                                                                                                      
+December                                                                                                                  
+February                                                                                                                  
+October                                                                                                                   
+July   
+
+-------------------------------------------------------------
+>>> rdd6 = rdd1.map(lambda a: (datetime.strptime(a.split(",")[1],from_date).strftime("%B") , float(a.split(",")[3]) ))    
+>>> for line in rdd6.take(10):                                                                                            
+...     print(line)                                                                                                       
+...                                                                                                                       
+('June', 40.33)                                                                                                           
+('May', 198.44)                                                                                                           
+('June', 5.58)                                                                                                            
+('June', 198.19)                                                                                                          
+('December', 98.81)                                                                                                       
+('February', 193.63)                                                                                                      
+('October', 27.89)                                                                                                        
+('July', 96.01)                                                                                                           
+('January', 10.44)                                                                                                        
+('May', 152.46)  
+
+-------------------------------------------------------------
+>>> rdd7 = rdd6.reduceByKey(lambda a,b : a+b) 
+>>> for line in rdd7.collect():                                                                                           
+...     print(line)                                                                                                       
+...                                                                                                                       
+('May', 432627.58000000066)                                                                                               
+('July', 439560.79999999964)                                                                                              
+('January', 438165.7600000001)                                                                                            
+('March', 444664.2400000002)                                                                                              
+('June', 421074.55000000075)                                                                                              
+('December', 421490.72999999934)                                                                                          
+('February', 395262.3699999999)                                                                                           
+('October', 424856.279999999)                                                                                             
+('November', 408846.34999999986)                                                                                          
+('August', 434255.0099999998)                                                                                             
+('September', 429321.6300000006)                                                                                          
+('April', 420695.2399999999)  
+ 
+-------------------------------------------------------------
+
+>>> rdd8 = rdd7.sortBy(lambda a: a[0])                                                                                    
+>>> for line in rdd8.collect():                                                                                           
+...     print(line)                                                                                                       
+...                                                                                                                       
+('April', 420695.2399999999)                                                                                              
+('August', 434255.0099999998)                                                                                             
+('December', 421490.72999999934)                                                                                          
+('February', 395262.3699999999)                                                                                           
+('January', 438165.7600000001)                                                                                            
+('July', 439560.79999999964)                                                                                              
+('June', 421074.55000000075)                                                                                              
+('March', 444664.2400000002)                                                                                              
+('May', 432627.58000000066)                                                                                               
+('November', 408846.34999999986)                                                                                          
+('October', 424856.279999999)                                                                                             
+('September', 429321.6300000006)   
+
+=================================================================================================================
+
+3) Day of the week wise sales (for e.g. all Sunday together)
+Sunday	total1
+Monday	total2
+# 
+>>> rdd9 = rdd1.map(lambda a: (datetime.strptime(a.split(",")[1],from_date).strftime("%A"), float(a.split(",")[3]) ))     
+>>> for line in rdd9.take(10):                                                                                            
+...     print(line)                                                                                                       
+...                                                                                                                       
+('Sunday', 40.33)                                                                                                         
+('Thursday', 198.44)                                                                                                      
+('Wednesday', 5.58)                                                                                                       
+('Sunday', 198.19)                                                                                                        
+('Saturday', 98.81)                                                                                                       
+('Monday', 193.63)                                                                                                        
+('Friday', 27.89)                                                                                                         
+('Thursday', 96.01)                                                                                                       
+('Monday', 10.44)                                                                                                         
+('Tuesday', 152.46)
+-------------------------------------------------------------
+
+>>> rdd10 = rdd9.reduceByKey(lambda a,b : a+b)                                                                            
+>>> for line in rdd10.collect():                                                                                          
+...     print(line)                                                                                                       
+...                                                                                                                       
+[Stage 70:>                                                                                                               
+[Stage 70:==================================================================================>                             
+
+('Sunday', 724925.3199999989)
+('Thursday', 733467.2299999995)                                                                                           
+('Saturday', 724053.0699999991)                                                                                           
+('Monday', 739869.9600000007)                                                                                             
+('Friday', 724732.709999999)                                                                                              
+('Wednesday', 723996.0300000015)                                                                                          
+('Tuesday', 739776.2200000002)                                                                                            
+>>> >>>                         
+
+=================================================================================================================
+
+4) Print top 10 cust with firstname and lastname
+
+John	Mathews		2500
+Alan	King		2450
+Mary	Smith		2200
+
+------------------------------------
+>>> rdd11 = rdd1.map(lambda a: (a.split(",")[2], float(a.split(",")[3]) ))                                                
+>>> for line in rdd11.take(10):                                                                                           
+...     print(line)                                                                                                       
+...                                                                                                                       
+('4007024', 40.33)                                                                                                        
+('4006742', 198.44)                                                                                                       
+('4009775', 5.58)                                                                                                         
+('4002199', 198.19)                                                                                                       
+('4002613', 98.81)                                                                                                        
+('4007591', 193.63)                                                                                                       
+('4002190', 27.89)                                                                                                        
+('4002964', 96.01)                                                                                                        
+('4007361', 10.44)                                                                                                        
+('4004798', 152.46)    
+
+
+----------------------------------------------------------
+
+>>> rdd12 = rdd11.reduceByKey(lambda a,b : a+b)                                                                           
+>>> for line in rdd12.take(10):                                                                                           
+...     print(line)                                                                                                       
+...                                                                                                                       
+('4009775', 541.6400000000001)                                                                                            
+('4002199', 386.71)                                                                                                       
+('4002613', 415.53000000000003)                                                                                           
+('4007361', 557.97)                                                                                                       
+('4004646', 1202.78)                                                                                                      
+('4002473', 955.35)                                                                                                       
+('4003179', 904.96)                                                                                                       
+('4009135', 548.75)                                                                                                       
+('4001364', 532.87)                                                                                                       
+('4003144', 201.44)  
+
+-------------------------------------------------------------
+
+>>> rdd21 = sc.textFile("/user/cddacmaylab407/custs.txt")                                                                 
+>>> for line in rdd21.take(10):                                                                                           
+...     print(line)                                                                                                       
+...                                                                                                                       
+4000001,Kristina,Chung,55,Pilot                                                                                           
+4000002,Paige,Chen,74,Teacher                                                                                             
+4000003,Sherri,Melton,34,Firefighter                                                                                      
+4000004,Gretchen,Hill,66,Computer hardware engineer                                                                       
+4000005,Karen,Puckett,74,Lawyer                                                                                           
+4000006,Patrick,Song,42,Veterinarian                                                                                      
+4000007,Elsie,Hamilton,43,Pilot                                                                                           
+4000008,Hazel,Bender,63,Carpenter                                                                                         
+4000009,Malcolm,Wagner,39,Artist                                                                                          
+4000010,Dolores,McLaughlin,60,Writer  
+
+-------------------------------------------------------------
+
+>>> rdd22 = rdd21.map(lambda a : (a.split(",")[0],a.split(",")[1] + " " + a.split(",")[2] ))                              
+>>> for line in rdd22.take(10):                                                                                           
+...     print(line)                                                                                                       
+...                                                                                                                       
+('4000001', 'Kristina Chung')                                                                                             
+('4000002', 'Paige Chen')                                                                                                 
+('4000003', 'Sherri Melton')                                                                                              
+('4000004', 'Gretchen Hill')                                                                                              
+('4000005', 'Karen Puckett')                                                                                              
+('4000006', 'Patrick Song')                                                                                               
+('4000007', 'Elsie Hamilton')                                                                                             
+('4000008', 'Hazel Bender')                                                                                               
+('4000009', 'Malcolm Wagner')                                                                                             
+('4000010', 'Dolores McLaughlin')                                                                                         
+
+
+-------------------------------------------------------------
+
+>>>                                                                                                                       
+>>> rdd31 = rdd12.join(rdd22)                                                                                             
+>>> for line in rdd31.take(10):                                                                                           
+...     print(line)                                                                                                       
+...                                                                                                                       
+[Stage 85:==================================================================================>                             
+[Stage 85:==================================================================================>                             
+
+('4002613', (415.53000000000003, 'Hugh Burgess'))
+('4002473', (955.35, 'Regina Garner'))                                                                                    
+('4003179', (904.96, 'Kelly Weber'))                                                                                      
+('4006131', (834.02, 'Ken Marshall'))                                                                                     
+('4009693', (297.03, 'Paul Ballard'))                                                                                     
+('4002130', (390.42999999999995, 'Colleen Perry'))                                                                        
+('4006967', (470.7, 'Martin Pridgen'))                                                                                    
+('4005737', (596.98, 'Dana Chapman'))                                                                                     
+('4005580', (534.44, 'Eddie George'))                                                                                     
+('4003091', (368.79, 'Joanne Stokes'))                                                                                    
+>>>                                 
+
+-------------------------------------------------------------
+
+>>> rdd41 = rdd31.map(lambda a : (a[1][1], a[1][0]) )                                                                     
+>>> for line in rdd41.take(10):                                                                                           
+...     print(line)                                                                                                       
+...                                                                                                                       
+('Hugh Burgess', 415.53000000000003)                                                                                      
+('Regina Garner', 955.35)                                                                                                 
+('Kelly Weber', 904.96)                                                                                                   
+('Ken Marshall', 834.02)                                                                                                  
+('Paul Ballard', 297.03)                                                                                                  
+('Colleen Perry', 390.42999999999995)                                                                                     
+('Martin Pridgen', 470.7)                                                                                                 
+('Dana Chapman', 596.98)                                                                                                  
+('Eddie George', 534.44)                                                                                                  
+('Joanne Stokes', 368.79)
+
+
+-------------------------------------------------------------
+
+>>> rdd17 = rdd41.sortBy(lambda a : -a[1])
+>>> for line in rdd17.take(10):
+...     print(line)
+...                    
+('Stuart House', 1973.3)     
+('Joe Burns', 1732.0900000000001)
+('Glenda Boswell', 1671.4700000000003)
+('Elsie Newton', 1640.63)
+('Jackie Lewis', 1628.94)
+('Evelyn Monroe', 1605.95) 
+('Joan Lowry', 1576.71) 
+('Paul Carey', 1560.79)
+('Julie Galloway', 1557.82)                        
+('Arlene Higgins', 1488.67)  
+
+-------------------------------------------------------------
+
+>>> rdd18 = rdd17.map(lambda a : a[0]+" "+str(a[1]) )
+>>> for line in rdd18.take(10):     
+...     print(line)                     
+...     
+Stuart House 1973.3
+Joe Burns 1732.0900000000001
+Glenda Boswell 1671.4700000000003    
+Elsie Newton 1640.63    
+Jackie Lewis 1628.94   
+Evelyn Monroe 1605.95      
+Joan Lowry 1576.71      
+Paul Carey 1560.79  
+Julie Galloway 1557.82 
+Arlene Higgins 1488.67 

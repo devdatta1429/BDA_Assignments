@@ -1,0 +1,604 @@
+https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/dataframe.html
+spark.createDataFrame
+
+https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.SparkSession.html
+pyspark.sql.SparkSession
+class pyspark.sql.SparkSession(sparkContext, jsparkSession=None, options={})[source]
+The entry point to programming Spark with the Dataset and DataFrame API.	
+
+
+## ------------------------------------------------------------------------------------------------------------------------------------------------------
+>>> from pyspark.sql.types import StructType, StringType, IntegerType, DoubleType, LongType                                                                                                
+>>>                                                                                                                                                                                                                                                                                                                
+>>>                                                                                                                                                                                        
+>>> from pyspark.sql.functions import col, lit, when                                                                                                                                       
+>>>                                                                                                                                                                                                                                                                                                                
+>>>                                                                                                                                                                                        
+>>> from pyspark.sql.types import StructType, StructField, StringType,IntegerType                                                                                                          
+>>>                                                                                                                                                                                                                                                                                                                
+>>>                                                                                                                                                                                        
+>>> data1 = [('James','','Smith','1991-04-01','M',3000), 
+	     ('Michael','Rose','','2000-05-19','M',4000),
+	     ('Robert','','Williams','1978-09-05','M',4000),   
+	     ('Maria','Anne','Jones','1967-12-01','F',4000),   
+	     ('Jen','Mary','Brown','1980-02-17','F',-1),   
+	     ('JM ABCDEFGHIJKLMNOPQRSTUVWXYZ','','','1982-04-17','M',5000)  ]                                                          
+>>>               
+>>>                                                                                                                                                                                                                                                                                                                
+>>> columns = ["firstname","middlename","lastname","dob","gender","salary"]                                                                                                                
+>>>                                                                                                                                                                                        
+>>>                                                                                                                                                                                                                                                                                                                
+>>> df1 = spark.createDataFrame(data=data1 , schema= columns)                                                                                                                              
+>>>                                                                                                                                                                                                                                                                                                                
+>>>                                                                                                                                                                                                                                                                                                                
+>>> df1.printSchema()                                                                                                                                                                      
+root                                                                                                                                                                                       
+ |-- firstname: string (nullable = true)                                                                                                                                                   
+ |-- middlename: string (nullable = true)                                                                                                                                                  
+ |-- lastname: string (nullable = true)                                                                                                                                                    
+ |-- dob: string (nullable = true)                                                                                                                                                         
+ |-- gender: string (nullable = true)                                                                                                                                                      
+ |-- salary: long (nullable = true)                                                                                                                                                        
+                                                                                                                                                                                           
+>>>                                                                                                                                                                                        
+>>>                                                                                                                                                                                                                                                                                                                            
+>>> df1.show()                                                                                                                                                                             
++--------------------+----------+--------+----------+------+------+
+|           firstname|middlename|lastname|       dob|gender|salary|                                                                                                                        
++--------------------+----------+--------+----------+------+------+                                                                                                                        
+|               James|          |   Smith|1991-04-01|     M|  3000|                                                                                                                        
+|             Michael|      Rose|        |2000-05-19|     M|  4000|                                                                                                                        
+|              Robert|          |Williams|1978-09-05|     M|  4000|                                                                                                                        
+|               Maria|      Anne|   Jones|1967-12-01|     F|  4000|                                                                                                                        
+|                 Jen|      Mary|   Brown|1980-02-17|     F|    -1|                                                                                                                        
+|JM ABCDEFGHIJKLMN...|          |        |1982-04-17|     M|  5000|                                                                                                                        
++--------------------+----------+--------+----------+------+------+                                                                                                                        
+                                                                                                                                                                                           
+>>>                                       
+
+
+# =================================================================================================================
+# =============================================    DATA CLEANSING     =============================================
+# =================================================================================================================
+
+Sales Data Analysis (for ABC & co.) – Spark Project
+
+Sales Data Analysis
+The objective of this project is to analyse the sales database for the year 2020 and 2021 and identify key insights to help improve sales performance and optimize business strategies
+By analysing the sales data, we aim to understand factors influencing sales, identity trends and uncover opportunities for growth.
+The analysis will be conducted using Spark Shell or Notebook to provide an interactive and insightful information.
+
+Business requirements
+Total Sales, Total Profit, Average price per unit and Total units sold, Total Cost of Sales, Net Operating Margin – Year wise
+Total sales by month
+Total sales by state
+Total sales by sales method
+Total sales by region
+Total sales by product
+Total sales by retailer
+Total Units sold by product category and Gender type (2 separate queries)
+Top performing cities by profit
+
+#--------------------------------------------------------------------------------------------
+
+>>> sc                                                                                                                                                                                     
+<SparkContext master=yarn appName=PySparkShell>                                                                                                                                            
+>>> spark                                                                                                                                                                                  
+<pyspark.sql.session.SparkSession object at 0x7f37e2db6ca0>
+>>>                                                                                                                                                                                        
+>>> df1= spark.read.format("csv").option("header","True").option("inferschema","True").load("/user/cddacmaylab407/US_Sales_Datasets.csv")                                                  
+>>> 
+>>> df1.printSchema()                                                                                                                                                                      
+root
+ |-- Retailer: string (nullable = true)
+ |-- Retailer ID: integer (nullable = true)
+ |-- Invoice Date: string (nullable = true)
+ |-- Region: string (nullable = true)
+ |-- State: string (nullable = true)
+ |-- City: string (nullable = true)
+ |-- Product: string (nullable = true)
+ |-- Price per Unit: integer (nullable = true)
+ |-- Units Sold: string (nullable = true)
+ |-- Total Sales: string (nullable = true)
+ |-- Operating Profit: string (nullable = true)
+ |-- Operating Margin: string (nullable = true)
+ |-- Sales Method: string (nullable = true)
+ 
+>>>   
+>>> df2 = df1.withColumn("Invoice Date", to_date(col("Invoice Date"),"dd-MM-yyyy"))                                                                                                        
+>>> df2.printSchema()                                                                                                                                                                      
+root
+ |-- Retailer: string (nullable = true)
+ |-- Retailer ID: integer (nullable = true)
+ |-- Invoice Date: date (nullable = true)
+ |-- Region: string (nullable = true)
+ |-- State: string (nullable = true)
+ |-- City: string (nullable = true)
+ |-- Product: string (nullable = true)
+ |-- Price per Unit: integer (nullable = true)
+ |-- Units Sold: string (nullable = true)
+ |-- Total Sales: string (nullable = true)
+ |-- Operating Profit: string (nullable = true)
+ |-- Operating Margin: string (nullable = true)
+ |-- Sales Method: string (nullable = true)
+ 
+>>> df1.show(1)                                                                                                                                                                            
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+|   Retailer|Retailer ID|Invoice Date|   Region|   State|    City|             Product|Price per Unit|Units Sold|Total Sales|Operating Profit|Operating Margin|Sales Method|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+|Foot Locker|    1185732|  01-01-2020|Northeast|New York|New York|Men's Street Foot...|            50|     1,200|   6,00,000|        3,00,000|             50%|    In-store|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+only showing top 1 row
+ 
+>>> df2.show(1)                                                                                                                                                                            
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+|   Retailer|Retailer ID|Invoice Date|   Region|   State|    City|             Product|Price per Unit|Units Sold|Total Sales|Operating Profit|Operating Margin|Sales Method|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+|Foot Locker|    1185732|  2020-01-01|Northeast|New York|New York|Men's Street Foot...|            50|     1,200|   6,00,000|        3,00,000|             50%|    In-store|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+only showing top 1 row
+ 
+>>>     
+>>>                                                                                                                                                                                        
+>>>                                                                                                                                                                                        
+>>> df3 = df2.withColumn("Units Sold", regexp_replace(col("Units Sold"),   ","   ,    "").cast("Integer"))                                                                                 
+>>> df3.printSchema()                                                                                                                                                                      
+root
+ |-- Retailer: string (nullable = true)
+ |-- Retailer ID: integer (nullable = true)
+ |-- Invoice Date: date (nullable = true)
+ |-- Region: string (nullable = true)
+ |-- State: string (nullable = true)
+ |-- City: string (nullable = true)
+ |-- Product: string (nullable = true)
+ |-- Price per Unit: integer (nullable = true)
+ |-- Units Sold: integer (nullable = true)
+ |-- Total Sales: string (nullable = true)
+ |-- Operating Profit: string (nullable = true)
+ |-- Operating Margin: string (nullable = true)
+ |-- Sales Method: string (nullable = true)
+ 
+>>> df3.show(1)                                                                                                                                                                            
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+|   Retailer|Retailer ID|Invoice Date|   Region|   State|    City|             Product|Price per Unit|Units Sold|Total Sales|Operating Profit|Operating Margin|Sales Method|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+|Foot Locker|    1185732|  2020-01-01|Northeast|New York|New York|Men's Street Foot...|            50|      1200|   6,00,000|        3,00,000|             50%|    In-store|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+only showing top 1 row
+ 
+>>> df4 = df3.withColumn("Total Sales",col("Price per Unit") * col("Units Sold"))                                                                                                          
+>>> df4.show(1)                                                                                                                                                                            
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+|   Retailer|Retailer ID|Invoice Date|   Region|   State|    City|             Product|Price per Unit|Units Sold|Total Sales|Operating Profit|Operating Margin|Sales Method|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+|Foot Locker|    1185732|  2020-01-01|Northeast|New York|New York|Men's Street Foot...|            50|      1200|      60000|        3,00,000|             50%|    In-store|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+only showing top 1 row
+ 
+>>         Multiply the this 2 cols "Price per Unit" * "Units Sold" to get 60000 rather than 6,00,000
+>>                                                             cast to integer
+
+
+
+>>> df4 = df3.withColumn("Total Sales",col("Price per Unit") * col("Units Sold").cast("Integer"))                                                                                          
+>>> df4.show(1)                                                                                                                                                                            
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+|   Retailer|Retailer ID|Invoice Date|   Region|   State|    City|             Product|Price per Unit|Units Sold|Total Sales|Operating Profit|Operating Margin|Sales Method|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+|Foot Locker|    1185732|  2020-01-01|Northeast|New York|New York|Men's Street Foot...|            50|      1200|      60000|        3,00,000|             50%|    In-store|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+only showing top 1 row
+ 
+>>> df4.printSchema()                                                                                                                                                                      
+root
+ |-- Retailer: string (nullable = true)
+ |-- Retailer ID: integer (nullable = true)
+ |-- Invoice Date: date (nullable = true)
+ |-- Region: string (nullable = true)
+ |-- State: string (nullable = true)
+ |-- City: string (nullable = true)
+ |-- Product: string (nullable = true)
+ |-- Price per Unit: integer (nullable = true)
+ |-- Units Sold: integer (nullable = true)
+ |-- Total Sales: integer (nullable = true)   -----------> converted into integer
+ |-- Operating Profit: string (nullable = true)
+ |-- Operating Margin: string (nullable = true)
+ |-- Sales Method: string (nullable = true)
+ 
+>>>                                                                                                                                                                                        
+>>>                                                                                                                                                                                        
+>>>                                                                                                                                                                                        
+>>>                                                                                                                                                                                        
+>>> df5 = df4.withColumn("Operating Margin",regexp_replace(col("Operating Margin") , "%" ,"").cast("Double") )                                                                             
+>>> df5.show(1)                                                                                                                                                                            
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+|   Retailer|Retailer ID|Invoice Date|   Region|   State|    City|             Product|Price per Unit|Units Sold|Total Sales|Operating Profit|Operating Margin|Sales Method|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+|Foot Locker|    1185732|  2020-01-01|Northeast|New York|New York|Men's Street Foot...|            50|      1200|      60000|        3,00,000|            50.0|    In-store|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+only showing top 1 row
+ 
+>>>                                                                                                                                                                                        
+>>> df6 = df5.withColumn("Operating Profit",((col("Total Sales") * col("Operating Margin")) / 100).cast("Double") )                                                                        
+>>> df6.show(1)                                                                                                                                                                            
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+|   Retailer|Retailer ID|Invoice Date|   Region|   State|    City|             Product|Price per Unit|Units Sold|Total Sales|Operating Profit|Operating Margin|Sales Method|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+|Foot Locker|    1185732|  2020-01-01|Northeast|New York|New York|Men's Street Foot...|            50|      1200|      60000|         30000.0|            50.0|    In-store|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+
+only showing top 1 row
+ 
+>>> 
+
+>>> df7 = df6.withColumn("gender",  split(col("Product"), "'s ").getItem(0))  .withColumn("category", split(col("Product"), "'s ").getItem(1))                                              
+
+>>> df7.show(1)
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+------+---------------+
+|   Retailer|Retailer ID|Invoice Date|   Region|   State|    City|             Product|Price per Unit|Units Sold|Total Sales|Operating Profit|Operating Margin|Sales Method|gender|       category|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+------+---------------+
+|Foot Locker|    1185732|  2020-01-01|Northeast|New York|New York|Men's Street Foot...|            50|      1200|      60000|         30000.0|            50.0|    In-store|   Men|Street Footwear|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+------+---------------+
+only showing top 1 row
+
+
+>>> df8=df7.withColumnRenamed("Invoice Date","Invoice_Date").withColumnRenamed("Total Sales","Total_Sales").withColumnRenamed("Units Sold","Units_Sold").withColumnRenamed("Operational Profit","Operational_Profit
+")
+
+
+>>> df8=df7.withColumnRenamed("Invoice Date","Invoice_Date")                                                                                                                                                      
+... .withColumnRenamed("Total Sales","Total_Sales")
+... .withColumnRenamed("Units Sold","Units_Sold")
+... .withColumnRenamed("Operational Profit","Operational_Profit ")
+
+>>> df8.show(1)                                                                                                                                                                                                    
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+------+---------------+
+|   Retailer|Retailer ID|Invoice_Date|   Region|   State|    City|             Product|Price per Unit|Units_Sold|Total_Sales|Operating Profit|Operating Margin|Sales Method|gender|       category|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+------+---------------+
+|Foot Locker|    1185732|  2020-01-01|Northeast|New York|New York|Men's Street Foot...|            50|      1200|      60000|         30000.0|            50.0|    In-store|   Men|Street Footwear|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+------+---------------+
+only showing top 1 row
+ 
+>>>   
+>>> q1a = spark.sql("select year(Invoice_Date) as year , sum(Total_Sales) as Total_Sales from sales group by year(Invoice_date)")                                                                                  
+>>> q1a.show(5)                                                                                                                                                                                                    
++----+-----------+
+|year|Total_Sales|
++----+-----------+
+|2020|   24237325|
+|2021|   95929325|
++----+-----------+
+ 
+>>>                                                                                                                                                                                                                
+>>> df8.rdd.getNumPartitions()                                                                                                                                                                                     
+1
+>>>                                                                                                                                                                                                                
+>>> df8.write.csv("/user/cddacmaylab407/usa")                                                                                                                                                                      
+>>> 
+>>> spark.stop()                                                                                                                                                                                                   
+>>>                                                                                                                                                                                                                
+>>> exit()                                                                                                                                                                                                         
+cddacmaylab407@ip-172-31-14-185:~$ hdfs dfs -ls
+Found 14 items
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-29 07:42 .sparkStaging
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407     509262 2026-04-26 10:52 ICICIBANK.csv
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407    1098670 2026-04-29 06:13 US_Sales_Datasets.csv
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407       1801 2026-04-28 12:04 airlines.csv
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407     391894 2026-04-25 12:50 custs.txt
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-23 06:44 data
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-23 06:43 new_data
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407   40990862 2026-04-28 09:36 nyse.csv
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-28 11:23 nyse_sparksql
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-23 09:48 spark1
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-23 10:16 spark2
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407    4518136 2026-04-25 12:50 txn.txt
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407    4418144 2026-04-23 12:30 txns1.txt
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-29 07:41 usa
+cddacmaylab407@ip-172-31-14-185:~$ hdfs dfs -mv US_Sales_Datasets.csv usa
+cddacmaylab407@ip-172-31-14-185:~$ hdfs dfs -ls
+Found 13 items
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-29 07:42 .sparkStaging
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407     509262 2026-04-26 10:52 ICICIBANK.csv
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407       1801 2026-04-28 12:04 airlines.csv
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407     391894 2026-04-25 12:50 custs.txt
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-23 06:44 data
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-23 06:43 new_data
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407   40990862 2026-04-28 09:36 nyse.csv
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-28 11:23 nyse_sparksql
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-23 09:48 spark1
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-23 10:16 spark2
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407    4518136 2026-04-25 12:50 txn.txt
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407    4418144 2026-04-23 12:30 txns1.txt
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-29 07:44 usa
+cddacmaylab407@ip-172-31-14-185:~$ hdfs dfs -ls /usa
+ls: `/usa': No such file or directory
+cddacmaylab407@ip-172-31-14-185:~$ hdfs dfs -ls usa
+Found 3 items
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407    1098670 2026-04-29 06:13 usa/US_Sales_Datasets.csv
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407          0 2026-04-29 07:41 usa/_SUCCESS
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407    1237967 2026-04-29 07:41 usa/part-00000-20512a98-038d-4017-846d-4c4a3817ee49-c000.csv
+cddacmaylab407@ip-172-31-14-185:~$
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+df8= spark.read.format("csv").option("header","True").option("inferschema","True").load("/user/cddacmaylab407/usa/US_Sales.csv")
+
+
+>>> df1= spark.read.format("csv").option("header","True").option("inferschema","True").load("/user/cddacmaylab407/usa_new/us_sales.csv")                                                                           
+>>> df1.show(5)                                                                                                                                                                                                    
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+------+-----------------+
+|   Retailer|Retailer_ID|Invoice_Date|   Region|   State|    City|             Product|Price_per_Unit|Units_Sold|Total_Sales|Operating_Profit|Operating_Margin|Sales_Method|Gender|         Category|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+------+-----------------+
+|Foot Locker|    1185732|  2020-01-01|Northeast|New York|New York|Men's Street Foot...|            50|      1200|      60000|         30000.0|            50.0|    In-store|   Men|  Street Footwear|
+|Foot Locker|    1185732|  2020-01-02|Northeast|New York|New York|Men's Athletic Fo...|            50|      1000|      50000|         15000.0|            30.0|    In-store|   Men|Athletic Footwear|
+|Foot Locker|    1185732|  2020-01-03|Northeast|New York|New York|Women's Street Fo...|            40|      1000|      40000|         14000.0|            35.0|    In-store| Women|  Street Footwear|
+|Foot Locker|    1185732|  2020-01-04|Northeast|New York|New York|Women's Athletic ...|            45|       850|      38250|         13387.5|            35.0|    In-store| Women|Athletic Footwear|
+|Foot Locker|    1185732|  2020-01-05|Northeast|New York|New York|       Men's Apparel|            60|       900|      54000|         16200.0|            30.0|    In-store|   Men|          Apparel|
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+------+-----------------+
+only showing top 5 rows
+ 
+>>> df8.createOrReplaceTempView("sales")   
+
+
+>>> q1a = spark.sql("select year(Invoice_Date) as year , sum(Total_Sales) as Total_Sales from sales group by year(Invoice_date)")                                                                                  
+>>> q1a.show()                                                                                                                                                                                                     
++----+-----------+
+|year|Total_Sales|
++----+-----------+
+|2020|   24237325|
+|2021|   95929325|
++----+-----------+
+
+
+## -----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Sales Data Analysis
+The objective of this project is to analyse the sales database for the year 2020 and 2021 and identify key insights to help improve sales performance and optimize business strategies
+By analysing the sales data, we aim to understand factors influencing sales, identity trends and uncover opportunities for growth.
+The analysis will be conducted using Spark Shell or Notebook to provide an interactive and insightful information.
+
+Business requirements
+1)	Total Sales, Total Profit, Average price per unit and Total units sold, Total Cost of Sales, Net Operating Margin – Year wise
+
+
+>>> qa2 = spark.sql("select year(Invoice_Date) as year, sum(Total_Sales) as Total_Sales,sum(Operating_Profit) as Total_profit, round(avg(Price_per_Unit),2) as avg_price_per_unit , sum(Units_Sold) as Total_unit_sold , (sum(Tot
+al_Sales)-sum(Operating_Profit)) as Total_Cost_of_Sales  , round(avg(Operating_Margin),2) as Net_Operating_Margin from sales group by year(Invoice_date)")                                                                       
+>>> qa2.show()                                                                                                                                                                                                                   
++----+-----------+--------------------+------------------+---------------+--------------------+--------------------+
+|year|Total_Sales|        Total_profit|avg_price_per_unit|Total_unit_sold| Total_Cost_of_Sales|Net_Operating_Margin|                                                                                                             
++----+-----------+--------------------+------------------+---------------+--------------------+--------------------+                                                                                                             
+|2020|   24237325|   9015505.079999996|             50.63|         462349|1.5221819920000004E7|               40.37|                                                                                                             
+|2021|   95929325|3.8209462620000206E7|             44.37|        2016512|5.7719862379999794E7|                42.6|                                                                                                             
++----+-----------+--------------------+------------------+---------------+--------------------+--------------------+                                                                                                             
+                                                                                                                                                                                                                                 
+>>>
+
+## -----------------------------------------------------------------------------------------------------------------------------------------------------------
+2)	Total sales by month
+
+>>> qa3 = spark.sql("select month(Invoice_date) as Month, sum(Total_Sales) as Total_Sales from sales group by Month order by Month")                                                                                             
+>>> qa3.show()                                                                                                                                                                                                                   
++-----+-----------+
+|Month|Total_Sales|                                                                                                                                                                                                              
++-----+-----------+                                                                                                                                                                                                              
+|    1|    9744767|                                                                                                                                                                                                              
+|    2|    8263853|                                                                                                                                                                                                              
+|    3|    7694984|                                                                                                                                                                                                              
+|    4|    9691420|                                                                                                                                                                                                              
+|    5|   10741720|                                                                                                                                                                                                              
+|    6|    9803147|                                                                                                                                                                                                              
+|    7|   12550419|                                                                                                                                                                                                              
+|    8|   12293226|                                                                                                                                                                                                              
+|    9|   10405584|                                                                                                                                                                                                              
+|   10|    8538758|                                                                                                                                                                                                              
+|   11|    9023440|                                                                                                                                                                                                              
+|   12|   11415332|                                                                                                                                                                                                              
++-----+-----------+   
+
+## -----------------------------------------------------------------------------------------------------------------------------------------------------------
+3)	Total sales by state
+
+>>> qa4 = spark.sql("select State, sum(Total_Sales) as Total_Sales from sales group by State order by State")                                                                                                                    
+>>> qa4.show(qa4.count())                                                                                                                                                                                                        
++--------------+-----------+
+|         State|Total_Sales|                                                                                                                                                                                                     
++--------------+-----------+                                                                                                                                                                                                     
+|       Alabama|    2513424|                                                                                                                                                                                                     
+|        Alaska|    1810428|                                                                                                                                                                                                     
+|       Arizona|    2254096|                                                                                                                                                                                                     
+|      Arkansas|    1802672|                                                                                                                                                                                                     
+|    California|    8580508|                                                                                                                                                                                                     
+|      Colorado|    2569036|                                                                                                                                                                                                     
+|   Connecticut|    1646448|                                                                                                                                                                                                     
+|      Delaware|    1508537|                                                                                                                                                                                                     
+|       Florida|    7820589|                                                                                                                                                                                                     
+|       Georgia|    2708591|                                                                                                                                                                                                     
+|        Hawaii|    2734457|                                                                                                                                                                                                     
+|         Idaho|    2742753|                                                                                                                                                                                                     
+|      Illinois|    1204063|                                                                                                                                                                                                     
+|       Indiana|    1084723|                                                                                                                                                                                                     
+|          Iowa|     909811|                                                                                                                                                                                                     
+|        Kansas|    1225314|                                                                                                                                                                                                     
+|      Kentucky|    1241148|                                                                                                                                                                                                     
+|     Louisiana|    3377031|                                                                                                                                                                                                     
+|         Maine|    1129728|                                                                                                                                                                                                     
+|      Maryland|     951134|                                                                                                                                                                                                     
+| Massachusetts|    1578435|                                                                                                                                                                                                     
+|      Michigan|    2287283|                                                                                                                                                                                                     
+|     Minnesota|     903918|                                                                                                                                                                                                     
+|   Mississippi|    2218609|                                                                                                                                                                                                     
+|      Missouri|    1189515|                                                                                                                                                                                                     
+|       Montana|    1930761|                                                                                                                                                                                                     
+|      Nebraska|     728838|                                                                                                                                                                                                     
+|        Nevada|    2981134|                                                                                                                                                                                                     
+| New Hampshire|    2339267|                                                                                                                                                                                                     
+|    New Jersey|    1220446|                                                                                                                                                                                                     
+|    New Mexico|    2824641|                                                                                                                                                                                                     
+|      New York|    8670464|                                                                                                                                                                                                     
+|North Carolina|    2936581|                                                                                                                                                                                                     
+|  North Dakota|     950930|                                                                                                                                                                                                     
+|          Ohio|    2269283|                                                                                                                                                                                                     
+|      Oklahoma|    1512059|                                                                                                                                                                                                     
+|        Oregon|    3047049|                                                                                                                                                                                                     
+|  Pennsylvania|    1478794|                                                                                                                                                                                                     
+|  Rhode Island|    1202256|                                                                                                                                                                                                     
+|South Carolina|    3593112|                                                                                                                                                                                                     
+|  South Dakota|    1041101|                                                                                                                                                                                                     
+|     Tennessee|    2567190|                                                                                                                                                                                                     
+|         Texas|    6612371|                                                                                                                                                                                                     
+|          Utah|    1387620|                                                                                                                                                                                                     
+|       Vermont|    2041598|                                                                                                                                                                                                     
+|      Virginia|    3074415|                                                                                                                                                                                                     
+|    Washington|    3222093|                                                                                                                                                                                                     
+| West Virginia|    1311160|                                                                                                                                                                                                     
+|     Wisconsin|     948894|                                                                                                                                                                                                     
+|       Wyoming|    2282342|                                                                                                                                                                                                     
++--------------+-----------+   
+
+## -----------------------------------------------------------------------------------------------------------------------------------------------------------
+4)	Total sales by sales method
+
+>>> qa5 = spark.sql("select Sales_Method, sum(Total_Sales) as Total_Sales from sales group by Sales_Method order by Sales_Method")                                                                                               
+>>> qa5.show()                                                                                                                                                                                                                   
++------------+-----------+
+|Sales_Method|Total_Sales|                                                                                                                                                                                                       
++------------+-----------+                                                                                                                                                                                                       
+|    In-store|   35664375|                                                                                                                                                                                                       
+|      Online|   44965657|                                                                                                                                                                                                       
+|      Outlet|   39536618|                                                                                                                                                                                                       
++------------+-----------+ 
+
+
+## -----------------------------------------------------------------------------------------------------------------------------------------------------------
+5)	Total sales by region
+
+>>> qa6 = spark.sql("select Region, sum(Total_Sales) as Total_Sales from sales group by Region order by Region")                                                                                                                 
+>>> qa6.show(qa6.count())                                                                                                                                                                                                        
++---------+-----------+
+|   Region|Total_Sales|                                                                                                                                                                                                          
++---------+-----------+                                                                                                                                                                                                          
+|  Midwest|   16674434|                                                                                                                                                                                                          
+|Northeast|   25078267|                                                                                                                                                                                                          
+|    South|   20603356|                                                                                                                                                                                                          
+|Southeast|   21374436|                                                                                                                                                                                                          
+|     West|   36436157|                                                                                                                                                                                                          
++---------+-----------+                                                                                                                                                                                                          
+                         
+
+## -----------------------------------------------------------------------------------------------------------------------------------------------------------
+6)	Total sales by product
+>>> qa7 = spark.sql("select Product, sum(Total_Sales) as Total_Sales from sales group by Product order by Product")  
+>>> qa7.show(qa7.count())                                                                                                                                                                                                        
++--------------------+-----------+
+|             Product|Total_Sales|                                                                                                                                                                                               
++--------------------+-----------+                                                                                                                                                                                               
+|       Men's Apparel|   16520632|                                                                                                                                                                                               
+|Men's Athletic Fo...|   20577180|                                                                                                                                                                                               
+|Men's Street Foot...|   27680769|                                                                                                                                                                                               
+|     Women's Apparel|   23870985|                                                                                                                                                                                               
+|Women's Athletic ...|   14315521|                                                                                                                                                                                               
+|Women's Street Fo...|   17201563|                                                                                                                                                                                               
++--------------------+-----------+                                                                                                                                                                                               
+                                    
+
+## -----------------------------------------------------------------------------------------------------------------------------------------------------------
+7)	Total sales by retailer
+
+>>> qa8 = spark.sql("select Retailer, sum(Total_Sales) as Total_Sales from sales group by Retailer order by Retailer")                                                                                                           
+>>> qa8.show(qa8.count())                                                                                                                                                                                                        
++-------------+-----------+
+|     Retailer|Total_Sales|                                                                                                                                                                                                      
++-------------+-----------+                                                                                                                                                                                                      
+|       Amazon|   10096987|                                                                                                                                                                                                      
+|  Foot Locker|   29024945|                                                                                                                                                                                                      
+|       Kohl's|   13512453|                                                                                                                                                                                                      
+|Sports Direct|   24616622|                                                                                                                                                                                                      
+|      Walmart|   10506085|                                                                                                                                                                                                      
+|    West Gear|   32409558|                                                                                                                                                                                                      
++-------------+-----------+   
+
+## -----------------------------------------------------------------------------------------------------------------------------------------------------------
+8)	Total Units sold by product category and Gender type (2 separate queries)
+
+>>> qa9 = spark.sql("select Gender, sum(Total_Sales) as Total_Sales from sales group by Gender order by Gender")                                                                                                                 
+>>> qa9.show(qa9.count())                                                                                                                                                                                                        
++------+-----------+
+|Gender|Total_Sales|                                                                                                                                                                                                             
++------+-----------+                                                                                                                                                                                                             
+|   Men|   64778581|                                                                                                                                                                                                             
+| Women|   55388069|                                                                                                                                                                                                             
++------+-----------+  
+
+>>> qa10 = spark.sql("select Category, sum(Total_Sales) as Total_Sales from sales group by Category order by Category")                                                                                                          
+>>> qa10.show(qa10.count())                                                                                                                                                                                                      
++-----------------+-----------+
+|         Category|Total_Sales|                                                                                                                                                                                                  
++-----------------+-----------+                                                                                                                                                                                                  
+|          Apparel|   40391617|                                                                                                                                                                                                  
+|Athletic Footwear|   34892701|                                                                                                                                                                                                  
+|  Street Footwear|   44882332|                                                                                                                                                                                                  
++-----------------+-----------+   
+
+## -----------------------------------------------------------------------------------------------------------------------------------------------------------
+9)	Top performing cities by profit
+
+>>> qa11 = spark.sql("select City,round(sum(Operating_Profit),2) as Operating_Profit from sales group by City order by Operating_Profit desc")                                                                                   
+>>> qa11.show(qa11.count())                                                                                                                                                                                                      
++--------------+----------------+
+|          City|Operating_Profit|                                                                                                                                                                                                
++--------------+----------------+                                                                                                                                                                                                
+|      New York|      2114664.41|                                                                                                                                                                                                
+|    Charleston|      2024086.36|                                                                                                                                                                                                
+| San Francisco|      1581993.31|                                                                                                                                                                                                
+|         Miami|      1579387.86|                                                                                                                                                                                                
+|      Portland|      1575860.62|                                                                                                                                                                                                
+|       Houston|      1494772.31|                                                                                                                                                                                                
+|   New Orleans|      1424389.74|                                                                                                                                                                                                
+|   Los Angeles|      1378158.34|                                                                                                                                                                                                
+|    Birmingham|      1368206.39|                                                                                                                                                                                                
+|       Orlando|      1342206.56|                                                                                                                                                                                                
+|        Dallas|      1337738.29|                                                                                                                                                                                                
+|     Knoxville|      1269585.06|                                                                                                                                                                                                
+|     Charlotte|      1263674.12|                                                                                                                                                                                                
+|         Boise|      1222558.85|                                                                                                                                                                                                
+|        Albany|      1220894.66|                                                                                                                                                                                                
+|      Richmond|      1174799.43|                                                                                                                                                                                                
+|     Las Vegas|      1084651.92|                                                                                                                                                                                                
+|       Detroit|      1050351.52|                                                                                                                                                                                                
+|       Atlanta|      1049533.36|                                                                                                                                                                                                
+|   Albuquerque|      1027672.91|                                                                                                                                                                                                
+|        Denver|      1000512.08|                                                                                                                                                                                                
+|      Columbus|       973251.34|                                                                                                                                                                                                
+|       Jackson|       959892.23|                                                                                                                                                                                                
+|       Seattle|       927709.38|                                                                                                                                                                                                
+|    Manchester|       881847.68|                                                                                                                                                                                                
+|    Burlington|       875093.99|                                                                                                                                                                                                
+|      Cheyenne|       856048.65|                                                                                                                                                                                                
+|       Phoenix|       819408.33|                                                                                                                                                                                                
+|      Billings|       810775.05|                                                                                                                                                                                                
+|      Honolulu|       779756.57|                                                                                                                                                                                                
+|   Little Rock|       746290.41|                                                                                                                                                                                                
+|      Hartford|       632060.79|                                                                                                                                                                                                
+|  Philadelphia|        630100.5|                                                                                                                                                                                                
+| Oklahoma City|       620730.89|                                                                                                                                                                                                
+|     Anchorage|       592154.61|                                                                                                                                                                                                
+|Salt Lake City|       588845.35|                                                                                                                                                                                                
+|    Wilmington|       588323.81|                                                                                                                                                                                                
+|        Boston|       517402.12|                                                                                                                                                                                                
+|    Louisville|       514300.23|                                                                                                                                                                                                
+|       Chicago|       508648.61|                                                                                                                                                                                                
+|     St. Louis|       506446.86|                                                                                                                                                                                                
+|        Newark|       476907.22|                                                                                                                                                                                                
+|    Providence|       463312.26|                                                                                                                                                                                                
+|       Wichita|       460373.54|                                                                                                                                                                                                
+|  Indianapolis|       439574.75|                                                                                                                                                                                                
+|   Sioux Falls|       383144.46|                                                                                                                                                                                                
+|     Milwaukee|       365126.34|                                                                                                                                                                                                
+|     Baltimore|       359490.87|                                                                                                                                                                                                
+|         Fargo|       352558.47|                                                                                                                                                                                                
+|   Minneapolis|       347262.26|                                                                                                                                                                                                
+|    Des Moines|       345626.12|                                                                                                                                                                                                
+|         Omaha|       316805.91|                                                                                                                                                                                                
++--------------+----------------+    
+
+
+    

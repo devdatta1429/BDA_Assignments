@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hadoop Ecosystem — Complete Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root {
+  --bg: #F7F4EE; --bg2: #EFEBE2; --bg3: #E8E2D8;
+  --ink: #1A1510; --ink2: #3D3028; --ink3: #6B5F52;
+  --rust: #C94A1A; --rust2: #E05A28;
+  --gold: #B8860B; --gold2: #D4A017;
+  --teal: #1A6B6B; --teal2: #228B8B;
+  --blue: #1A3B6B; --blue2: #2457A4;
+  --border: #D8D0C4;
+  --white: #FFFFFF;
+  --shadow: rgba(30,20,10,0.12);
+}
+body { background:var(--bg); color:var(--ink); font-family:'Source Sans 3',sans-serif; font-size:17px; line-height:1.85; overflow-x:hidden; }
+
+/* HERO */
+.hero { background:var(--ink); min-height:88vh; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; padding:80px 40px; }
+.hero-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(200,160,80,0.06) 1px, transparent 1px),linear-gradient(90deg,rgba(200,160,80,0.06) 1px,transparent 1px); background-size:60px 60px; }
+.hero-glow { position:absolute; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle,rgba(26,107,107,0.25) 0%,transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); }
+.hero-content { position:relative; z-index:1; max-width:900px; }
+.hero-eyebrow { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.4em; color:var(--gold2); text-transform:uppercase; margin-bottom:28px; }
+.hero h1 { font-family:'Playfair Display',serif; font-size:clamp(46px,8vw,96px); font-weight:900; color:var(--bg); line-height:0.95; margin-bottom:8px; }
+.hero h1 em { font-style:italic; color:var(--teal2); }
+.hero-divider { width:80px; height:3px; background:linear-gradient(90deg,var(--teal),var(--gold2)); margin:32px 0; }
+.hero-intro { font-size:18px; color:#C8C0B0; line-height:1.75; max-width:700px; font-weight:300; }
+.hero-intro strong { color:var(--bg); font-weight:500; }
+.hero-badges { display:flex; gap:12px; margin-top:36px; flex-wrap:wrap; }
+.badge { border:1px solid #3A3028; border-radius:6px; padding:8px 16px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:#A0A090; }
+.badge.hdfs { border-color:var(--teal2); color:var(--teal2); }
+.badge.yarn { border-color:var(--gold2); color:var(--gold2); }
+.badge.mr { border-color:var(--rust2); color:var(--rust2); }
+
+/* NAV */
+.nav-sticky { position:sticky; top:0; background:rgba(247,244,238,0.96); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); z-index:200; padding:0 24px; display:flex; align-items:center; overflow-x:auto; }
+.nav-sticky a { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.1em; color:var(--ink3); text-decoration:none; padding:16px 13px; white-space:nowrap; border-bottom:2px solid transparent; transition:all 0.2s; }
+.nav-sticky a:hover { color:var(--teal); border-bottom-color:var(--teal); }
+.nav-part { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--border); padding:0 8px; }
+
+/* PART DIVIDER */
+.part-header { background:var(--ink); padding:60px 40px; text-align:center; }
+.part-label { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.4em; color:var(--gold2); text-transform:uppercase; margin-bottom:16px; }
+.part-header h2 { font-family:'Playfair Display',serif; font-size:clamp(36px,6vw,64px); font-weight:900; color:var(--bg); line-height:1.0; }
+.part-header h2 em { font-style:italic; color:var(--teal2); }
+.part-sub { font-size:16px; color:#807870; margin-top:12px; font-weight:300; }
+
+/* CHAPTERS */
+.chapter { max-width:800px; margin:0 auto; padding:72px 32px; border-bottom:1px solid var(--border); }
+.chapter-num { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.35em; color:var(--rust); text-transform:uppercase; margin-bottom:12px; }
+.chapter h2 { font-family:'Playfair Display',serif; font-size:clamp(28px,4vw,46px); font-weight:900; color:var(--ink); line-height:1.05; margin-bottom:20px; }
+.chapter h2 em { font-style:italic; color:var(--teal); }
+.chapter-lead { font-size:18px; color:var(--ink2); line-height:1.65; border-left:4px solid var(--teal); padding-left:20px; margin-bottom:36px; }
+.prose p { color:var(--ink2); margin-bottom:20px; }
+.prose p strong { color:var(--ink); font-weight:600; }
+.prose h3 { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--ink); margin:36px 0 14px; }
+
+/* ANALOGY BOX */
+.analogy { background:linear-gradient(135deg,#FFF8E7,#FFF3D0); border:1px solid var(--gold); border-radius:10px; padding:20px 24px; margin:24px 0; }
+.analogy-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:8px; }
+.analogy p { margin:0; color:var(--ink2); font-size:16px; }
+
+/* CALLOUT */
+.callout { background:var(--bg2); border:1px solid var(--border); border-left:4px solid var(--gold); border-radius:0 8px 8px 0; padding:18px 22px; margin:24px 0; }
+.callout.teal { border-left-color:var(--teal); }
+.callout.red { border-left-color:var(--rust); }
+.callout.blue { border-left-color:var(--blue2); }
+.callout-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:6px; }
+.callout.teal .callout-label { color:var(--teal); }
+.callout.red .callout-label { color:var(--rust); }
+.callout.blue .callout-label { color:var(--blue2); }
+.callout p { color:var(--ink2); margin:0; font-size:16px; line-height:1.6; }
+
+/* KEY TERMS */
+.key-terms { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; margin:28px 0; }
+.term-card { background:var(--white); border:1px solid var(--border); border-top:3px solid var(--teal); border-radius:8px; padding:16px 18px; }
+.term-card.gold { border-top-color:var(--gold); }
+.term-card.rust { border-top-color:var(--rust); }
+.term-card.blue { border-top-color:var(--blue2); }
+.term-card .term { font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500; color:var(--teal); margin-bottom:8px; }
+.term-card.gold .term { color:var(--gold); }
+.term-card.rust .term { color:var(--rust); }
+.term-card.blue .term { color:var(--blue2); }
+.term-card .definition { font-size:14px; color:var(--ink3); line-height:1.55; }
+
+/* ARCHITECTURE DIAGRAM */
+.arch-diagram { background:#1A1510; border-radius:12px; padding:32px; margin:28px 0; }
+.arch-title { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.3em; color:var(--gold2); text-transform:uppercase; margin-bottom:24px; text-align:center; }
+.arch-row { display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:14px; }
+.arch-box { background:#2A2018; border:1px solid #4A3828; border-radius:8px; padding:10px 18px; text-align:center; font-family:'JetBrains Mono',monospace; font-size:13px; }
+.arch-box.nn { border-color:var(--teal2); color:var(--teal2); }
+.arch-box.dn { border-color:#7A9A7A; color:#7A9A7A; }
+.arch-box.client { border-color:var(--gold2); color:var(--gold2); }
+.arch-box.rm { border-color:var(--gold2); color:var(--gold2); }
+.arch-box.nm { border-color:var(--teal2); color:var(--teal2); }
+.arch-box.am { border-color:var(--rust2); color:var(--rust2); }
+.arch-box.zk { border-color:#A070D0; color:#A070D0; }
+.arch-box.jn { border-color:#6090C0; color:#6090C0; }
+.arch-box.small { font-size:11px; padding:7px 12px; }
+.arch-arrow { color:#4A3828; font-size:20px; }
+.arch-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:#504030; text-align:center; letter-spacing:0.1em; margin-top:4px; }
+.cluster-box { border:1px dashed #3A3028; border-radius:10px; padding:14px; display:flex; flex-direction:column; align-items:center; gap:8px; }
+.cluster-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:#5A4838; letter-spacing:0.2em; margin-bottom:4px; }
+.mini-row { display:flex; gap:8px; }
+
+/* STEP BY STEP */
+.steps { margin:24px 0; }
+.step-item { display:flex; gap:18px; margin-bottom:22px; align-items:flex-start; }
+.step-num-circle { width:34px; height:34px; background:var(--teal); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500; color:white; flex-shrink:0; margin-top:2px; }
+.step-num-circle.gold { background:var(--gold); }
+.step-num-circle.rust { background:var(--rust); }
+.step-content h4 { font-weight:600; color:var(--ink); margin-bottom:4px; }
+.step-content p { font-size:15px; color:var(--ink2); margin:0; }
+
+/* FLOW */
+.flow { display:flex; align-items:center; gap:0; margin:24px 0; flex-wrap:wrap; justify-content:center; }
+.flow-step { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:12px 16px; text-align:center; min-width:90px; font-size:13px; }
+.flow-step .step-num { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--teal); letter-spacing:0.2em; margin-bottom:4px; }
+.flow-step .step-name { font-weight:600; color:var(--ink); font-size:13px; }
+.flow-step .step-desc { font-size:11px; color:var(--ink3); margin-top:2px; }
+.flow-arrow { font-size:20px; color:var(--border); padding:0 4px; }
+
+/* PIPELINE VISUAL */
+.pipeline { display:flex; align-items:stretch; gap:0; margin:24px 0; overflow-x:auto; padding-bottom:8px; }
+.pipe-box { background:var(--bg2); border:2px solid var(--teal); border-radius:10px; padding:12px 16px; text-align:center; min-width:120px; flex-shrink:0; }
+.pipe-box.map { border-color:var(--teal); }
+.pipe-box.shuffle { border-color:var(--gold); }
+.pipe-box.reduce { border-color:var(--rust); }
+.pipe-box .p-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:6px; }
+.pipe-box.map .p-label { color:var(--teal); }
+.pipe-box.shuffle .p-label { color:var(--gold); }
+.pipe-box.reduce .p-label { color:var(--rust); }
+.pipe-box .p-name { font-weight:600; color:var(--ink); font-size:14px; }
+.pipe-box .p-desc { font-size:12px; color:var(--ink3); margin-top:4px; }
+.pipe-arrow { display:flex; align-items:center; padding:0 6px; font-size:22px; color:var(--border); flex-shrink:0; }
+
+/* TABLE */
+.sum-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:14px; }
+.sum-table th { background:var(--ink); color:var(--bg); font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; padding:12px 16px; text-align:left; }
+.sum-table td { padding:10px 16px; border-bottom:1px solid var(--border); color:var(--ink2); vertical-align:top; }
+.sum-table td:first-child { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--teal); white-space:nowrap; }
+.sum-table tr:nth-child(even) td { background:var(--bg2); }
+.sum-table tr:hover td { background:var(--bg3); }
+
+/* DATA FLOW BOX */
+.data-flow { background:#1A1510; border-radius:12px; padding:28px 32px; margin:24px 0; }
+.df-step { display:flex; align-items:flex-start; gap:18px; padding:14px 0; border-bottom:1px solid #2A2018; }
+.df-step:last-child { border-bottom:none; }
+.df-icon { font-size:20px; min-width:32px; padding-top:2px; }
+.df-label { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--teal2); min-width:100px; padding-top:3px; }
+.df-text { font-family:'JetBrains Mono',monospace; font-size:12px; color:#C0B8A8; line-height:1.6; }
+
+/* QUIZ */
+.quiz-section { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:28px 32px; margin:40px 0; }
+.quiz-title { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.3em; color:var(--rust); text-transform:uppercase; margin-bottom:20px; }
+.quiz-q { margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+.quiz-q:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+.quiz-q p { font-weight:600; color:var(--ink); margin-bottom:12px; font-size:16px; }
+.quiz-option { display:block; background:var(--white); border:1px solid var(--border); border-radius:6px; padding:10px 16px; margin-bottom:8px; cursor:pointer; font-size:15px; color:var(--ink2); transition:all 0.2s; width:100%; text-align:left; }
+.quiz-option:hover { border-color:var(--teal); color:var(--teal); }
+.quiz-option.correct { background:#E8F5E9; border-color:#4CAF50; color:#2E7D32; }
+.quiz-option.wrong { background:#FFEBEE; border-color:#EF5350; color:#C62828; }
+.quiz-feedback { font-size:14px; margin-top:8px; padding:8px 14px; border-radius:6px; display:none; }
+.quiz-feedback.show { display:block; }
+.quiz-feedback.correct { background:#E8F5E9; color:#2E7D32; }
+.quiz-feedback.wrong { background:#FFEBEE; color:#C62828; }
+
+/* FOOTER */
+.footer { background:var(--ink); color:#6B5F52; text-align:center; padding:40px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">📚 Hadoop Ecosystem · Complete Architecture</div>
+    <h1>Hadoop<br><em>Explained</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-intro">
+      <strong>HDFS, YARN &amp; MapReduce</strong> — every component, every sub-component, explained in simple words with analogies, examples, and visuals. Built from your class notes.
+    </p>
+    <div class="hero-badges">
+      <div class="badge hdfs">HDFS — Storage Layer</div>
+      <div class="badge yarn">YARN — Resource Manager</div>
+      <div class="badge mr">MapReduce — Processing</div>
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="nav-sticky">
+  <a href="#what-hdfs">What is HDFS?</a>
+  <a href="#namenode">NameNode</a>
+  <a href="#standby">Standby NN</a>
+  <a href="#journalnode">JournalNodes</a>
+  <a href="#zookeeper">ZooKeeper</a>
+  <a href="#datanode">DataNodes</a>
+  <a href="#hdfs-rw">Read &amp; Write</a>
+  <span class="nav-part">|</span>
+  <a href="#yarn">YARN</a>
+  <a href="#rm">ResourceManager</a>
+  <a href="#am">AppMaster</a>
+  <a href="#nm">NodeManager</a>
+  <span class="nav-part">|</span>
+  <a href="#mapreduce">MapReduce</a>
+  <a href="#mapper">Mapper</a>
+  <a href="#shuffle">Shuffle</a>
+  <a href="#reducer">Reducer</a>
+  <a href="#quiz">Quiz</a>
+</nav>
+
+<!-- ==================== PART 1: HDFS ==================== -->
+<div class="part-header" id="what-hdfs">
+  <div class="part-label">Part 1</div>
+  <h2>HDFS — <em>Hadoop Distributed File System</em></h2>
+  <div class="part-sub">How Hadoop stores terabytes of data across hundreds of cheap machines</div>
+</div>
+
+<section class="chapter">
+  <div class="chapter-num">Section 1.1</div>
+  <h2>What is <em>HDFS?</em></h2>
+  <p class="chapter-lead">Imagine you have a 1 TB movie file. No single laptop can store it. HDFS solves this by cutting that file into 128 MB chunks and spreading them across hundreds of machines — but to you it still looks like one normal file.</p>
+
+  <div class="analogy">
+    <div class="analogy-label">🏛️ Library Analogy</div>
+    <p>Think of HDFS like a huge city library. There is <strong>one librarian (NameNode)</strong> who knows which shelf every book is on. There are <strong>many shelves (DataNodes)</strong> that actually store the books. When you (the Client) want a book, you ask the librarian first, then go directly to the shelf.</p>
+  </div>
+
+  <div class="key-terms">
+    <div class="term-card">
+      <div class="term">Block</div>
+      <div class="definition">A fixed 128 MB chunk of a file. A 400 MB file becomes 3 full blocks + 1 small block. Each block lives on a DataNode's local disk.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Replication</div>
+      <div class="definition">Every block is copied 3 times by default. If one machine dies, 2 other copies still exist. You never lose data.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Namespace</div>
+      <div class="definition">The directory tree of all files and folders — like your computer's folder structure. Stored entirely in the NameNode's RAM.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Metadata</div>
+      <div class="definition">Information ABOUT your data — file names, sizes, permissions, which blocks belong to which file. NOT the actual data itself.</div>
+    </div>
+  </div>
+
+  <div class="arch-diagram">
+    <div class="arch-title">HDFS Master / Worker Architecture</div>
+    <div class="arch-row">
+      <div class="arch-box client">Client<br><span style="font-size:10px;color:#806040">Your App / Script</span></div>
+      <div class="arch-arrow">⟷</div>
+      <div class="cluster-box">
+        <div class="cluster-label">Master</div>
+        <div class="arch-box nn">Active NameNode<br><span style="font-size:10px">Metadata in RAM</span></div>
+        <div class="arch-box nn small">FSImage + EditLog<br>on disk</div>
+      </div>
+      <div class="arch-arrow">⟷</div>
+      <div class="cluster-box">
+        <div class="cluster-label">Workers</div>
+        <div class="mini-row">
+          <div class="arch-box dn small">DataNode 1<br>Blocks</div>
+          <div class="arch-box dn small">DataNode 2<br>Blocks</div>
+          <div class="arch-box dn small">DataNode 3<br>Blocks</div>
+        </div>
+      </div>
+    </div>
+    <div class="arch-label">Client asks NameNode for directions → then reads/writes data directly from/to DataNodes</div>
+  </div>
+</section>
+
+<!-- NAMENODE -->
+<section class="chapter" id="namenode">
+  <div class="chapter-num">Section 1.2</div>
+  <h2>The <em>NameNode</em> — Brain of HDFS</h2>
+  <p class="chapter-lead">The NameNode is the single master server. It lives entirely in RAM for speed and handles ALL metadata operations — but never touches actual data bytes.</p>
+
+  <div class="callout red">
+    <div class="callout-label">🔑 Critical Fact</div>
+    <p>The NameNode stores <strong>ONLY metadata</strong> — file names, permissions, block locations. It does <strong>NOT</strong> store your actual data. Not a single byte of your file content lives on the NameNode. A large cluster NameNode might hold 200 GB of metadata in RAM.</p>
+  </div>
+
+  <div class="prose">
+    <h3>Sub-component: FSImage — The Photograph</h3>
+    <p>FSImage is a <strong>frozen snapshot</strong> of the entire file system at a point in time — like a photograph taken yesterday. When the NameNode restarts, it loads this photo first to know what files exist. Without it, restarting = losing everything.</p>
+
+    <h3>Sub-component: EditLog — The Diary</h3>
+    <p>EditLog is a <strong>transaction journal</strong> — like a diary that records every single change. Every time you create a file, delete a folder, or rename something, it gets written to the EditLog on disk.</p>
+    <p>When the NameNode crashes and restarts: it <strong>loads the FSImage</strong> (old photo) + <strong>replays the EditLog</strong> (diary entries since the photo) = reconstructs the exact current state. Clever!</p>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-label">📷 Analogy</div>
+    <p><strong>FSImage = a photograph of your house.</strong> Shows everything as it was at that moment.<br>
+    <strong>EditLog = a diary of changes since the photo.</strong> "Added a chair, painted the wall, removed a table."<br>
+    Restart = load the photo + replay the diary → exact current state.</p>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">⚠️ The EditLog Problem</div>
+    <p>Over time the EditLog grows huge — millions of entries. On restart, replaying all of them takes forever. This is why the <strong>Standby NameNode</strong> (or old Secondary NameNode) periodically merges FSImage + EditLog into a fresh, compact FSImage. This is called <strong>checkpointing</strong>.</p>
+  </div>
+</section>
+
+<!-- STANDBY NAMENODE -->
+<section class="chapter" id="standby">
+  <div class="chapter-num">Section 1.3</div>
+  <h2>Standby NameNode — <em>True Hot Backup</em></h2>
+  <p class="chapter-lead">Introduced in Hadoop 2.x. Unlike the old Secondary NameNode, the Standby is a real backup — if the Active NameNode dies, it takes over within seconds with ZERO data loss.</p>
+
+  <div class="prose">
+    <p>The Standby NameNode is like a <strong>co-pilot on an airplane</strong>. The pilot (Active NameNode) is flying the plane. The co-pilot is watching every move and mirroring every control input in real time. If the pilot suddenly collapses, the co-pilot can immediately take over — because they already know exactly what was happening.</p>
+  </div>
+
+  <div class="key-terms">
+    <div class="term-card">
+      <div class="term">In-Memory Mirror</div>
+      <div class="definition">The Standby keeps a complete copy of the full file system namespace in its own RAM. It applies every edit from JournalNodes in real time — always only milliseconds behind Active.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Checkpoint Service</div>
+      <div class="definition">In HA mode, the Standby takes over checkpointing duty. It periodically merges FSImage + EditLog into a new compact FSImage and sends it back to the Active. Keeps startups fast.</div>
+    </div>
+  </div>
+
+  <div class="callout red">
+    <div class="callout-label">⚠️ Secondary NameNode ≠ Backup!</div>
+    <p>The old <strong>Secondary NameNode</strong> (Hadoop 1.x) was NOT a hot backup. It only did checkpointing. If the Active NameNode crashed, the Secondary could NOT take over. It's legacy — replaced by the true Standby NameNode in HA setups.</p>
+  </div>
+</section>
+
+<!-- JOURNALNODES -->
+<section class="chapter" id="journalnode">
+  <div class="chapter-num">Section 1.4</div>
+  <h2>JournalNode Quorum — <em>Shared EditLog</em></h2>
+  <p class="chapter-lead">In HA mode, both Active and Standby NameNodes need to share the same EditLog. JournalNodes are the infrastructure that makes this shared EditLog possible — and fault-tolerant.</p>
+
+  <div class="prose">
+    <p>Think of JournalNodes as a <strong>group of notaries</strong>. When the Active NameNode makes a change (creates a file, deletes a folder), it must get that change confirmed by a majority of notaries before proceeding. The Standby NameNode continuously reads these confirmed records and updates its own copy.</p>
+  </div>
+
+  <div class="callout teal">
+    <div class="callout-label">💡 Why Always Odd Numbers?</div>
+    <p>JournalNodes (and ZooKeeper) are always deployed in <strong>odd numbers (3, 5, 7...)</strong> because of majority voting. With 3 nodes, losing 1 still leaves a 2-node majority — cluster keeps running. With 4 nodes, losing 2 means you're stuck at exactly 50-50 — no majority possible. Odd numbers guarantee a majority can always be formed.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-num-circle" style="background:var(--teal)">1</div>
+      <div class="step-content">
+        <h4>Active NameNode writes an edit</h4>
+        <p>Every change (create file, delete folder) is written to ALL JournalNodes simultaneously. The Active waits for at least 2 out of 3 to confirm.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num-circle" style="background:var(--teal)">2</div>
+      <div class="step-content">
+        <h4>Standby reads continuously</h4>
+        <p>The Standby NameNode continuously reads (tails) these edit segments from the JournalNodes, replaying each one to stay in sync with Active.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num-circle" style="background:var(--teal)">3</div>
+      <div class="step-content">
+        <h4>Fault tolerance</h4>
+        <p>If one JournalNode dies, the other two still form a majority. The system keeps running. Only if 2+ JournalNodes die does the cluster halt writes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZOOKEEPER + ZKFC -->
+<section class="chapter" id="zookeeper">
+  <div class="chapter-num">Section 1.5</div>
+  <h2>ZooKeeper &amp; ZKFC — <em>Automatic Failover</em></h2>
+  <p class="chapter-lead">ZooKeeper ensures only ONE NameNode is Active at any time. ZKFC is the agent that monitors the NameNode and uses ZooKeeper to trigger automatic failover.</p>
+
+  <div class="analogy">
+    <div class="analogy-label">🔑 Analogy — The Hotel Key Card</div>
+    <p>ZooKeeper is like a hotel that gives out <strong>only one master key card</strong>. The Active NameNode holds this card. As long as it's alive, it keeps using the card. If it dies, the card is automatically deactivated and a new one is issued to the Standby NameNode — which can now open all the doors.</p>
+  </div>
+
+  <div class="prose">
+    <h3>The Split-Brain Problem</h3>
+    <p>Without ZooKeeper, imagine the Active NameNode becomes slow due to network issues. The Standby thinks it's dead and promotes itself to Active. Now <strong>both NameNodes think they're Active</strong> and both start accepting writes. This is called <strong>Split-Brain</strong> — and it leads to namespace corruption, two conflicting versions of truth.</p>
+    <p>ZooKeeper prevents this with a simple rule: <strong>only the NameNode holding the ZooKeeper lock can be Active</strong>. Only one can hold the lock at a time.</p>
+
+    <h3>ZKFC — The Watchdog</h3>
+    <p>ZKFC (ZooKeeper Failover Controller) is a small daemon that runs alongside each NameNode. It has three jobs:</p>
+  </div>
+
+  <div class="key-terms">
+    <div class="term-card">
+      <div class="term">Health Monitor</div>
+      <div class="definition">Continuously sends health checks to the local NameNode. If NameNode stops responding, ZKFC acts.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">ZK Session Manager</div>
+      <div class="definition">The Active NameNode's ZKFC holds the ZooKeeper lock. If the NameNode dies, the session expires and the lock is released.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Fencing</div>
+      <div class="definition">Before promoting Standby to Active, ZKFC forcibly kills or disconnects the old Active. This prevents split-brain. Only then does Standby take over.</div>
+    </div>
+  </div>
+</section>
+
+<!-- DATANODES -->
+<section class="chapter" id="datanode">
+  <div class="chapter-num">Section 1.6</div>
+  <h2>DataNodes — <em>The Storage Workers</em></h2>
+  <p class="chapter-lead">DataNodes are the actual storage machines. A production cluster can have 50 to 5,000 DataNodes, each a cheap commodity server with lots of disk. They store blocks and serve them on demand.</p>
+
+  <div class="key-terms">
+    <div class="term-card">
+      <div class="term">Block Storage</div>
+      <div class="definition">Files are split into 128 MB blocks. A 400 MB file = 3 blocks of 128 MB + 1 block of 16 MB. Each block stored as a plain file on local disk. DataNode doesn't know about the whole file — just its own blocks.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Block Checksum</div>
+      <div class="definition">When writing a block, a CRC-32C checksum is computed and stored. When reading, the checksum is recomputed and compared. If they don't match = corrupt block → reported to NameNode → another replica is fetched.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Heartbeat</div>
+      <div class="definition">Every 3 seconds, each DataNode tells the NameNode "I'm alive" + current disk space, CPU load. No heartbeat for 10 minutes = NameNode marks it dead and starts re-replicating its blocks.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Block Report</div>
+      <div class="definition">Every hour, each DataNode sends a complete list of ALL its blocks to the NameNode. Lets NameNode verify the block map is accurate and detect anything missing.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Block Scanner</div>
+      <div class="definition">Background thread on every DataNode. Continuously re-reads and rechecks blocks on disk. Finds silent corruption (disk bit-flips) before a client reads them.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Replication Pipeline</div>
+      <div class="definition">When writing, the client sends data to DataNode 1 → DN1 forwards to DN2 → DN2 forwards to DN3. All 3 copies written simultaneously. ACKs travel back: DN3→DN2→DN1→Client.</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h3>Rack Awareness — Smart Replica Placement</h3>
+    <p>Servers in a data centre are grouped in racks (20–40 servers per rack share one network switch). HDFS places 3 replicas like this:</p>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-label">🗄️ Rack Awareness Rule</div>
+    <p><strong>2 replicas → same rack</strong> (fast intra-rack network speed)<br>
+    <strong>1 replica → different rack</strong> (protection if the whole rack loses power or its switch dies)<br><br>
+    Example: Block A → Copy 1 on Rack 1 Server 1, Copy 2 on Rack 1 Server 3, Copy 3 on Rack 2 Server 7.</p>
+  </div>
+</section>
+
+<!-- HDFS READ/WRITE -->
+<section class="chapter" id="hdfs-rw">
+  <div class="chapter-num">Section 1.7</div>
+  <h2>HDFS Read &amp; Write — <em>Step by Step</em></h2>
+  <p class="chapter-lead">Understanding exactly what happens when you save or read a file from HDFS.</p>
+
+  <div class="prose"><h3>📝 Writing a File to HDFS</h3></div>
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-num-circle">1</div>
+      <div class="step-content"><h4>Client contacts NameNode</h4><p>Client says "I want to create /data/sales.csv". NameNode checks permissions, creates metadata entry, tells client which DataNodes to write each block to.</p></div>
+    </div>
+    <div class="step-item">
+      <div class="step-num-circle">2</div>
+      <div class="step-content"><h4>Replication Pipeline is set up</h4><p>Client streams data to DataNode 1. DN1 forwards to DN2. DN2 forwards to DN3. All 3 copies written simultaneously as data flows through the chain.</p></div>
+    </div>
+    <div class="step-item">
+      <div class="step-num-circle">3</div>
+      <div class="step-content"><h4>ACKs travel back</h4><p>DN3 confirms → DN2 confirms → DN1 confirms → Client. Only when the client receives all ACKs is the block considered safely written.</p></div>
+    </div>
+    <div class="step-item">
+      <div class="step-num-circle">4</div>
+      <div class="step-content"><h4>NameNode is updated</h4><p>After all blocks written, client tells NameNode to close the file. NameNode records the final block-to-DataNode mapping and writes to EditLog.</p></div>
+    </div>
+  </div>
+
+  <div class="prose"><h3>📖 Reading a File from HDFS</h3></div>
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-num-circle" style="background:var(--gold)">1</div>
+      <div class="step-content"><h4>Client requests file metadata</h4><p>Client says "I want /data/sales.csv". NameNode returns list of block locations — for each block, which DataNodes hold copies, sorted by network distance (closest first).</p></div>
+    </div>
+    <div class="step-item">
+      <div class="step-num-circle" style="background:var(--gold)">2</div>
+      <div class="step-content"><h4>Client reads directly from DataNodes</h4><p>No NameNode involvement! Client connects directly to the nearest DataNode per block and streams data. NameNode is NOT a bottleneck for data transfer.</p></div>
+    </div>
+    <div class="step-item">
+      <div class="step-num-circle" style="background:var(--gold)">3</div>
+      <div class="step-content"><h4>File is reassembled</h4><p>As blocks arrive in order, the client stitches them together to reconstruct the complete original file.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PART 2: YARN ==================== -->
+<div class="part-header" id="yarn">
+  <div class="part-label">Part 2</div>
+  <h2>YARN — <em>Yet Another Resource Negotiator</em></h2>
+  <div class="part-sub">The operating system of the Hadoop cluster — manages CPU and RAM for all applications</div>
+</div>
+
+<section class="chapter">
+  <div class="chapter-num">Section 2.1</div>
+  <h2>What is <em>YARN?</em></h2>
+  <p class="chapter-lead">In Hadoop 1.x, MapReduce did two very different things: managed cluster resources AND ran data processing. YARN separated these into two clean layers — making Hadoop a platform for ANY framework, not just MapReduce.</p>
+
+  <div class="analogy">
+    <div class="analogy-label">🏭 Factory Floor Analogy</div>
+    <p><strong>HDFS = the warehouse</strong> (stores raw materials)<br>
+    <strong>YARN = the factory floor manager</strong> (decides which machines do which work, allocates equipment)<br>
+    <strong>MapReduce / Spark / Flink = the assembly line instructions</strong> (the actual work being done)<br><br>
+    YARN doesn't care what kind of product you're making — it just provides machines and equipment. That's why you can run Spark, Flink, and MapReduce on the same cluster simultaneously.</p>
+  </div>
+
+  <div class="arch-diagram">
+    <div class="arch-title">YARN Architecture</div>
+    <div class="arch-row">
+      <div class="arch-box client">Client<br><span style="font-size:10px">Submit job</span></div>
+      <div class="arch-arrow">→</div>
+      <div class="cluster-box">
+        <div class="cluster-label">Master Machine</div>
+        <div class="arch-box rm">ResourceManager<br><span style="font-size:10px">Scheduler + AppManager</span></div>
+      </div>
+      <div class="arch-arrow">⟷</div>
+      <div class="cluster-box">
+        <div class="cluster-label">Worker Machines</div>
+        <div class="mini-row">
+          <div class="arch-box nm small">NodeManager<br>+ Container<br>+ AM</div>
+          <div class="arch-box nm small">NodeManager<br>+ Container<br>+ Container</div>
+        </div>
+      </div>
+    </div>
+    <div class="arch-label">ResourceManager allocates containers → NodeManagers launch them → ApplicationMaster manages the job</div>
+  </div>
+</section>
+
+<!-- RESOURCE MANAGER -->
+<section class="chapter" id="rm">
+  <div class="chapter-num">Section 2.2</div>
+  <h2>ResourceManager — <em>The Cluster's Boss</em></h2>
+  <p class="chapter-lead">The single master of YARN. Has complete authority over every CPU core and every GB of RAM across all worker machines. It does NOT process data — only manages who gets resources.</p>
+
+  <div class="prose">
+    <h3>Sub-component: Scheduler — Who Gets What</h3>
+    <p>The Scheduler looks at all pending resource requests and decides which application gets which resources on which machines. It is completely pluggable — 3 policies available:</p>
+  </div>
+
+  <div class="key-terms">
+    <div class="term-card rust">
+      <div class="term">FIFO Scheduler</div>
+      <div class="definition">First come, first served. Job 1 gets everything it needs. Job 2 waits until Job 1 finishes. Simple but terrible for shared clusters — one huge job can block everything for hours.</div>
+    </div>
+    <div class="term-card gold">
+      <div class="term">Capacity Scheduler</div>
+      <div class="definition">Divide cluster into queues — "Production gets 60%, Dev gets 40%". Each team submits to their queue. Guaranteed share. Unused capacity can be borrowed. Default in most production clusters.</div>
+    </div>
+    <div class="term-card blue">
+      <div class="term">Fair Scheduler</div>
+      <div class="definition">All apps get equal share over time. 1 job = 100%. 2 jobs = 50% each. One job finishes = other reclaims 100%. Best for clusters with many short interactive queries.</div>
+    </div>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-label">🪑 Capacity Scheduler Example</div>
+    <p>Imagine an office building with 100 desks. The Data Science team is guaranteed 60 desks and the Engineering team is guaranteed 40 desks. If Data Science only uses 40 desks today, Engineering can temporarily borrow 20 extra desks. When Data Science needs those 20 back, Engineering gradually returns them.</p>
+  </div>
+
+  <div class="prose">
+    <h3>Sub-component: ApplicationsManager — Job Lifecycle</h3>
+    <p>Accepts job submissions, validates them, and asks the Scheduler for one small container to start the ApplicationMaster. Once AM is running, monitors its health. If the AM crashes, re-launches it. When the job finishes, cleans up.</p>
+  </div>
+</section>
+
+<!-- APPLICATION MASTER -->
+<section class="chapter" id="am">
+  <div class="chapter-num">Section 2.3</div>
+  <h2>ApplicationMaster — <em>One Per Job</em></h2>
+  <p class="chapter-lead">The most elegant design decision in YARN. Every single application (MapReduce job, Spark job, etc.) gets its own dedicated ApplicationMaster process — a mini-manager just for that one job.</p>
+
+  <div class="analogy">
+    <div class="analogy-label">🏗️ Project Manager Analogy</div>
+    <p>The ResourceManager is like a company's <strong>CEO</strong> — manages all resources across the whole company. The ApplicationMaster is like a <strong>Project Manager</strong> hired for one specific project. The PM negotiates resources from the CEO, manages the workers on that project, handles problems, and reports progress. When the project ends, the PM goes home.</p>
+  </div>
+
+  <div class="key-terms">
+    <div class="term-card">
+      <div class="term">Resource Negotiator</div>
+      <div class="definition">AM asks the ResourceManager: "I need 50 containers, each with 4 GB RAM and 2 CPU cores, preferably on machines that have the data I need." Gets back a list of available containers.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Task Monitor</div>
+      <div class="definition">AM monitors every task running in its containers. If a task fails (machine crashes, memory overflow), AM requests a replacement container and re-runs the task. RM doesn't handle individual task failures — only the AM does.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Progress Reporter</div>
+      <div class="definition">AM continuously reports job progress (% complete, tasks running/failed/succeeded) back to the RM. When the job finishes, AM releases all containers and shuts itself down.</div>
+    </div>
+  </div>
+
+  <div class="callout teal">
+    <div class="callout-label">💡 Why this design is genius</div>
+    <p>The ResourceManager never needs to know how MapReduce or Spark work internally. Each framework brings its own ApplicationMaster and manages its own tasks. YARN just provides raw containers. This is what makes YARN truly generic — you can run ANY distributed computing framework on top of it.</p>
+  </div>
+</section>
+
+<!-- NODE MANAGER -->
+<section class="chapter" id="nm">
+  <div class="chapter-num">Section 2.4</div>
+  <h2>NodeManager — <em>The Worker Agent</em></h2>
+  <p class="chapter-lead">A NodeManager daemon runs on EVERY worker machine. It manages that machine's resources and launches containers when instructed by the ResourceManager and ApplicationMaster.</p>
+
+  <div class="key-terms">
+    <div class="term-card">
+      <div class="term">Container</div>
+      <div class="definition">A guaranteed slice of one machine's CPU + RAM. Like a private booth in an office — reserved just for you, nobody else can use those resources while your task is running. One JVM task runs inside each container.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Container Executor</div>
+      <div class="definition">Actually launches the container JVM process on the OS. In secure clusters, uses LinuxContainerExecutor to run the container under the submitting user's Unix account — your job runs as you, not as "hadoop" system user.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Node Health Checker</div>
+      <div class="definition">Monitors the whole machine's health — is disk full? Is YARN's local scratch space available? If node is unhealthy, reports to RM which stops sending new containers to that machine.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Log Aggregator</div>
+      <div class="definition">After a container finishes, uploads all its logs (stdout, stderr, app logs) from local disk to HDFS. Without this, logs vanish when the container is cleaned up. Run "yarn logs -applicationId &lt;id&gt;" to view them later.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Localisation Service</div>
+      <div class="definition">Before a container runs, downloads the JAR files and config files it needs from HDFS to the local disk. Caches them so the same JAR isn't re-downloaded for every container.</div>
+    </div>
+  </div>
+
+  <div class="prose"><h3>Complete YARN Job Lifecycle</h3></div>
+  <div class="steps">
+    <div class="step-item"><div class="step-num-circle gold">1</div><div class="step-content"><h4>Job Submission</h4><p>You run <code>hadoop jar myjob.jar</code>. Client sends JAR + config to ResourceManager's ApplicationsManager.</p></div></div>
+    <div class="step-item"><div class="step-num-circle gold">2</div><div class="step-content"><h4>AM Container Allocated</h4><p>ApplicationsManager asks Scheduler for one small container to run the ApplicationMaster. Scheduler picks a NodeManager with free resources.</p></div></div>
+    <div class="step-item"><div class="step-num-circle gold">3</div><div class="step-content"><h4>AM Launched</h4><p>NodeManager launches AM inside the container. Localisation Service downloads the job JAR first. AM starts up and registers with RM.</p></div></div>
+    <div class="step-item"><div class="step-num-circle gold">4</div><div class="step-content"><h4>AM Calculates Resource Needs</h4><p>AM contacts HDFS to find how many input blocks exist. Sends request to Scheduler: "I need N containers for Map tasks, preferably near the data."</p></div></div>
+    <div class="step-item"><div class="step-num-circle gold">5</div><div class="step-content"><h4>Scheduler Grants Containers</h4><p>Scheduler grants containers across NodeManagers, trying to put Map containers on the same machine as the HDFS data (data locality).</p></div></div>
+    <div class="step-item"><div class="step-num-circle gold">6</div><div class="step-content"><h4>Tasks Execute</h4><p>Map tasks run in parallel. AM monitors all of them. If any fail, AM requests replacement containers. Reduce containers allocated after enough Maps finish.</p></div></div>
+    <div class="step-item"><div class="step-num-circle gold">7</div><div class="step-content"><h4>Job Completes</h4><p>All Reducers finish. AM reports success to RM. AM releases all containers and shuts down. Log Aggregators upload logs to HDFS.</p></div></div>
+  </div>
+</section>
+
+<!-- ==================== PART 3: MAPREDUCE ==================== -->
+<div class="part-header" id="mapreduce">
+  <div class="part-label">Part 3</div>
+  <h2>MapReduce — <em>Distributed Processing</em></h2>
+  <div class="part-sub">The programming model that processes terabytes in parallel using just two functions: map() and reduce()</div>
+</div>
+
+<section class="chapter">
+  <div class="chapter-num">Section 3.1</div>
+  <h2>What is <em>MapReduce?</em></h2>
+  <p class="chapter-lead">Imagine counting how many times each word appears in 10 TB of text files. One computer would take days. MapReduce divides the work into thousands of tiny tasks that all run at the same time. You only write two functions.</p>
+
+  <div class="analogy">
+    <div class="analogy-label">📚 Library Word Count Analogy</div>
+    <p>You want to count how many times each word appears in a 1000-page encyclopedia. Instead of reading it yourself:<br><br>
+    <strong>Map phase:</strong> Give one chapter to each of 50 students. Each student writes: "I found 'science' 3 times, 'physics' 2 times..."<br>
+    <strong>Shuffle:</strong> Collect all papers, and group them by word — all papers mentioning 'science' go to Student A, all mentioning 'physics' go to Student B.<br>
+    <strong>Reduce phase:</strong> Each student adds up the counts for their word. Student A: science = 3+5+2+7 = 17. Done!<br><br>
+    You only needed to define what each "student" does — MapReduce handles the coordination.</p>
+  </div>
+
+  <div class="callout teal">
+    <div class="callout-label">🎯 Core Philosophy: Move Code to Data</div>
+    <p>Instead of copying 10 TB of data to one machine to process it, MapReduce sends your tiny <code>map()</code> function to run directly on the machines where the data already lives. This is called <strong>data locality</strong> — the most important performance principle in Hadoop.</p>
+  </div>
+</section>
+
+<!-- MAPPER -->
+<section class="chapter" id="mapper">
+  <div class="chapter-num">Section 3.2</div>
+  <h2>The <em>Mapper</em> — Processing Each Chunk</h2>
+  <p class="chapter-lead">One Mapper runs per input split (one HDFS block = 128 MB). All Mappers run in parallel. The Mapper reads raw data, converts it to key-value pairs, and writes sorted intermediate output.</p>
+
+  <div class="prose">
+    <h3>Input Splits — One Mapper Per Split</h3>
+    <p>Before any processing starts, MapReduce divides the input into <strong>input splits</strong> — logical pointers to chunks of data (one per HDFS block). One Mapper is launched per split. 100 splits = 100 Mappers running simultaneously. You don't set this number — it's automatically determined by the file size.</p>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">📌 Split vs Block</div>
+    <p>An <strong>input split</strong> is a logical division used by MapReduce (just a pointer: start byte, end byte, location). An HDFS <strong>block</strong> is physical storage on disk. They usually match in size (128 MB), but they are different concepts.</p>
+  </div>
+
+  <div class="key-terms">
+    <div class="term-card">
+      <div class="term">RecordReader</div>
+      <div class="definition">Reads raw bytes from the HDFS block and converts them into key-value pairs. Default: LineRecordReader reads line by line → (byte_offset, line_text). You can write custom RecordReaders for CSV, JSON, XML, etc.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">map() Function</div>
+      <div class="definition">The code YOU write. Receives one key-value pair at a time. Emits zero, one, or many new key-value pairs. Word Count: receives (offset, "hello world") → emits (hello,1) and (world,1). Must be stateless.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Spill Buffer</div>
+      <div class="definition">100 MB circular buffer that collects map() output in memory. When 80% full, a background thread spills the contents to disk as a sorted file. Prevents millions of tiny disk writes. All spill files merged at end.</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h3>Combiner — The Mini-Reducer (Optional but Powerful)</h3>
+    <p>The Combiner runs <strong>locally</strong> on each Mapper machine BEFORE data is sent across the network. It pre-aggregates results to reduce network traffic.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-label">✉️ Combiner Analogy</div>
+    <p>Imagine you're mailing individual sticky notes to a central office. Without the Combiner: you mail 500 individual notes each saying "hello: 1". With the Combiner: you bundle them locally first → mail one note saying "hello: 500". Same result, 500x less network traffic.</p>
+  </div>
+
+  <div class="callout red">
+    <div class="callout-label">⚠️ When can you use a Combiner?</div>
+    <p>Only when the operation is <strong>commutative and associative</strong> — order of combining doesn't change the result.<br>
+    ✅ Safe: <strong>sum, count, max, min</strong><br>
+    ❌ NOT safe: <strong>average</strong> — you cannot average averages and get the correct result.</p>
+  </div>
+
+  <div class="prose">
+    <h3>Partitioner — Who Goes to Which Reducer?</h3>
+    <p>After the Combiner, the Partitioner decides which Reducer will receive each key. Formula: <code>hash(key) % number_of_reducers</code>. This ensures ALL instances of the same key always go to the SAME Reducer — so it can aggregate them all.</p>
+  </div>
+</section>
+
+<!-- SHUFFLE -->
+<section class="chapter" id="shuffle">
+  <div class="chapter-num">Section 3.3</div>
+  <h2>Shuffle &amp; Sort — <em>The Most Expensive Phase</em></h2>
+  <p class="chapter-lead">You write zero code for this phase — MapReduce handles it entirely. But it's the most network-intensive operation: all Mapper outputs travel across the cluster network to their assigned Reducers.</p>
+
+  <div class="analogy">
+    <div class="analogy-label">📬 Post Office Analogy</div>
+    <p>After all the students (Mappers) finish writing their word-count notes, imagine a giant postal system that:<br>
+    1. <strong>Collects</strong> all the notes from all students across all buildings (Copy phase)<br>
+    2. <strong>Sorts and groups</strong> all notes by word — every 'science' note in one pile (Merge-Sort phase)<br>
+    3. <strong>Delivers</strong> each pile to the student assigned to count that word (Reducers)<br><br>
+    The postal system handles all the logistics — you just define what to do with the sorted pile.</p>
+  </div>
+
+  <div class="key-terms">
+    <div class="term-card">
+      <div class="term">Copy Phase (Shuffle)</div>
+      <div class="definition">Reducers send HTTP requests to Mapper machines and pull their assigned partition. This is the actual "shuffle" — data moving from where it was produced to where it will be consumed. Most network-intensive step.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Merge-Sort Phase</div>
+      <div class="definition">Each Reducer receives many sorted mini-files (one per Mapper). The framework merges all of them into one big sorted stream. After this: (apple,[1,1,1,...]), (banana,[1,1,...]) — all values for same key grouped together.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Spill File Merge</div>
+      <div class="definition">As partitions arrive from Mappers, they're progressively merged on the Reducer's disk. By the time all Mappers finish, the Reducer has one final sorted stream ready for reduce() — without loading everything into RAM at once.</div>
+    </div>
+  </div>
+</section>
+
+<!-- REDUCER -->
+<section class="chapter" id="reducer">
+  <div class="chapter-num">Section 3.4</div>
+  <h2>The <em>Reducer</em> — Final Aggregation</h2>
+  <p class="chapter-lead">Reducers run one per partition, all simultaneously. Each Reducer receives all the values for its assigned keys (already sorted and grouped by the Shuffle phase) and produces the final output.</p>
+
+  <div class="key-terms">
+    <div class="term-card">
+      <div class="term">reduce() Function</div>
+      <div class="definition">The second function YOU write. Called once per unique key. Receives the key + a lazy Iterator of all values for that key. Word Count: receives (hello, [1,1,1,...]) → emits (hello, 4729).</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Iterator (Lazy)</div>
+      <div class="definition">Values arrive one at a time from disk — NOT all loaded into RAM at once. Critical for words appearing billions of times. You can't fit 1 billion values in RAM, but you can process them one by one.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">RecordWriter</div>
+      <div class="definition">Writes the final key-value pairs to HDFS as plain text: "key TAB value". Reducer 0 writes part-00000, Reducer 1 writes part-00001, etc. Job complete when all part files are in the output directory.</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h3>Complete MapReduce Pipeline</h3>
+  </div>
+
+  <div class="pipeline">
+    <div class="pipe-box map">
+      <div class="p-label">Input</div>
+      <div class="p-name">HDFS Blocks</div>
+      <div class="p-desc">128 MB each</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-box map">
+      <div class="p-label">Split</div>
+      <div class="p-name">RecordReader</div>
+      <div class="p-desc">→ (key, value)</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-box map">
+      <div class="p-label">Map</div>
+      <div class="p-name">map()</div>
+      <div class="p-desc">your code</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-box map">
+      <div class="p-label">Local</div>
+      <div class="p-name">Combiner</div>
+      <div class="p-desc">pre-aggregate</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-box shuffle">
+      <div class="p-label">Network</div>
+      <div class="p-name">Shuffle</div>
+      <div class="p-desc">copy partitions</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-box shuffle">
+      <div class="p-label">Sort</div>
+      <div class="p-name">Merge-Sort</div>
+      <div class="p-desc">group by key</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-box reduce">
+      <div class="p-label">Reduce</div>
+      <div class="p-name">reduce()</div>
+      <div class="p-desc">your code</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-box reduce">
+      <div class="p-label">Output</div>
+      <div class="p-name">HDFS</div>
+      <div class="p-desc">part-00000...</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h3>📖 Word Count — Traced Through Every Component</h3>
+    <p>Input: Three lines in HDFS — "hello world hello" | "world hadoop hello" | "hadoop hadoop world"</p>
+  </div>
+
+  <div class="data-flow">
+    <div class="df-step">
+      <div class="df-icon">📄</div>
+      <div class="df-label">RecordReader</div>
+      <div class="df-text">(0, "hello world hello")<br>(18, "world hadoop hello")<br>(36, "hadoop hadoop world")</div>
+    </div>
+    <div class="df-step">
+      <div class="df-icon">🔧</div>
+      <div class="df-label">map()</div>
+      <div class="df-text">(hello,1)(world,1)(hello,1)(world,1)(hadoop,1)(hello,1)(hadoop,1)(hadoop,1)(world,1)</div>
+    </div>
+    <div class="df-step">
+      <div class="df-icon">📦</div>
+      <div class="df-label">Spill + Sort</div>
+      <div class="df-text">(hadoop,1)(hadoop,1)(hadoop,1)(hello,1)(hello,1)(hello,1)(world,1)(world,1)(world,1)</div>
+    </div>
+    <div class="df-step">
+      <div class="df-icon">⚡</div>
+      <div class="df-label">Combiner</div>
+      <div class="df-text">(hadoop,3)(hello,3)(world,3)  ← 9 pairs reduced to 3 before network transfer!</div>
+    </div>
+    <div class="df-step">
+      <div class="df-icon">🌐</div>
+      <div class="df-label">Shuffle</div>
+      <div class="df-text">3 pairs travel across network to the Reducer machine</div>
+    </div>
+    <div class="df-step">
+      <div class="df-icon">🔧</div>
+      <div class="df-label">reduce()</div>
+      <div class="df-text">(hadoop, 3)    (hello, 3)    (world, 3)</div>
+    </div>
+    <div class="df-step">
+      <div class="df-icon">💾</div>
+      <div class="df-label">HDFS Output</div>
+      <div class="df-text">part-00000:  hadoop  3  |  hello  3  |  world  3</div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE LAYERS TOGETHER -->
+<section class="chapter">
+  <div class="chapter-num">Section 4.1</div>
+  <h2>All <em>Three Layers</em> Together</h2>
+  <p class="chapter-lead">HDFS, YARN, and MapReduce are three separate layers that work together seamlessly. You can replace MapReduce with Spark and run on the same HDFS + YARN foundation.</p>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="step-num">STORAGE</div>
+      <div class="step-name">HDFS</div>
+      <div class="step-desc">Stores data in blocks across DataNodes</div>
+    </div>
+    <div class="flow-arrow">+</div>
+    <div class="flow-step">
+      <div class="step-num">RESOURCES</div>
+      <div class="step-name">YARN</div>
+      <div class="step-desc">Allocates CPU + RAM containers</div>
+    </div>
+    <div class="flow-arrow">+</div>
+    <div class="flow-step">
+      <div class="step-num">PROCESSING</div>
+      <div class="step-name">MapReduce</div>
+      <div class="step-desc">map() + reduce() logic</div>
+    </div>
+    <div class="flow-arrow">=</div>
+    <div class="flow-step" style="border-color:var(--teal)">
+      <div class="step-num" style="color:var(--teal)">RESULT</div>
+      <div class="step-name">Big Data<br>Processing</div>
+      <div class="step-desc">Petabyte scale</div>
+    </div>
+  </div>
+
+  <div class="key-terms">
+    <div class="term-card">
+      <div class="term">Data Locality</div>
+      <div class="definition">Running a Mapper on the SAME machine as the HDFS block it reads. Avoids sending 128 MB across the network. YARN's Scheduler tries to honour this by placing Map containers on DataNode machines.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Container (YARN)</div>
+      <div class="definition">A reserved slice of one machine's CPU + RAM. Map tasks, Reduce tasks, and the ApplicationMaster all run inside containers.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Quorum</div>
+      <div class="definition">Majority vote system. Used by JournalNodes (for EditLog) and ZooKeeper (for leader election). 2 out of 3 = quorum. Prevents single points of failure.</div>
+    </div>
+    <div class="term-card">
+      <div class="term">Fencing</div>
+      <div class="definition">Forcibly disconnecting or killing the old Active NameNode before promoting Standby. Prevents split-brain. Done by ZKFC before any failover.</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="chapter" id="quiz">
+  <div class="chapter-num">Quiz</div>
+  <h2>Quick <em>Quiz</em></h2>
+  <p class="chapter-lead">Test your understanding of HDFS, YARN, and MapReduce. Click to check each answer.</p>
+
+  <div class="quiz-section">
+    <div class="quiz-title">🧪 Test Yourself</div>
+
+    <div class="quiz-q" id="q1">
+      <p>Q1. What does the NameNode store? Choose the most accurate answer.</p>
+      <button class="quiz-option" onclick="answer(this,'q1',false)">The actual file data — all the bytes of every file on the cluster</button>
+      <button class="quiz-option" onclick="answer(this,'q1',true)">Only metadata — file names, directory structure, block locations, permissions. NOT actual data.</button>
+      <button class="quiz-option" onclick="answer(this,'q1',false)">A copy of the 3 replicas of every block</button>
+      <button class="quiz-option" onclick="answer(this,'q1',false)">The EditLog and nothing else</button>
+      <div class="quiz-feedback" id="q1-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q2">
+      <p>Q2. A DataNode hasn't sent a heartbeat for 10 minutes. What does the NameNode do?</p>
+      <button class="quiz-option" onclick="answer(this,'q2',false)">Waits another 10 minutes before doing anything</button>
+      <button class="quiz-option" onclick="answer(this,'q2',false)">Immediately deletes all blocks that were on that DataNode</button>
+      <button class="quiz-option" onclick="answer(this,'q2',true)">Marks the DataNode as dead and starts re-replicating its blocks to other live DataNodes to restore the 3x replication factor</button>
+      <button class="quiz-option" onclick="answer(this,'q2',false)">Shuts down the entire cluster</button>
+      <div class="quiz-feedback" id="q2-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q3">
+      <p>Q3. What is the difference between the Secondary NameNode and the Standby NameNode?</p>
+      <button class="quiz-option" onclick="answer(this,'q3',false)">They are the same thing — just different names in different Hadoop versions</button>
+      <button class="quiz-option" onclick="answer(this,'q3',false)">The Secondary NameNode is newer and can take over if the Active NameNode dies</button>
+      <button class="quiz-option" onclick="answer(this,'q3',true)">Secondary NameNode only does checkpointing and CANNOT take over if Active dies. Standby NameNode is a true hot backup that CAN take over within seconds.</button>
+      <button class="quiz-option" onclick="answer(this,'q3',false)">The Standby NameNode only does checkpointing</button>
+      <div class="quiz-feedback" id="q3-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q4">
+      <p>Q4. Why are JournalNodes always deployed in odd numbers (3, 5, 7)?</p>
+      <button class="quiz-option" onclick="answer(this,'q4',false)">Because even numbers are slower due to hardware limitations</button>
+      <button class="quiz-option" onclick="answer(this,'q4',true)">Because they use majority voting — odd numbers guarantee that a majority (more than half) can always be formed, even when some nodes fail</button>
+      <button class="quiz-option" onclick="answer(this,'q4',false)">To match the 3x replication factor of HDFS blocks</button>
+      <button class="quiz-option" onclick="answer(this,'q4',false)">It is just a convention — even numbers work equally well</button>
+      <div class="quiz-feedback" id="q4-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q5">
+      <p>Q5. What is data locality in MapReduce and why does it matter?</p>
+      <button class="quiz-option" onclick="answer(this,'q5',false)">Storing all data in one location so it's easier to process</button>
+      <button class="quiz-option" onclick="answer(this,'q5',false)">The Reducer running on the same machine as the output directory</button>
+      <button class="quiz-option" onclick="answer(this,'q5',true)">Running a Mapper on the same machine where the HDFS block it needs to read already lives — avoids copying 128 MB of data across the network</button>
+      <button class="quiz-option" onclick="answer(this,'q5',false)">Keeping data in RAM instead of disk for faster access</button>
+      <div class="quiz-feedback" id="q5-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q6">
+      <p>Q6. You want to count total sales per product. Can you use a Combiner?</p>
+      <button class="quiz-option" onclick="answer(this,'q6',true)">Yes — summing sales (total_sales += amount) is associative and commutative. Partial sums can be combined in any order to get the correct final total.</button>
+      <button class="quiz-option" onclick="answer(this,'q6',false)">No — Combiners can never be used with numeric operations</button>
+      <button class="quiz-option" onclick="answer(this,'q6',false)">No — Combiners only work with text data like word count</button>
+      <button class="quiz-option" onclick="answer(this,'q6',false)">Only if there is exactly one Reducer</button>
+      <div class="quiz-feedback" id="q6-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q7">
+      <p>Q7. In YARN, who is responsible for re-running a failed Map task?</p>
+      <button class="quiz-option" onclick="answer(this,'q7',false)">The ResourceManager — it monitors all tasks cluster-wide</button>
+      <button class="quiz-option" onclick="answer(this,'q7',false)">The NodeManager on the failed machine</button>
+      <button class="quiz-option" onclick="answer(this,'q7',true)">The ApplicationMaster — it monitors all tasks for its specific job. When a task fails, AM requests a new container from RM and re-launches the task.</button>
+      <button class="quiz-option" onclick="answer(this,'q7',false)">The Scheduler — it automatically reassigns failed tasks</button>
+      <div class="quiz-feedback" id="q7-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q8">
+      <p>Q8. What is Split-Brain and how does ZooKeeper prevent it?</p>
+      <button class="quiz-option" onclick="answer(this,'q8',false)">Split-Brain is when data blocks are split across too many DataNodes. ZooKeeper limits the number of DataNodes.</button>
+      <button class="quiz-option" onclick="answer(this,'q8',false)">Split-Brain is when the EditLog is split between two JournalNodes. ZooKeeper merges them.</button>
+      <button class="quiz-option" onclick="answer(this,'q8',true)">Split-Brain is when BOTH NameNodes think they are Active simultaneously, causing namespace corruption. ZooKeeper prevents this by ensuring only the NameNode holding the ZooKeeper lock can be Active.</button>
+      <button class="quiz-option" onclick="answer(this,'q8',false)">Split-Brain is a network issue. ZooKeeper reroutes traffic to avoid it.</button>
+      <div class="quiz-feedback" id="q8-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q9">
+      <p>Q9. What does the Partitioner do in MapReduce?</p>
+      <button class="quiz-option" onclick="answer(this,'q9',false)">Splits the input file into 128 MB blocks before processing starts</button>
+      <button class="quiz-option" onclick="answer(this,'q9',false)">Decides how many Mappers to launch</button>
+      <button class="quiz-option" onclick="answer(this,'q9',true)">Decides which Reducer will receive each key, using hash(key) % numReducers. Ensures ALL values for the same key always go to the SAME Reducer.</button>
+      <button class="quiz-option" onclick="answer(this,'q9',false)">Sorts the Reducer output alphabetically before writing to HDFS</button>
+      <div class="quiz-feedback" id="q9-fb"></div>
+    </div>
+
+    <div class="quiz-q" id="q10">
+      <p>Q10. A production cluster uses the Capacity Scheduler with two queues: "Production" (70%) and "Dev" (30%). The Dev queue is idle all day. Can the Production queue use more than 70% of the cluster?</p>
+      <button class="quiz-option" onclick="answer(this,'q10',true)">Yes — Capacity Scheduler allows queues to borrow unused capacity from idle queues. Production can temporarily use the Dev queue's 30%, then returns it when Dev submits jobs.</button>
+      <button class="quiz-option" onclick="answer(this,'q10',false)">No — each queue is hard-limited to exactly its configured percentage, always</button>
+      <button class="quiz-option" onclick="answer(this,'q10',false)">Only if a system administrator manually adjusts the percentages</button>
+      <button class="quiz-option" onclick="answer(this,'q10',false)">This depends on the number of DataNodes, not the scheduler configuration</button>
+      <div class="quiz-feedback" id="q10-fb"></div>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  Hadoop Ecosystem · Complete Architecture Reference · Based on Soham's Notes · CDAC
+</div>
+
+<script>
+const explanations = {
+  q1: "Correct! The NameNode is pure metadata — directory tree, file names, permissions, block locations. A large cluster NameNode might hold 200 GB of metadata in RAM. Actual data bytes NEVER touch the NameNode.",
+  q2: "Correct! After 10 minutes without a heartbeat, the NameNode marks that DataNode as dead and begins re-replicating its blocks to other live DataNodes to restore the 3x replication factor.",
+  q3: "Correct! The Secondary NameNode (Hadoop 1.x legacy) only did checkpointing — merging FSImage + EditLog. It CANNOT take over if the Active dies. The Standby NameNode (Hadoop 2.x HA) is a true hot backup that can take over in seconds with zero data loss.",
+  q4: "Correct! Odd numbers guarantee a majority (more than half) can always be formed. With 3 nodes: 2 form a majority. With 4 nodes: if 2 fail you're at exactly 50-50 — no majority, system halts. Odd numbers avoid this.",
+  q5: "Correct! Data locality = running the Mapper on the same machine that already has the HDFS block. No 128 MB travels across the network. YARN's Scheduler tries to honour this when allocating containers.",
+  q6: "Correct! Sum is associative (a+b+c = a+(b+c)) and commutative (a+b = b+a). Partial sums can be safely combined. Example: Mapper 1 sees sales [10, 20, 30] → Combiner outputs (ProductX, 60). This 60 can be safely added to another Combiner's total.",
+  q7: "Correct! The ApplicationMaster manages its specific job end-to-end. It monitors every task. When a task fails, AM requests a new container from the ResourceManager and re-runs the task. The RM only tracks if the AM itself crashes.",
+  q8: "Correct! Split-Brain = both NameNodes think they're Active → both accept writes → two conflicting versions of the namespace → corruption. ZooKeeper's lock (ephemeral znode) ensures only one NameNode can be Active. Only the lock holder can write.",
+  q9: "Correct! The Partitioner uses hash(key) % numReducers to assign each key to exactly one Reducer. This guarantees ALL instances of 'apple' from ALL Mappers go to the same Reducer, so it can count them all together.",
+  q10: "Correct! Capacity Scheduler allows elastic sharing. Idle queue capacity can be borrowed by other queues. When the Dev team submits jobs, the borrowed capacity is gradually returned. This is the key advantage over FIFO — resources are never wasted."
+};
+
+const wrongs = {
+  q1: "Not quite. The NameNode stores ONLY metadata — file names, directory structure, block locations, permissions. It does NOT store actual file data. Not a single byte of your actual data lives on the NameNode.",
+  q2: "Not quite. After 10 minutes without a heartbeat, the NameNode marks the DataNode as dead and begins re-replicating its blocks to other live DataNodes to restore the 3x replication factor.",
+  q3: "Not quite. These are very different! Secondary NameNode (old, Hadoop 1.x) only does checkpointing and CANNOT take over if Active dies. Standby NameNode (Hadoop 2.x HA) is a genuine hot backup that CAN take over within seconds.",
+  q4: "Not quite. Odd numbers are required for mathematical majority voting. With 3 nodes: losing 1 still leaves 2 (majority). With 4 nodes: losing 2 leaves exactly 2 vs 2 — no majority possible. Odd numbers always guarantee a majority can form.",
+  q5: "Not quite. Data locality means running a Mapper on the SAME machine where its input HDFS block already lives — so you don't need to copy 128 MB of data across the network to where the Mapper is running.",
+  q6: "Not quite. Sum is safe for a Combiner because it's commutative and associative — partial sums can be combined in any order. Example: (ProductX, 60) + (ProductX, 40) = (ProductX, 100), which is correct.",
+  q7: "Not quite. The ApplicationMaster is responsible for monitoring individual tasks within its job. When a task fails, the AM requests a replacement container from the ResourceManager and re-runs the failed task. The RM only knows if the AM itself crashes.",
+  q8: "Not quite. Split-Brain happens when BOTH NameNodes simultaneously think they're the Active — causing them to accept conflicting writes and corrupting the namespace. ZooKeeper's exclusive lock (only one NameNode can hold it) prevents this.",
+  q9: "Not quite. The Partitioner decides which Reducer receives each key. It uses hash(key) % numReducers to ensure ALL values for the same key from ALL Mappers end up at the SAME Reducer for aggregation.",
+  q10: "Not quite. Capacity Scheduler allows elastic borrowing of unused capacity. When Dev queue is idle, Production can use its 30% too. When Dev submits jobs, the borrowed resources are gradually returned. No capacity is wasted."
+};
+
+function answer(btn, qid, isCorrect) {
+  const q = document.getElementById(qid);
+  const buttons = q.querySelectorAll('.quiz-option');
+  const fb = document.getElementById(qid + '-fb');
+  buttons.forEach(b => b.disabled = true);
+  if (isCorrect) {
+    btn.classList.add('correct');
+    fb.className = 'quiz-feedback show correct';
+    fb.textContent = '✓ ' + explanations[qid];
+  } else {
+    btn.classList.add('wrong');
+    fb.className = 'quiz-feedback show wrong';
+    fb.textContent = '✗ ' + wrongs[qid];
+  }
+}
+</script>
+</body>
+</html>

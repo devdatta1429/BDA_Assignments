@@ -1,0 +1,337 @@
+ubh01@ubh01:~$ stop-all.sh
+
+
+
+This script is Deprecated. Instead use stop-dfs.sh and stop-yarn.sh
+26/05/05 21:02:01 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Stopping namenodes on [localhost]
+localhost: no namenode to stop
+localhost: no datanode to stop
+Stopping secondary namenodes [0.0.0.0]
+0.0.0.0: no secondarynamenode to stop
+26/05/05 21:02:03 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+stopping yarn daemons
+no resourcemanager to stop
+localhost: no nodemanager to stop
+no proxyserver to stop
+
+
+
+ubh01@ubh01:~$ start-all.sh
+This script is Deprecated. Instead use start-dfs.sh and start-yarn.sh
+26/05/05 21:02:18 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Starting namenodes on [localhost]
+localhost: starting namenode, logging to /home/ubh01/hadoop-2.7.1/logs/hadoop-ubh01-namenode-ubh01.out
+localhost: starting datanode, logging to /home/ubh01/hadoop-2.7.1/logs/hadoop-ubh01-datanode-ubh01.out
+Starting secondary namenodes [0.0.0.0]
+0.0.0.0: starting secondarynamenode, logging to /home/ubh01/hadoop-2.7.1/logs/hadoop-ubh01-secondarynamenode-ubh01.out
+26/05/05 21:02:33 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+starting yarn daemons
+starting resourcemanager, logging to /home/ubh01/hadoop-2.7.1/logs/yarn-ubh01-resourcemanager-ubh01.out
+localhost: starting nodemanager, logging to /home/ubh01/hadoop-2.7.1/logs/yarn-ubh01-nodemanager-ubh01.out
+ubh01@ubh01:~$ 
+ubh01@ubh01:~$ 
+
+
+
+ubh01@ubh01:~$ start-hbase.sh
+starting master, logging to /home/ubh01/hbase-1.1.2/logs/hbase-ubh01-master-ubh01.out
+OpenJDK 64-Bit Server VM warning: ignoring option PermSize=128m; support was removed in 8.0
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=128m; support was removed in 8.0
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/ubh01/hbase-1.1.2/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/ubh01/hadoop-2.7.1/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+ubh01@ubh01:~$ 
+ubh01@ubh01:~$ 
+
+
+
+ubh01@ubh01:~$ jps
+16466 DataNode
+16851 ResourceManager
+16293 NameNode
+27111 MainApp
+17432 HMaster
+17064 NodeManager
+16683 SecondaryNameNode
+17757 Jps
+ubh01@ubh01:~$ 
+ubh01@ubh01:~$ 
+
+
+
+
+ubh01@ubh01:~$ hbase shell
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/ubh01/hbase-1.1.2/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/ubh01/hadoop-2.7.1/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2026-05-05 21:03:20,529 WARN  [main] util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+HBase Shell; enter 'help<RETURN>' for list of supported commands.
+Type "exit<RETURN>" to leave the HBase Shell
+Version 1.1.2, rcc2b70cf03e3378800661ec5cab11eb43fafe0fc, Wed Aug 26 20:11:27 PDT 2015
+
+hbase(main):001:0> 
+
+##=========================================================================================================================================
+##=========================================================================================================================================
+##=========================================================================================================================================
+##=========================================================================================================================================
+
+
+ubh01@ubh01:~$ start-hbase.sh
+master running as process 20650. Stop it first.
+ubh01@ubh01:~$ 
+ubh01@ubh01:~$ hbase shell
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/ubh01/hbase-1.1.2/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/ubh01/hadoop-2.7.1/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2026-05-05 21:11:07,265 WARN  [main] util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+HBase Shell; enter 'help<RETURN>' for list of supported commands.
+Type "exit<RETURN>" to leave the HBase Shell
+Version 1.1.2, rcc2b70cf03e3378800661ec5cab11eb43fafe0fc, Wed Aug 26 20:11:27 PDT 2015
+
+hbase(main):001:0> create 'cdac1', 'info','roles'
+0 row(s) in 1.3800 seconds
+
+=> Hbase::Table - cdac1
+hbase(main):002:0> 
+hbase(main):003:0* 
+hbase(main):004:0* list
+TABLE                                                                                                                                                  
+cdac1                                                                                                                                                  
+1 row(s) in 0.0190 seconds
+
+=> ["cdac1"]
+hbase(main):005:0> describe 'cdac1'
+Table cdac1 is ENABLED                                                                                                                                 
+cdac1                                                                                                                                                  
+COLUMN FAMILIES DESCRIPTION                                                                                                                            
+{NAME => 'info', BLOOMFILTER => 'ROW', VERSIONS => '1', IN_MEMORY => 'false', KEEP_DELETED_CELLS => 'FALSE', DATA_BLOCK_ENCODING => 'NONE', TTL => 'FOR
+EVER', COMPRESSION => 'NONE', MIN_VERSIONS => '0', BLOCKCACHE => 'true', BLOCKSIZE => '65536', REPLICATION_SCOPE => '0'}                               
+{NAME => 'roles', BLOOMFILTER => 'ROW', VERSIONS => '1', IN_MEMORY => 'false', KEEP_DELETED_CELLS => 'FALSE', DATA_BLOCK_ENCODING => 'NONE', TTL => 'FO
+REVER', COMPRESSION => 'NONE', MIN_VERSIONS => '0', BLOCKCACHE => 'true', BLOCKSIZE => '65536', REPLICATION_SCOPE => '0'}                              
+2 row(s) in 0.1120 seconds
+
+hbase(main):006:0> 
+hbase(main):007:0* put 'cdac1', 'cutting', 'info:height', '7 ft'
+0 row(s) in 0.0650 seconds
+
+hbase(main):008:0> scan 'cdac1'
+ROW                                    COLUMN+CELL                                                                                                     
+ cutting                               column=info:height, timestamp=1777995787192, value=7 ft                                                         
+1 row(s) in 0.0240 seconds
+
+hbase(main):009:0> put 'cdac1', 'cutting', 'info:state', 'CA'
+0 row(s) in 0.0090 seconds
+
+hbase(main):010:0> put 'cdac1', 'cutting', 'roles:ASF', 'Director'
+0 row(s) in 0.0090 seconds
+
+hbase(main):011:0> scan 'cdac1'
+ROW                                    COLUMN+CELL                                                                                                     
+ cutting                               column=info:height, timestamp=1777995787192, value=7 ft                                                         
+ cutting                               column=info:state, timestamp=1777995827987, value=CA                                                            
+ cutting                               column=roles:ASF, timestamp=1777995852140, value=Director                                                       
+1 row(s) in 0.0190 seconds
+
+hbase(main):012:0> 
+hbase(main):013:0* 
+hbase(main):014:0* put 'cdac1', 'tlipcon', 'info:height', '5ft7'
+0 row(s) in 0.0120 seconds
+
+hbase(main):015:0> scan 'cdac1'
+ROW                                    COLUMN+CELL                                                                                                     
+ cutting                               column=info:height, timestamp=1777995787192, value=7 ft                                                         
+ cutting                               column=info:state, timestamp=1777995827987, value=CA                                                            
+ cutting                               column=roles:ASF, timestamp=1777995852140, value=Director                                                       
+ tlipcon                               column=info:height, timestamp=1777996155795, value=5ft7                                                         
+2 row(s) in 0.0160 seconds
+
+hbase(main):016:0> put 'cdac1', 'tlipcon', 'info:state', 'CA'
+put 'cdac1', 'tlipcon', 'roles:Hadoop', 'Committer'
+put 'cdac1', 'tlipcon', 'roles:Hive', 'Contributor'
+
+ERROR: wrong number of arguments (3 for 4)
+
+Here is some help for this command:
+Put a cell 'value' at specified table/row/column and optionally
+timestamp coordinates.  To put a cell value into table 'ns1:t1' or 't1'
+at row 'r1' under column 'c1' marked with the time 'ts1', do:
+
+  hbase> put 'ns1:t1', 'r1', 'c1', 'value'
+  hbase> put 't1', 'r1', 'c1', 'value'
+  hbase> put 't1', 'r1', 'c1', 'value', ts1
+  hbase> put 't1', 'r1', 'c1', 'value', {ATTRIBUTES=>{'mykey'=>'myvalue'}}
+  hbase> put 't1', 'r1', 'c1', 'value', ts1, {ATTRIBUTES=>{'mykey'=>'myvalue'}}
+  hbase> put 't1', 'r1', 'c1', 'value', ts1, {VISIBILITY=>'PRIVATE|SECRET'}
+
+The same commands also can be run on a table reference. Suppose you had a reference
+t to table 't1', the corresponding command would be:
+
+  hbase> t.put 'r1', 'c1', 'value', ts1, {ATTRIBUTES=>{'mykey'=>'myvalue'}}
+
+
+hbase(main):017:0> put 'cdac1', 'tlipcon', 'info:state', 'CA'
+0 row(s) in 0.0130 seconds
+
+hbase(main):018:0> put 'cdac1', 'tlipcon', 'roles:Hadoop', 'Committer'
+0 row(s) in 0.0090 seconds
+
+hbase(main):019:0> put 'cdac1', 'tlipcon', 'roles:Hive', 'Contributor'
+0 row(s) in 0.0090 seconds
+
+hbase(main):020:0> put 'cdac1', 'new', 'dummy:col1', 'temp data'
+
+ERROR: Unknown column family! Valid column names: info:*, roles:*
+
+Here is some help for this command:
+Put a cell 'value' at specified table/row/column and optionally
+timestamp coordinates.  To put a cell value into table 'ns1:t1' or 't1'
+at row 'r1' under column 'c1' marked with the time 'ts1', do:
+
+  hbase> put 'ns1:t1', 'r1', 'c1', 'value'
+  hbase> put 't1', 'r1', 'c1', 'value'
+  hbase> put 't1', 'r1', 'c1', 'value', ts1
+  hbase> put 't1', 'r1', 'c1', 'value', {ATTRIBUTES=>{'mykey'=>'myvalue'}}
+  hbase> put 't1', 'r1', 'c1', 'value', ts1, {ATTRIBUTES=>{'mykey'=>'myvalue'}}
+  hbase> put 't1', 'r1', 'c1', 'value', ts1, {VISIBILITY=>'PRIVATE|SECRET'}
+
+The same commands also can be run on a table reference. Suppose you had a reference
+t to table 't1', the corresponding command would be:
+
+  hbase> t.put 'r1', 'c1', 'value', ts1, {ATTRIBUTES=>{'mykey'=>'myvalue'}}
+
+
+hbase(main):021:0> put 'cdac1', 'tlipcon', 'roles:Hadoop', 'PMC'
+0 row(s) in 0.0530 seconds
+
+hbase(main):022:0> 
+hbase(main):023:0* scan 'cdac1'
+ROW                                    COLUMN+CELL                                                                                                     
+ cutting                               column=info:height, timestamp=1777995787192, value=7 ft                                                         
+ cutting                               column=info:state, timestamp=1777995827987, value=CA                                                            
+ cutting                               column=roles:ASF, timestamp=1777995852140, value=Director                                                       
+ tlipcon                               column=info:height, timestamp=1777996155795, value=5ft7                                                         
+ tlipcon                               column=info:state, timestamp=1777996561067, value=CA                                                            
+ tlipcon                               column=roles:Hadoop, timestamp=1777996607712, value=PMC                                                         
+ tlipcon                               column=roles:Hive, timestamp=1777996583281, value=Contributor                                                   
+2 row(s) in 0.0390 seconds
+
+hbase(main):024:0> disable 'cdac1'
+0 row(s) in 2.2910 seconds
+
+hbase(main):025:0> enable 'cdac1'
+0 row(s) in 1.3130 seconds
+
+hbase(main):026:0> desc 'cdac1'
+Table cdac1 is ENABLED                                                                                                                                 
+cdac1                                                                                                                                                  
+COLUMN FAMILIES DESCRIPTION                                                                                                                            
+{NAME => 'info', BLOOMFILTER => 'ROW', VERSIONS => '1', IN_MEMORY => 'false', KEEP_DELETED_CELLS => 'FALSE', DATA_BLOCK_ENCODING => 'NONE', TTL => 'FOR
+EVER', COMPRESSION => 'NONE', MIN_VERSIONS => '0', BLOCKCACHE => 'true', BLOCKSIZE => '65536', REPLICATION_SCOPE => '0'}                               
+{NAME => 'roles', BLOOMFILTER => 'ROW', VERSIONS => '1', IN_MEMORY => 'false', KEEP_DELETED_CELLS => 'FALSE', DATA_BLOCK_ENCODING => 'NONE', TTL => 'FO
+REVER', COMPRESSION => 'NONE', MIN_VERSIONS => '0', BLOCKCACHE => 'true', BLOCKSIZE => '65536', REPLICATION_SCOPE => '0'}                              
+2 row(s) in 0.0220 seconds
+
+hbase(main):027:0> put 'cdac1', 'tlipcon', 'roles:Hadoop', 'PMC'
+0 row(s) in 0.0140 seconds
+
+hbase(main):028:0> scan 'cdac1'
+ROW                                    COLUMN+CELL                                                                                                     
+ cutting                               column=info:height, timestamp=1777995787192, value=7 ft                                                         
+ cutting                               column=info:state, timestamp=1777995827987, value=CA                                                            
+ cutting                               column=roles:ASF, timestamp=1777995852140, value=Director                                                       
+ tlipcon                               column=info:height, timestamp=1777996155795, value=5ft7                                                         
+ tlipcon                               column=info:state, timestamp=1777996561067, value=CA                                                            
+ tlipcon                               column=roles:Hadoop, timestamp=1777996721758, value=PMC                                                         
+ tlipcon                               column=roles:Hive, timestamp=1777996583281, value=Contributor                                                   
+2 row(s) in 0.0300 seconds
+
+hbase(main):029:0> 
+hbase(main):030:0* get 'cdac1', 'tlipcon'
+COLUMN                                 CELL                                                                                                            
+ info:height                           timestamp=1777996155795, value=5ft7                                                                             
+ info:state                            timestamp=1777996561067, value=CA                                                                               
+ roles:Hadoop                          timestamp=1777996721758, value=PMC                                                                              
+ roles:Hive                            timestamp=1777996583281, value=Contributor                                                                      
+4 row(s) in 0.0170 seconds
+
+hbase(main):031:0> disable 'cdac1'
+0 row(s) in 2.2600 seconds
+
+hbase(main):032:0> alter 'cdac1' , {NAME=>'roles', VERSIONS=>3}
+Updating all regions with the new schema...
+1/1 regions updated.
+Done.
+0 row(s) in 1.9490 seconds
+
+hbase(main):033:0> enable 'cdac1'
+0 row(s) in 1.2570 seconds
+
+hbase(main):034:0> describe 'cdac1'
+Table cdac1 is ENABLED                                                                                                                                 
+cdac1                                                                                                                                                  
+COLUMN FAMILIES DESCRIPTION                                                                                                                            
+{NAME => 'info', BLOOMFILTER => 'ROW', VERSIONS => '1', IN_MEMORY => 'false', KEEP_DELETED_CELLS => 'FALSE', DATA_BLOCK_ENCODING => 'NONE', TTL => 'FOR
+EVER', COMPRESSION => 'NONE', MIN_VERSIONS => '0', BLOCKCACHE => 'true', BLOCKSIZE => '65536', REPLICATION_SCOPE => '0'}                               
+{NAME => 'roles', BLOOMFILTER => 'ROW', VERSIONS => '3', IN_MEMORY => 'false', KEEP_DELETED_CELLS => 'FALSE', DATA_BLOCK_ENCODING => 'NONE', TTL => 'FO
+REVER', COMPRESSION => 'NONE', MIN_VERSIONS => '0', BLOCKCACHE => 'true', BLOCKSIZE => '65536', REPLICATION_SCOPE => '0'}                              
+2 row(s) in 0.0260 seconds
+
+hbase(main):035:0> 
+hbase(main):036:0* 
+hbase(main):037:0* get 'cdac1' , 'tlipcon' , {COLUMN => 'roles:Hadoop' , VERSIONS =>3}
+COLUMN                                 CELL                                                                                                            
+ roles:Hadoop                          timestamp=1777996721758, value=PMC                                                                              
+ roles:Hadoop                          timestamp=1777996607712, value=PMC                                                                              
+2 row(s) in 0.0220 seconds
+
+hbase(main):038:0> get 'cdac1' , 'tlipcon' , {COLUMN => 'roles:Hadoop' , VERSIONS =>3}
+COLUMN                                 CELL                                                                                                            
+ roles:Hadoop                          timestamp=1777996721758, value=PMC                                                                              
+ roles:Hadoop                          timestamp=1777996607712, value=PMC                                                                              
+2 row(s) in 0.0110 seconds
+
+hbase(main):039:0> 
+hbase(main):040:0* 
+hbase(main):041:0* get 'cdac1', 'cutting'get 'cdac1', 'cutting'
+SyntaxError: (hbase):41: syntax error, unexpected tIDENTIFIER
+
+get 'cdac1', 'cutting'get 'cdac1', 'cutting'
+                        ^
+
+hbase(main):042:0> get 'cdac1', 'cutting'
+COLUMN                                 CELL                                                                                                            
+ info:height                           timestamp=1777995787192, value=7 ft                                                                             
+ info:state                            timestamp=1777995827987, value=CA                                                                               
+ roles:ASF                             timestamp=1777995852140, value=Director                                                                         
+3 row(s) in 0.0120 seconds
+
+hbase(main):043:0> 
+hbase(main):044:0* get 'cdac1', 'tlipcon', {FILTER =>"ValueFilter(=, 'binary:CA')"}
+COLUMN                                 CELL                                                                                                            
+ info:state                            timestamp=1777996561067, value=CA                                                                               
+1 row(s) in 0.0480 seconds
+
+hbase(main):045:0> delete 'cdac1', 'cutting', 'info:height'
+0 row(s) in 0.0150 seconds
+
+hbase(main):046:0> scan 'cdac1'
+ROW                                    COLUMN+CELL                                                                                                     
+ cutting                               column=info:state, timestamp=1777995827987, value=CA                                                            
+ cutting                               column=roles:ASF, timestamp=1777995852140, value=Director                                                       
+ tlipcon                               column=info:height, timestamp=1777996155795, value=5ft7                                                         
+ tlipcon                               column=info:state, timestamp=1777996561067, value=CA                                                            
+ tlipcon                               column=roles:Hadoop, timestamp=1777996721758, value=PMC                                                         
+ tlipcon                               column=roles:Hive, timestamp=1777996583281, value=Contributor                                                   
+2 row(s) in 0.0190 seconds
+
+hbase(main):047:0> 
+
+

@@ -1,0 +1,972 @@
+ubuntu@ubuntu:~$ cat new.file
+cat: new.file: No such file or directory
+ubuntu@ubuntu:~$ cat newfile.txt
+devdatta
+eknath
+thorat
+i am good boy
+Iran,[b] officially the Islamic Republic of Iran,[c] and also known as Persia,[d] is a country in West Asia. It borders Iraq to the west, Turkey, Azerbaijan, and Armenia to the northwest, the Caspian Sea to the north, Turkmenistan to the northeast, Afghanistan to the east, Pakistan to the southeast, and the Gulf of Oman and the Persian Gulf to the south. With a population of over 92 million, Iran ranks 17th globally in both geographic size and population and is the sixth-largest country in Asia. It is divided into five regions with 31 provinces. Tehran is the nation's capital, largest city, and financial center.
+ubuntu@ubuntu:~$ grep -r "It" newfile.txt
+Iran,[b] officially the Islamic Republic of Iran,[c] and also known as Persia,[d] is a country in West Asia. It borders Iraq to the west, Turkey, Azerbaijan, and Armenia to the northwest, the Caspian Sea to the north, Turkmenistan to the northeast, Afghanistan to the east, Pakistan to the southeast, and the Gulf of Oman and the Persian Gulf to the south. With a population of over 92 million, Iran ranks 17th globally in both geographic size and population and is the sixth-largest country in Asia. It is divided into five regions with 31 provinces. Tehran is the nation's capital, largest city, and financial center.
+ubuntu@ubuntu:~$ echo "^[[200~Iran's government is a theocratic Islamic republic governed by elected and unelected institutions, with ultimate authority vested in the supreme leader. While it holds elections, key offices, including the head of state and military, are not subject to public vote. The Iranian government is an authoritarian regime which has been widely criticized internationally due to its poor human rights record, including restrictions on freedom of assembly, expression, and the press, as well as its treatment of women, ethnic minorities, and political dissidents. International observers have raised concerns over the fairness of its electoral processes, especially the vetting of candidates by unelected bodies such as the Guardian Council. Iran maintains a centrally planned economy with significant state ownership in key sectors, though private enterprise exists alongside this. It is a middle power, due to its large reserves of fossil fuels (including the world's second largest natural gas supply and third largest proven oil reserves), its geopolitically significant location, and its role as the world's focal point of Shia Islam. Iran is a threshold state with one of the most scrutinized nuclear programs, which it claims is solely for civilian purposes; however, the IAEA, a United Nations (UN) agency tasked with monitoring the production of nuclear weapons, has on two occasions found Iran to be non-compliant with its safeguards ~" >> newfile.txt
+ubuntu@ubuntu:~$ cat newfile.txt
+devdatta
+eknath
+thorat
+i am good boy
+Iran,[b] officially the Islamic Republic of Iran,[c] and also known as Persia,[d] is a country in West Asia. It borders Iraq to the west, Turkey, Azerbaijan, and Armenia to the northwest, the Caspian Sea to the north, Turkmenistan to the northeast, Afghanistan to the east, Pakistan to the southeast, and the Gulf of Oman and the Persian Gulf to the south. With a population of over 92 million, Iran ranks 17th globally in both geographic size and population and is the sixth-largest country in Asia. It is divided into five regions with 31 provinces. Tehran is the nation's capital, largest city, and financial center.
+Iran's government is a theocratic Islamic republic governed by elected and unelected institutions, with ultimate authority vested in the supreme leader. While it holds elections, key offices, including the head of state and military, are not subject to public vote. The Iranian government is an authoritarian regime which has been widely criticized internationally due to its poor human rights record, including restrictions on freedom of assembly, expression, and the press, as well as its treatment of women, ethnic minorities, and political dissidents. International observers have raised concerns over the fairness of its electoral processes, especially the vetting of candidates by unelected bodies such as the Guardian Council. Iran maintains a centrally planned economy with significant state ownership in key sectors, though private enterprise exists alongside this. It is a middle power, due to its large reserves of fossil fuels (including the world's second largest natural gas supply and third largest proven oil reserves), its geopolitically significant location, and its role as the world's focal point of Shia Islam. Iran is a threshold state with one of the most scrutinized nuclear programs, which it claims is solely for civilian purposes; however, the IAEA, a United Nations (UN) agency tasked with monitoring the production of nuclear weapons, has on two occasions found Iran to be non-compliant with its safeguards ~
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ grep -w "it" newfile.txt
+Iran's government is a theocratic Islamic republic governed by elected and unelected institutions, with ultimate authority vested in the supreme leader. While it holds elections, key offices, including the head of state and military, are not subject to public vote. The Iranian government is an authoritarian regime which has been widely criticized internationally due to its poor human rights record, including restrictions on freedom of assembly, expression, and the press, as well as its treatment of women, ethnic minorities, and political dissidents. International observers have raised concerns over the fairness of its electoral processes, especially the vetting of candidates by unelected bodies such as the Guardian Council. Iran maintains a centrally planned economy with significant state ownership in key sectors, though private enterprise exists alongside this. It is a middle power, due to its large reserves of fossil fuels (including the world's second largest natural gas supply and third largest proven oil reserves), its geopolitically significant location, and its role as the world's focal point of Shia Islam. Iran is a threshold state with one of the most scrutinized nuclear programs, which it claims is solely for civilian purposes; however, the IAEA, a United Nations (UN) agency tasked with monitoring the production of nuclear weapons, has on two occasions found Iran to be non-compliant with its safeguards ~
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ grep -w "it" newfile.txt two.sh
+newfile.txt:Iran's government is a theocratic Islamic republic governed by elected and unelected institutions, with ultimate authority vested in the supreme leader. While it holds elections, key offices, including the head of state and military, are not subject to public vote. The Iranian government is an authoritarian regime which has been widely criticized internationally due to its poor human rights record, including restrictions on freedom of assembly, expression, and the press, as well as its treatment of women, ethnic minorities, and political dissidents. International observers have raised concerns over the fairness of its electoral processes, especially the vetting of candidates by unelected bodies such as the Guardian Council. Iran maintains a centrally planned economy with significant state ownership in key sectors, though private enterprise exists alongside this. It is a middle power, due to its large reserves of fossil fuels (including the world's second largest natural gas supply and third largest proven oil reserves), its geopolitically significant location, and its role as the world's focal point of Shia Islam. Iran is a threshold state with one of the most scrutinized nuclear programs, which it claims is solely for civilian purposes; however, the IAEA, a United Nations (UN) agency tasked with monitoring the production of nuclear weapons, has on two occasions found Iran to be non-compliant with its safeguards ~
+grep: two.sh: No such file or directory
+ubuntu@ubuntu:~$ grep "^T" newfile.txt
+ubuntu@ubuntu:~$ grep "^I" newfile.txt
+ubuntu@ubuntu:~$ grep "^d" newfile.txt
+devdatta
+ubuntu@ubuntu:~$ cat newfile.txt | head -n 5
+devdatta
+eknath
+thorat
+i am good boy
+Iran,[b] officially the Islamic Republic of Iran,[c] and also known as Persia,[d] is a country in West Asia. It borders Iraq to the west, Turkey, Azerbaijan, and Armenia to the northwest, the Caspian Sea to the north, Turkmenistan to the northeast, Afghanistan to the east, Pakistan to the southeast, and the Gulf of Oman and the Persian Gulf to the south. With a population of over 92 million, Iran ranks 17th globally in both geographic size and population and is the sixth-largest country in Asia. It is divided into five regions with 31 provinces. Tehran is the nation's capital, largest city, and financial center.
+ubuntu@ubuntu:~$ cat newfile.txt | head -n 1
+devdatta
+ubuntu@ubuntu:~$ cat newfile.txt | head -n 3
+devdatta
+eknath
+thorat
+ubuntu@ubuntu:~$ cat newfile.txt | head -n 4
+devdatta
+eknath
+thorat
+i am good boy
+ubuntu@ubuntu:~$ cat newfile.txt | head -n 6
+devdatta
+eknath
+thorat
+i am good boy
+Iran,[b] officially the Islamic Republic of Iran,[c] and also known as Persia,[d] is a country in West Asia. It borders Iraq to the west, Turkey, Azerbaijan, and Armenia to the northwest, the Caspian Sea to the north, Turkmenistan to the northeast, Afghanistan to the east, Pakistan to the southeast, and the Gulf of Oman and the Persian Gulf to the south. With a population of over 92 million, Iran ranks 17th globally in both geographic size and population and is the sixth-largest country in Asia. It is divided into five regions with 31 provinces. Tehran is the nation's capital, largest city, and financial center.
+Iran's government is a theocratic Islamic republic governed by elected and unelected institutions, with ultimate authority vested in the supreme leader. While it holds elections, key offices, including the head of state and military, are not subject to public vote. The Iranian government is an authoritarian regime which has been widely criticized internationally due to its poor human rights record, including restrictions on freedom of assembly, expression, and the press, as well as its treatment of women, ethnic minorities, and political dissidents. International observers have raised concerns over the fairness of its electoral processes, especially the vetting of candidates by unelected bodies such as the Guardian Council. Iran maintains a centrally planned economy with significant state ownership in key sectors, though private enterprise exists alongside this. It is a middle power, due to its large reserves of fossil fuels (including the world's second largest natural gas supply and third largest proven oil reserves), its geopolitically significant location, and its role as the world's focal point of Shia Islam. Iran is a threshold state with one of the most scrutinized nuclear programs, which it claims is solely for civilian purposes; however, the IAEA, a United Nations (UN) agency tasked with monitoring the production of nuclear weapons, has on two occasions found Iran to be non-compliant with its safeguards ~
+ubuntu@ubuntu:~$ grep -i "the" newfile.txt | wc -l
+2
+ubuntu@ubuntu:~$ grep -i "the" newfile.txt | wc -l
+2
+ubuntu@ubuntu:~$ grep -i "as" newfile.txt | wc -l
+2
+ubuntu@ubuntu:~$ grep -i "a" newfile.txt | wc -l
+6
+ubuntu@ubuntu:~$ cat newfile.txt >> one.txt
+ubuntu@ubuntu:~$ one.txt
+one.txt: command not found
+ubuntu@ubuntu:~$ cat newfile.txt >> one.txt
+ubuntu@ubuntu:~$ cat one.txt
+devdatta
+eknath
+thorat
+i am good boy
+Iran,[b] officially the Islamic Republic of Iran,[c] and also known as Persia,[d] is a country in West Asia. It borders Iraq to the west, Turkey, Azerbaijan, and Armenia to the northwest, the Caspian Sea to the north, Turkmenistan to the northeast, Afghanistan to the east, Pakistan to the southeast, and the Gulf of Oman and the Persian Gulf to the south. With a population of over 92 million, Iran ranks 17th globally in both geographic size and population and is the sixth-largest country in Asia. It is divided into five regions with 31 provinces. Tehran is the nation's capital, largest city, and financial center.
+Iran's government is a theocratic Islamic republic governed by elected and unelected institutions, with ultimate authority vested in the supreme leader. While it holds elections, key offices, including the head of state and military, are not subject to public vote. The Iranian government is an authoritarian regime which has been widely criticized internationally due to its poor human rights record, including restrictions on freedom of assembly, expression, and the press, as well as its treatment of women, ethnic minorities, and political dissidents. International observers have raised concerns over the fairness of its electoral processes, especially the vetting of candidates by unelected bodies such as the Guardian Council. Iran maintains a centrally planned economy with significant state ownership in key sectors, though private enterprise exists alongside this. It is a middle power, due to its large reserves of fossil fuels (including the world's second largest natural gas supply and third largest proven oil reserves), its geopolitically significant location, and its role as the world's focal point of Shia Islam. Iran is a threshold state with one of the most scrutinized nuclear programs, which it claims is solely for civilian purposes; however, the IAEA, a United Nations (UN) agency tasked with monitoring the production of nuclear weapons, has on two occasions found Iran to be non-compliant with its safeguards ~
+devdatta
+eknath
+thorat
+i am good boy
+Iran,[b] officially the Islamic Republic of Iran,[c] and also known as Persia,[d] is a country in West Asia. It borders Iraq to the west, Turkey, Azerbaijan, and Armenia to the northwest, the Caspian Sea to the north, Turkmenistan to the northeast, Afghanistan to the east, Pakistan to the southeast, and the Gulf of Oman and the Persian Gulf to the south. With a population of over 92 million, Iran ranks 17th globally in both geographic size and population and is the sixth-largest country in Asia. It is divided into five regions with 31 provinces. Tehran is the nation's capital, largest city, and financial center.
+Iran's government is a theocratic Islamic republic governed by elected and unelected institutions, with ultimate authority vested in the supreme leader. While it holds elections, key offices, including the head of state and military, are not subject to public vote. The Iranian government is an authoritarian regime which has been widely criticized internationally due to its poor human rights record, including restrictions on freedom of assembly, expression, and the press, as well as its treatment of women, ethnic minorities, and political dissidents. International observers have raised concerns over the fairness of its electoral processes, especially the vetting of candidates by unelected bodies such as the Guardian Council. Iran maintains a centrally planned economy with significant state ownership in key sectors, though private enterprise exists alongside this. It is a middle power, due to its large reserves of fossil fuels (including the world's second largest natural gas supply and third largest proven oil reserves), its geopolitically significant location, and its role as the world's focal point of Shia Islam. Iran is a threshold state with one of the most scrutinized nuclear programs, which it claims is solely for civilian purposes; however, the IAEA, a United Nations (UN) agency tasked with monitoring the production of nuclear weapons, has on two occasions found Iran to be non-compliant with its safeguards ~
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ touch "the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham" >> soham.txt
+ubuntu@ubuntu:~$ cat soham.txt
+ubuntu@ubuntu:~$ echo "the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham" >> soham.txt
+ubuntu@ubuntu:~$ cat soham.txt
+the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ echo "insid the new file 1" >> new1.txt
+ubuntu@ubuntu:~$ echo "insid the new file 2" >> new2.txt
+ubuntu@ubuntu:~$ echo "insid the new file 3" >> new3.txt
+ubuntu@ubuntu:~$ echo "insid the new file 4" >> new4.txt
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ ls | grep new
+new.txt
+new1.txt
+new2.txt
+new3.txt
+new4.txt
+newfile.txt
+ubuntu@ubuntu:~$ who | wc -l
+2
+ubuntu@ubuntu:~$ users | wc -l
+1
+ubuntu@ubuntu:~$ ls -a
+ .
+ ..
+ .bash_history
+ .bash_logout
+ .bashrc
+ .cache
+ .config
+ .gnupg
+ .gvfs
+ .lesshst
+ .local
+ .profile
+ .ssh
+ .sudo_as_admin_successful
+ Desktop
+ Documents
+ Downloads
+ Music
+ Pictures
+ Public
+ Templates
+ Videos
+ a
+ b
+ backup
+ c
+ d
+ e
+ new.txt
+ new1.txt
+ new2.txt
+ new3.txt
+ new4.txt
+ newfile.txt
+ one.txt
+ renmaed_file.txt
+ snap
+ soham.txt
+'the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham'
+ubuntu@ubuntu:~$ ls -a~ | grep ^\.
+ls: invalid option -- '~'
+Try 'ls --help' for more information.
+ubuntu@ubuntu:~$ ls -a ~ | grep ^\.
+.
+..
+.bash_history
+.bash_logout
+.bashrc
+.cache
+.config
+.gnupg
+.gvfs
+.lesshst
+.local
+.profile
+.ssh
+.sudo_as_admin_successful
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+a
+b
+backup
+c
+d
+e
+new.txt
+new1.txt
+new2.txt
+new3.txt
+new4.txt
+newfile.txt
+one.txt
+renmaed_file.txt
+snap
+soham.txt
+the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham
+ubuntu@ubuntu:~$ ls -a | grep ^\.
+.
+..
+.bash_history
+.bash_logout
+.bashrc
+.cache
+.config
+.gnupg
+.gvfs
+.lesshst
+.local
+.profile
+.ssh
+.sudo_as_admin_successful
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+a
+b
+backup
+c
+d
+e
+new.txt
+new1.txt
+new2.txt
+new3.txt
+new4.txt
+newfile.txt
+one.txt
+renmaed_file.txt
+snap
+soham.txt
+the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham
+ubuntu@ubuntu:~$ ls -a | grep ^\.
+.
+..
+.bash_history
+.bash_logout
+.bashrc
+.cache
+.config
+.gnupg
+.gvfs
+.lesshst
+.local
+.profile
+.ssh
+.sudo_as_admin_successful
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+a
+b
+backup
+c
+d
+e
+new.txt
+new1.txt
+new2.txt
+new3.txt
+new4.txt
+newfile.txt
+one.txt
+renmaed_file.txt
+snap
+soham.txt
+the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham
+ubuntu@ubuntu:~$ ls -a ~ | grep ^\.
+.
+..
+.bash_history
+.bash_logout
+.bashrc
+.cache
+.config
+.gnupg
+.gvfs
+.lesshst
+.local
+.profile
+.ssh
+.sudo_as_admin_successful
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+a
+b
+backup
+c
+d
+e
+new.txt
+new1.txt
+new2.txt
+new3.txt
+new4.txt
+newfile.txt
+one.txt
+renmaed_file.txt
+snap
+soham.txt
+the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham
+ubuntu@ubuntu:~$ `
+> ^C
+ubuntu@ubuntu:~$ ls -a | grep ^\.
+.
+..
+.bash_history
+.bash_logout
+.bashrc
+.cache
+.config
+.gnupg
+.gvfs
+.lesshst
+.local
+.profile
+.ssh
+.sudo_as_admin_successful
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+a
+b
+backup
+c
+d
+e
+new.txt
+new1.txt
+new2.txt
+new3.txt
+new4.txt
+newfile.txt
+one.txt
+renmaed_file.txt
+snap
+soham.txt
+the file is must be create dand the sujal is very beautiful boy andthe chaitanya isthe smart boy and also we have one angry bird with name soham
+ubuntu@ubuntu:~$ ls -a ~ | grep "^\."
+.
+..
+.bash_history
+.bash_logout
+.bashrc
+.cache
+.config
+.gnupg
+.gvfs
+.lesshst
+.local
+.profile
+.ssh
+.sudo_as_admin_successful
+
+buntu@ubuntu:~$ locate -r / two.sh
+Command 'locate' not found, but can be installed with:
+sudo apt install plocate
+ubuntu@ubuntu:~$ sudo apt install plocate
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  liburing2
+The following NEW packages will be installed:
+  liburing2 plocate
+0 upgraded, 2 newly installed, 0 to remove and 0 not upgraded.
+Need to get 160 kB of archives.
+After this operation, 623 kB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu noble/main amd64 liburing2 amd64 2.5-1build1 [21.1 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble/universe amd64 plocate amd64 1.1.19-2ubuntu2 [139 kB]
+22% [2 plocate 2628 B/139 kB 2%]
+Fetched 160 kB in 19s (8613 B/s)
+Selecting previously unselected package liburing2:amd64.
+(Reading database ... 212669 files and directories currently installed.)
+Preparing to unpack .../liburing2_2.5-1build1_amd64.deb ...
+Unpacking liburing2:amd64 (2.5-1build1) ...
+Selecting previously unselected package plocate.
+Preparing to unpack .../plocate_1.1.19-2ubuntu2_amd64.deb ...
+Unpacking plocate (1.1.19-2ubuntu2) ...
+Setting up liburing2:amd64 (2.5-1build1) ...
+Setting up plocate (1.1.19-2ubuntu2) ...
+update-alternatives: using /usr/bin/plocate to provide /usr/bin/locate (locate) in auto mode
+info: Selecting GID from range 100 to 999 ...
+info: Adding group `plocate' (GID 125) ...
+Initializing plocate database; this may take some time... done
+Created symlink /etc/systemd/system/timers.target.wants/plocate-updatedb.timer → /usr/lib/systemd/system/plocate-updated
+b.timer.
+Processing triggers for man-db (2.12.0-4build2) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.7) ...
+ubuntu@ubuntu:~$ locate -r / two.sh
+ubuntu@ubuntu:~$ locate -r / file.txt
+/home/ubuntu/file.txt
+/home/ubuntu/renmaed_file.txt
+/home/ubuntu/b/file.txt
+/home/ubuntu/backup/newfile.txt
+/rofs/usr/share/doc/alsa-base/driver/Procfile.txt.gz
+/usr/share/doc/alsa-base/driver/Procfile.txt.gz
+/usr/share/doc/xorriso/examples/startup_file.txt
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ sudo useradd -m user1
+ubuntu@ubuntu:~$ users
+ubuntu ubuntu
+ubuntu@ubuntu:~$ getent passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+_apt:x:42:65534::/nonexistent:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:998:998:systemd Network Management:/:/usr/sbin/nologin
+systemd-timesync:x:996:996:systemd Time Synchronization:/:/usr/sbin/nologin
+dhcpcd:x:100:65534:DHCP Client Daemon,,,:/usr/lib/dhcpcd:/bin/false
+messagebus:x:101:101::/nonexistent:/usr/sbin/nologin
+syslog:x:102:102::/nonexistent:/usr/sbin/nologin
+systemd-resolve:x:991:991:systemd Resolver:/:/usr/sbin/nologin
+uuidd:x:103:103::/run/uuidd:/usr/sbin/nologin
+usbmux:x:104:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
+tss:x:105:105:TPM software stack,,,:/var/lib/tpm:/bin/false
+systemd-oom:x:990:990:systemd Userspace OOM Killer:/:/usr/sbin/nologin
+kernoops:x:106:65534:Kernel Oops Tracking Daemon,,,:/:/usr/sbin/nologin
+whoopsie:x:107:109::/nonexistent:/bin/false
+dnsmasq:x:999:65534:dnsmasq:/var/lib/misc:/usr/sbin/nologin
+avahi:x:108:111:Avahi mDNS daemon,,,:/run/avahi-daemon:/usr/sbin/nologin
+tcpdump:x:109:112::/nonexistent:/usr/sbin/nologin
+sssd:x:110:113:SSSD system user,,,:/var/lib/sss:/usr/sbin/nologin
+speech-dispatcher:x:111:29:Speech Dispatcher,,,:/run/speech-dispatcher:/bin/false
+cups-pk-helper:x:112:114:user for cups-pk-helper service,,,:/nonexistent:/usr/sbin/nologin
+fwupd-refresh:x:989:989:Firmware update daemon:/var/lib/fwupd:/usr/sbin/nologin
+saned:x:113:116::/var/lib/saned:/usr/sbin/nologin
+geoclue:x:114:117::/var/lib/geoclue:/usr/sbin/nologin
+cups-browsed:x:115:114::/nonexistent:/usr/sbin/nologin
+hplip:x:116:7:HPLIP system user,,,:/run/hplip:/bin/false
+gnome-remote-desktop:x:988:988:GNOME Remote Desktop:/var/lib/gnome-remote-desktop:/usr/sbin/nologin
+polkitd:x:987:987:User for polkitd:/:/usr/sbin/nologin
+rtkit:x:117:119:RealtimeKit,,,:/proc:/usr/sbin/nologin
+colord:x:118:120:colord colour management daemon,,,:/var/lib/colord:/usr/sbin/nologin
+gnome-initial-setup:x:119:65534::/run/gnome-initial-setup/:/bin/false
+gdm:x:120:121:Gnome Display Manager:/var/lib/gdm3:/bin/false
+nm-openvpn:x:121:122:NetworkManager OpenVPN,,,:/var/lib/openvpn/chroot:/usr/sbin/nologin
+ubuntu:x:1000:1000:Live session user,,,:/home/ubuntu:/bin/bash
+installer:x:1001:1001:Ubuntu:/home/installer:/usr/bin/subiquity-shell
+user1:x:1002:1002::/home/user1:/bin/sh
+ubuntu@ubuntu:~$ cat/etc/passwd
+bash: cat/etc/passwd: No such file or directory
+ubuntu@ubuntu:~$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+_apt:x:42:65534::/nonexistent:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:998:998:systemd Network Management:/:/usr/sbin/nologin
+systemd-timesync:x:996:996:systemd Time Synchronization:/:/usr/sbin/nologin
+dhcpcd:x:100:65534:DHCP Client Daemon,,,:/usr/lib/dhcpcd:/bin/false
+messagebus:x:101:101::/nonexistent:/usr/sbin/nologin
+syslog:x:102:102::/nonexistent:/usr/sbin/nologin
+systemd-resolve:x:991:991:systemd Resolver:/:/usr/sbin/nologin
+uuidd:x:103:103::/run/uuidd:/usr/sbin/nologin
+usbmux:x:104:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
+tss:x:105:105:TPM software stack,,,:/var/lib/tpm:/bin/false
+systemd-oom:x:990:990:systemd Userspace OOM Killer:/:/usr/sbin/nologin
+kernoops:x:106:65534:Kernel Oops Tracking Daemon,,,:/:/usr/sbin/nologin
+whoopsie:x:107:109::/nonexistent:/bin/false
+dnsmasq:x:999:65534:dnsmasq:/var/lib/misc:/usr/sbin/nologin
+avahi:x:108:111:Avahi mDNS daemon,,,:/run/avahi-daemon:/usr/sbin/nologin
+tcpdump:x:109:112::/nonexistent:/usr/sbin/nologin
+sssd:x:110:113:SSSD system user,,,:/var/lib/sss:/usr/sbin/nologin
+speech-dispatcher:x:111:29:Speech Dispatcher,,,:/run/speech-dispatcher:/bin/false
+cups-pk-helper:x:112:114:user for cups-pk-helper service,,,:/nonexistent:/usr/sbin/nologin
+fwupd-refresh:x:989:989:Firmware update daemon:/var/lib/fwupd:/usr/sbin/nologin
+saned:x:113:116::/var/lib/saned:/usr/sbin/nologin
+geoclue:x:114:117::/var/lib/geoclue:/usr/sbin/nologin
+cups-browsed:x:115:114::/nonexistent:/usr/sbin/nologin
+hplip:x:116:7:HPLIP system user,,,:/run/hplip:/bin/false
+gnome-remote-desktop:x:988:988:GNOME Remote Desktop:/var/lib/gnome-remote-desktop:/usr/sbin/nologin
+polkitd:x:987:987:User for polkitd:/:/usr/sbin/nologin
+rtkit:x:117:119:RealtimeKit,,,:/proc:/usr/sbin/nologin
+colord:x:118:120:colord colour management daemon,,,:/var/lib/colord:/usr/sbin/nologin
+gnome-initial-setup:x:119:65534::/run/gnome-initial-setup/:/bin/false
+gdm:x:120:121:Gnome Display Manager:/var/lib/gdm3:/bin/false
+nm-openvpn:x:121:122:NetworkManager OpenVPN,,,:/var/lib/openvpn/chroot:/usr/sbin/nologin
+ubuntu:x:1000:1000:Live session user,,,:/home/ubuntu:/bin/bash
+installer:x:1001:1001:Ubuntu:/home/installer:/usr/bin/subiquity-shell
+user1:x:1002:1002::/home/user1:/bin/sh
+ubuntu@ubuntu:~$ sudo passwd user1
+New password:
+Retype new password:
+passwd: password updated successfully
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ sudo passwd user2
+passwd: user 'user2' does not exist
+ubuntu@ubuntu:~$ sudo useradd -m user2
+ubuntu@ubuntu:~$ sudo useradd -m user3
+ubuntu@ubuntu:~$ sudo useradd -m user4
+ubuntu@ubuntu:~$ sudo useradd -m user5
+ubuntu@ubuntu:~$ sudo grpadd all_users
+sudo: grpadd: command not found
+ubuntu@ubuntu:~$ sudo groupadd all_users
+ubuntu@ubuntu:~$
+ubuntu@ubuntu:~$ cat etc/group
+cat: etc/group: No such file or directory
+ubuntu@ubuntu:~$ cat /etc/group
+root:x:0:
+daemon:x:1:
+bin:x:2:
+sys:x:3:
+adm:x:4:syslog,ubuntu,installer
+tty:x:5:
+disk:x:6:
+lp:x:7:
+mail:x:8:
+news:x:9:
+uucp:x:10:
+man:x:12:
+proxy:x:13:
+kmem:x:15:
+dialout:x:20:installer
+fax:x:21:
+voice:x:22:
+cdrom:x:24:ubuntu,installer
+floppy:x:25:installer
+tape:x:26:
+sudo:x:27:ubuntu,installer
+audio:x:29:installer
+dip:x:30:ubuntu,installer
+www-data:x:33:
+backup:x:34:
+operator:x:37:
+list:x:38:
+irc:x:39:
+src:x:40:
+shadow:x:42:
+utmp:x:43:
+video:x:44:installer
+sasl:x:45:
+plugdev:x:46:ubuntu,installer
+staff:x:50:
+games:x:60:
+users:x:100:ubuntu
+nogroup:x:65534:
+systemd-journal:x:999:
+systemd-network:x:998:
+crontab:x:997:
+systemd-timesync:x:996:
+input:x:995:
+sgx:x:994:
+kvm:x:993:
+render:x:992:
+messagebus:x:101:
+syslog:x:102:
+systemd-resolve:x:991:
+uuidd:x:103:
+_ssh:x:104:
+tss:x:105:
+ssl-cert:x:106:
+systemd-oom:x:990:
+bluetooth:x:107:
+rdma:x:108:
+whoopsie:x:109:
+netdev:x:110:installer
+avahi:x:111:
+tcpdump:x:112:
+sssd:x:113:
+lpadmin:x:114:ubuntu
+fwupd-refresh:x:989:
+scanner:x:115:saned
+saned:x:116:
+geoclue:x:117:
+pipewire:x:118:
+gnome-remote-desktop:x:988:
+polkitd:x:987:
+rtkit:x:119:
+colord:x:120:
+gdm:x:121:
+nm-openvpn:x:122:
+lxd:x:123:installer
+ubuntu:x:1000:
+sambashare:x:124:ubuntu
+gamemode:x:986:
+gnome-initial-setup:x:985:
+installer:x:1001:
+plocate:x:125:
+user1:x:1002:
+user2:x:1003:
+user3:x:1004:
+user4:x:1005:
+user5:x:1006:
+all_users:x:1007:
+ubuntu@ubuntu:~$ sudo groupadd all_users2
+ubuntu@ubuntu:~$ sudo useradd -m -G all_users user1 user2
+Usage: useradd [options] LOGIN
+       useradd -D
+       useradd -D [options]
+
+Options:
+      --badname                 do not check for bad names
+  -b, --base-dir BASE_DIR       base directory for the home directory of the
+                                new account
+      --btrfs-subvolume-home    use BTRFS subvolume for home directory
+  -c, --comment COMMENT         GECOS field of the new account
+  -d, --home-dir HOME_DIR       home directory of the new account
+  -D, --defaults                print or change default useradd configuration
+  -e, --expiredate EXPIRE_DATE  expiration date of the new account
+  -f, --inactive INACTIVE       password inactivity period of the new account
+  -F, --add-subids-for-system   add entries to sub[ud]id even when adding a system user
+  -g, --gid GROUP               name or ID of the primary group of the new
+                                account
+  -G, --groups GROUPS           list of supplementary groups of the new
+                                account
+  -h, --help                    display this help message and exit
+  -k, --skel SKEL_DIR           use this alternative skeleton directory
+  -K, --key KEY=VALUE           override /etc/login.defs defaults
+  -l, --no-log-init             do not add the user to the lastlog and
+                                faillog databases
+  -m, --create-home             create the user's home directory
+  -M, --no-create-home          do not create the user's home directory
+  -N, --no-user-group           do not create a group with the same name as
+                                the user
+  -o, --non-unique              allow to create users with duplicate
+                                (non-unique) UID
+  -p, --password PASSWORD       encrypted password of the new account
+  -r, --system                  create a system account
+  -R, --root CHROOT_DIR         directory to chroot into
+  -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files
+  -s, --shell SHELL             login shell of the new account
+  -u, --uid UID                 user ID of the new account
+  -U, --user-group              create a group with the same name as the user
+  -Z, --selinux-user SEUSER     use a specific SEUSER for the SELinux user mapping
+      --extrausers              Use the extra users database
+
+ubuntu@ubuntu:~$ cat /etc/group
+root:x:0:
+daemon:x:1:
+bin:x:2:
+sys:x:3:
+adm:x:4:syslog,ubuntu,installer
+tty:x:5:
+disk:x:6:
+lp:x:7:
+mail:x:8:
+news:x:9:
+uucp:x:10:
+man:x:12:
+proxy:x:13:
+kmem:x:15:
+dialout:x:20:installer
+fax:x:21:
+voice:x:22:
+cdrom:x:24:ubuntu,installer
+floppy:x:25:installer
+tape:x:26:
+sudo:x:27:ubuntu,installer
+audio:x:29:installer
+dip:x:30:ubuntu,installer
+www-data:x:33:
+backup:x:34:
+operator:x:37:
+list:x:38:
+irc:x:39:
+src:x:40:
+shadow:x:42:
+utmp:x:43:
+video:x:44:installer
+sasl:x:45:
+plugdev:x:46:ubuntu,installer
+staff:x:50:
+games:x:60:
+users:x:100:ubuntu
+nogroup:x:65534:
+systemd-journal:x:999:
+systemd-network:x:998:
+crontab:x:997:
+systemd-timesync:x:996:
+input:x:995:
+sgx:x:994:
+kvm:x:993:
+render:x:992:
+messagebus:x:101:
+syslog:x:102:
+systemd-resolve:x:991:
+uuidd:x:103:
+_ssh:x:104:
+tss:x:105:
+ssl-cert:x:106:
+systemd-oom:x:990:
+bluetooth:x:107:
+rdma:x:108:
+whoopsie:x:109:
+netdev:x:110:installer
+avahi:x:111:
+tcpdump:x:112:
+sssd:x:113:
+lpadmin:x:114:ubuntu
+fwupd-refresh:x:989:
+scanner:x:115:saned
+saned:x:116:
+geoclue:x:117:
+pipewire:x:118:
+gnome-remote-desktop:x:988:
+polkitd:x:987:
+rtkit:x:119:
+colord:x:120:
+gdm:x:121:
+nm-openvpn:x:122:
+lxd:x:123:installer
+ubuntu:x:1000:
+sambashare:x:124:ubuntu
+gamemode:x:986:
+gnome-initial-setup:x:985:
+installer:x:1001:
+plocate:x:125:
+user1:x:1002:
+user2:x:1003:
+user3:x:1004:
+user4:x:1005:
+user5:x:1006:
+all_users:x:1007:
+all_users2:x:1008:
+ubuntu@ubuntu:~$ sudo useradd -m -G all_users user6
+ubuntu@ubuntu:~$ cat /etc/group
+root:x:0:
+daemon:x:1:
+bin:x:2:
+sys:x:3:
+adm:x:4:syslog,ubuntu,installer
+tty:x:5:
+disk:x:6:
+lp:x:7:
+mail:x:8:
+news:x:9:
+uucp:x:10:
+man:x:12:
+proxy:x:13:
+kmem:x:15:
+dialout:x:20:installer
+fax:x:21:
+voice:x:22:
+cdrom:x:24:ubuntu,installer
+floppy:x:25:installer
+tape:x:26:
+sudo:x:27:ubuntu,installer
+audio:x:29:installer
+dip:x:30:ubuntu,installer
+www-data:x:33:
+backup:x:34:
+operator:x:37:
+list:x:38:
+irc:x:39:
+src:x:40:
+shadow:x:42:
+utmp:x:43:
+video:x:44:installer
+sasl:x:45:
+plugdev:x:46:ubuntu,installer
+staff:x:50:
+games:x:60:
+users:x:100:ubuntu
+nogroup:x:65534:
+systemd-journal:x:999:
+systemd-network:x:998:
+crontab:x:997:
+systemd-timesync:x:996:
+input:x:995:
+sgx:x:994:
+kvm:x:993:
+render:x:992:
+messagebus:x:101:
+syslog:x:102:
+systemd-resolve:x:991:
+uuidd:x:103:
+_ssh:x:104:
+tss:x:105:
+ssl-cert:x:106:
+systemd-oom:x:990:
+bluetooth:x:107:
+rdma:x:108:
+whoopsie:x:109:
+netdev:x:110:installer
+avahi:x:111:
+tcpdump:x:112:
+sssd:x:113:
+lpadmin:x:114:ubuntu
+fwupd-refresh:x:989:
+scanner:x:115:saned
+saned:x:116:
+geoclue:x:117:
+pipewire:x:118:
+gnome-remote-desktop:x:988:
+polkitd:x:987:
+rtkit:x:119:
+colord:x:120:
+gdm:x:121:
+nm-openvpn:x:122:
+lxd:x:123:installer
+ubuntu:x:1000:
+sambashare:x:124:ubuntu
+gamemode:x:986:
+gnome-initial-setup:x:985:
+installer:x:1001:
+plocate:x:125:
+user1:x:1002:
+user2:x:1003:
+user3:x:1004:
+user4:x:1005:
+user5:x:1006:
+all_users:x:1007:user6
+all_users2:x:1008:
+user6:x:1009:
+ubuntu@ubuntu:~$ sudo usermod -aG all_users,all_users2 user7
+usermod: user 'user7' does not exist
+ubuntu@ubuntu:~$ sudo usermod -aG all_users,all_users2 user5
+ubuntu@ubuntu:~$ cat /etc/group
+root:x:0:
+daemon:x:1:
+bin:x:2:
+sys:x:3:
+adm:x:4:syslog,ubuntu,installer
+tty:x:5:
+disk:x:6:
+lp:x:7:
+mail:x:8:
+news:x:9:
+uucp:x:10:
+man:x:12:
+proxy:x:13:
+kmem:x:15:
+dialout:x:20:installer
+fax:x:21:
+voice:x:22:
+cdrom:x:24:ubuntu,installer
+floppy:x:25:installer
+tape:x:26:
+sudo:x:27:ubuntu,installer
+audio:x:29:installer
+dip:x:30:ubuntu,installer
+www-data:x:33:
+backup:x:34:
+operator:x:37:
+list:x:38:
+irc:x:39:
+src:x:40:
+shadow:x:42:
+utmp:x:43:
+video:x:44:installer
+sasl:x:45:
+plugdev:x:46:ubuntu,installer
+staff:x:50:
+games:x:60:
+users:x:100:ubuntu
+nogroup:x:65534:
+systemd-journal:x:999:
+systemd-network:x:998:
+crontab:x:997:
+systemd-timesync:x:996:
+input:x:995:
+sgx:x:994:
+kvm:x:993:
+render:x:992:
+messagebus:x:101:
+syslog:x:102:
+systemd-resolve:x:991:
+uuidd:x:103:
+_ssh:x:104:
+tss:x:105:
+ssl-cert:x:106:
+systemd-oom:x:990:
+bluetooth:x:107:
+rdma:x:108:
+whoopsie:x:109:
+netdev:x:110:installer
+avahi:x:111:
+tcpdump:x:112:
+sssd:x:113:
+lpadmin:x:114:ubuntu
+fwupd-refresh:x:989:
+scanner:x:115:saned
+saned:x:116:
+geoclue:x:117:
+pipewire:x:118:
+gnome-remote-desktop:x:988:
+polkitd:x:987:
+rtkit:x:119:
+colord:x:120:
+gdm:x:121:
+nm-openvpn:x:122:
+lxd:x:123:installer
+ubuntu:x:1000:
+sambashare:x:124:ubuntu
+gamemode:x:986:
+gnome-initial-setup:x:985:
+installer:x:1001:
+plocate:x:125:
+user1:x:1002:
+user2:x:1003:
+user3:x:1004:
+user4:x:1005:
+user5:x:1006:
+all_users:x:1007:user6,user5
+all_users2:x:1008:user5
+user6:x:1009:
+ubuntu@ubuntu:~$ sudo gpasswd -M all_users,all_users2 user3
+gpasswd: user 'all_users' does not exist
+gpasswd: user 'all_users2' does not exist
+ubuntu@ubuntu:~$ sudo gpasswd -M all_users,all_users2 user5
+gpasswd: user 'all_users' does not exist
+gpasswd: user 'all_users2' does not exist
+ubuntu@ubuntu:~$ 86/{1a1eae1e-3f9e-4304-9ab5-6a963ba99056}.final
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/59
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/59/{d4157c78-2f68-4148-be94-5a9a756ecd3b}.final
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/59/{e7bf0b18-3bb7-4bd7-b42f-f5284eecfb3b}.final
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/162
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/162/{73bdd0ed-00ea-4414-8456-e5f4be4f2da2}.final
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/162/{e241755b-9091-4311-8dd1-ddd924f6bda2}.final
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/43
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/43/{112a0e86-9759-49dd-8590-fff3d8fada2b}.final
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/43/{4d23e5a8-d884-4863-a279-ee69673c532b}.final
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/43/{c75ede99-d763-4752-bf81-acfed5073f2b}.final
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/43/{90da5d37-d226-44e2-91a2-aa4d4060b02b}.final
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/151
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/151/{acca3dbe-f734-46a9-a0a3-787bdf7e8197}.final
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/151/{63819534-a1a0-496f-859d-7624363e9697}.final
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/151/{39acaa81-830e-4cc7-9888-e755811abf97}.final
+/home/ubuntu/snap/firefox/common/.mozilla/firefox/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/sudo gpasswd -M all_users,all_users2 user5.finalx/lzzev7ky.default/storage/default/https+++mail.google.com/cache/morgue/

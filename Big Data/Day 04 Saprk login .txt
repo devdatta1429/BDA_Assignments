@@ -1,0 +1,375 @@
+11.15 Thursday 
+
+
+## -----------------------------------------------------------------------------------------------------------------------------------------------------------
+https://drive.google.com/drive/folders/1egaJ7DUKhptDPMg41cD0-L8u75lKtdxp?usp=drive_link
+https://spark.apache.org/docs/latest/rdd-programming-guide.html
+https://drive.google.com/drive/folders/1QVNn3EegcGRFOVh46CU1mfFZWF6q6zo2
+
+## -----------------------------------------------------------------------------------------------------------------------------------------------------------
+ip-172-31-16-60 login: cddacmaylab407                                                                                                                                                      
+Password:                                                                                                                                                                                  
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.15.0-1084-aws x86_64)                                                                                                                           
+                                                                                                                                                                                           
+  System information as of Thu Apr 23 06:41:13 UTC 2026                                                                                                                                    
+                                                                                                                                                                                           
+  System load:  2.08               Processes:             260                                                                                                                              
+  Usage of /:   48.3% of 61.84GB   Users logged in:       12                                                                                                                               
+  Memory usage: 26%                IPv4 address for ens5: 172.31.16.60                                                                                                                     
+  Swap usage:   0%                                                                                                                                                                         
+                                                                                                                                                                                           
+  => There is 1 zombie process.                                                                                                                                                            
+                                                                                                                                                                                           
+Last login: Wed Apr 22 07:22:24 UTC 2026 from 127.0.0.1, 14.139.112.69 on pts/27                                                                                                           
+cddacmaylab407@ip-172-31-16-60:~$ ls                                                                                                                                                       
+Final_airlines  airports_mod.dat  nyse  routes.dat
+cddacmaylab407@ip-172-31-16-60:~$ ls                                                                                                                                                       
+Final_airlines  airports_mod.dat  nyse  routes.dat
+cddacmaylab407@ip-172-31-16-60:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-16-60:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-16-60:~$ hdfs defs -ls                                                                                                                                            
+ERROR: defs is not COMMAND nor fully qualified CLASSNAME.                                                                                                                                  
+Usage: hdfs [OPTIONS] SUBCOMMAND [SUBCOMMAND OPTIONS]                                                                                                                                      
+                                                                                                                                                                                           
+  OPTIONS is none or any of:                                                                                                                                                               
+                                                                                                                                                                                           
+--buildpaths                       attempt to add class files from build tree                                                                                                              
+--config dir                       Hadoop config directory                                                                                                                                 
+--daemon (start|status|stop)       operate on a daemon                                                                                                                                     
+--debug                            turn on shell script debug mode                                                                                                                         
+--help                             usage information                                                                                                                                       
+--hostnames list[,of,host,names]   hosts to use in worker mode                                                                                                                             
+--hosts filename                   list of hosts to use in worker mode                                                                                                                     
+--loglevel level                   set the log4j level for this command                                                                                                                    
+--workers                          turn on worker mode                                                                                                                                     
+                                                                                                                                                                                           
+  SUBCOMMAND is one of:                                                                                                                                                                    
+                                                                                                                                                                                           
+                                                                                                                                                                                           
+    Admin Commands:                                                                                                                                                                        
+                                                                                                                                                                                           
+cacheadmin           configure the HDFS cache                                                                                                                                              
+crypto               configure HDFS encryption zones                                                                                                                                       
+debug                run a Debug Admin to execute HDFS debug commands                                                                                                                      
+dfsadmin             run a DFS admin client                                                                                                                                                
+dfsrouteradmin       manage Router-based federation                                                                                                                                        
+ec                   run a HDFS ErasureCoding CLI                                                                                                                                          
+fsck                 run a DFS filesystem checking utility                                                                                                                                 
+haadmin              run a DFS HA admin client                                                                                                                                             
+jmxget               get JMX exported values from NameNode or DataNode.                                                                                                                    
+oev                  apply the offline edits viewer to an edits file                                                                                                                       
+oiv                  apply the offline fsimage viewer to an fsimage                                                                                                                        
+oiv_legacy           apply the offline fsimage viewer to a legacy fsimage                                                                                                                  
+storagepolicies      list/get/set/satisfyStoragePolicy block storage policies                                                                                                              
+                                                                                                                                                                                           
+    Client Commands:                                                                                                                                                                       
+                                                                                                                                                                                           
+classpath            prints the class path needed to get the hadoop jar and the required libraries                                                                                         
+dfs                  run a filesystem command on the file system                                                                                                                           
+envvars              display computed Hadoop environment variables                                                                                                                         
+fetchdt              fetch a delegation token from the NameNode                                                                                                                            
+getconf              get config values from configuration                                                                                                                                  
+groups               get the groups which users belong to                                                                                                                                  
+lsSnapshottableDir   list all snapshottable dirs owned by the current user                                                                                                                 
+snapshotDiff         diff two snapshots of a directory or diff the current directory contents with a snapshot                                                                              
+version              print the version                                                                                                                                                     
+                                                                                                                                                                                           
+    Daemon Commands:                                                                                                                                                                       
+                                                                                                                                                                                           
+balancer             run a cluster balancing utility                                                                                                                                       
+datanode             run a DFS datanode                                                                                                                                                    
+dfsrouter            run the DFS router                                                                                                                                                    
+diskbalancer         Distributes data evenly among disks on a given node                                                                                                                   
+httpfs               run HttpFS server, the HDFS HTTP Gateway                                                                                                                              
+journalnode          run the DFS journalnode                                                                                                                                               
+mover                run a utility to move block replicas across storage types                                                                                                             
+namenode             run the DFS namenode                                                                                                                                                  
+nfs3                 run an NFS version 3 gateway                                                                                                                                          
+portmap              run a portmap service                                                                                                                                                 
+secondarynamenode    run the DFS secondary namenode                                                                                                                                        
+sps                  run external storagepolicysatisfier                                                                                                                                   
+zkfc                 run the ZK Failover Controller daemon                                                                                                                                 
+                                                                                                                                                                                           
+SUBCOMMAND may print help when invoked w/o parameters or with -h.                                                                                                                          
+cddacmaylab407@ip-172-31-16-60:~$ hdfs dfs -ls;                                                                                                                                            
+Found 1 items                                                                                                                                                                              
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-23 06:39 data                                                                                                              
+cddacmaylab407@ip-172-31-16-60:~$ cddacmaylab407@ip-172-31-16-60:~$                                                                                                                        
+cddacmaylab407@ip-172-31-16-60:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-16-60:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-16-60:~$ hdfs dfs -ls                                                                                                                                             
+Found 2 items                                                                                                                                                                              
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-23 06:44 data                                                                                                              
+drwxr-xr-x   - cddacmaylab407 cddacmaylab407          0 2026-04-23 06:43 new_data                                                                                                          
+cddacmaylab407@ip-172-31-16-60:~$ hdfs dfs -ls new_data                                                                                                                                    
+Found 3 items                                                                                                                                                                              
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407         60 2026-04-23 06:43 new_data/data1.txt                                                                                                
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407         26 2026-04-23 06:43 new_data/data2.txt                                                                                                
+-rw-r--r--   3 cddacmaylab407 cddacmaylab407         30 2026-04-23 06:43 new_data/data3.txt                                                                                                
+cddacmaylab407@ip-172-31-16-60:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-16-60:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-16-60:~$ pyspark                                                                                                                                                  
+Python 3.9.13 (main, Aug 25 2022, 23:26:10)                                                                                                                                                
+[GCC 11.2.0] :: Anaconda, Inc. on linux                                                                                                                                                    
+Type "help", "copyright", "credits" or "license" for more information.                                                                                                                     
+26/04/23 06:51:34 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable                                             
+Setting default log level to "WARN".                                                                                                                                                       
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).                                                                                               
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4040. Attempting port 4041.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4041. Attempting port 4042.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4042. Attempting port 4043.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4043. Attempting port 4044.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4044. Attempting port 4045.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4045. Attempting port 4046.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4046. Attempting port 4047.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4047. Attempting port 4048.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4048. Attempting port 4049.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4049. Attempting port 4050.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4050. Attempting port 4051.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4051. Attempting port 4052.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4052. Attempting port 4053.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4053. Attempting port 4054.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4054. Attempting port 4055.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4055. Attempting port 4056.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4056. Attempting port 4057.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4057. Attempting port 4058.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4058. Attempting port 4059.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4059. Attempting port 4060.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4060. Attempting port 4061.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4061. Attempting port 4062.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4062. Attempting port 4063.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4063. Attempting port 4064.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4064. Attempting port 4065.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4065. Attempting port 4066.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4066. Attempting port 4067.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4067. Attempting port 4068.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4068. Attempting port 4069.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4069. Attempting port 4070.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4070. Attempting port 4071.                                                                                         
+26/04/23 06:51:40 WARN Utils: Service 'SparkUI' could not bind on port 4071. Attempting port 4072.                                                                                         
+26/04/23 06:51:43 WARN Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME.                                                
+26/04/23 06:55:16 WARN DataStreamer: Abandoning BP-1364978691-172.31.64.10-1677754292516:blk_1098145453_24411474                                                                           
+26/04/23 06:55:17 WARN DataStreamer: Excluding datanode DatanodeInfoWithStorage[172.31.64.14:9866,DS-f823cf84-06f8-4cdd-b6e9-29d13d0292ee,DISK]        
+
+
+
+
+########################################
+                                                                                                                                                                                          
+                                                                             
+                                                                                                                               
+>>>     
+
+export PYSPARK_PYTHON=/opt/anaconda3/bin/python
+export PYSPARK_DRIVER_PYTHON=/opt/anaconda3/bin/python
+
+run first these two comands outside the pyspark
+after this go inside pyspark and run these comands..
+>>> rdd = sc.parallelize([1])
+>>> rdd.map(lambda x: __import__("sys").version).collect()   
+
+
+## -----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ip-172-31-16-98 login: cddacmaylab407                                                                                                                                                      
+Password:                                                                                                                                                                                  
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.15.0-1084-aws x86_64)                                                                                                                           
+                                                                                                                                                                                           
+  System information as of Thu Apr 23 09:02:12 UTC 2026                                                                                                                                    
+                                                                                                                                                                                           
+  System load:  0.31               Processes:             440                                                                                                                              
+  Usage of /:   82.2% of 30.83GB   Users logged in:       36                                                                                                                               
+  Memory usage: 66%                IPv4 address for ens5: 172.31.16.98                                                                                                                     
+  Swap usage:   0%                                                                                                                                                                         
+                                                                                                                                                                                           
+  => There is 1 zombie process.                                                                                                                                                            
+                                                                                                                                                                                           
+Last login: Thu Apr 23 08:49:27 UTC 2026 from 127.0.0.1, 14.139.112.69 on pts/6                                                                                                            
+cddacmaylab407@ip-172-31-16-98:~$ export PYSPARK_PYTHON=/opt/anaconda3/bin/python                                                                                                          
+cddacmaylab407@ip-172-31-16-98:~$ export PYSPARK_DRIVER_PYTHON=/opt/anaconda3/bin/python                                                                                                   
+cddacmaylab407@ip-172-31-16-98:~$                                                                                                                                                          
+cddacmaylab407@ip-172-31-16-98:~$ pyspark                                                                                                                                                  
+Python 3.9.13 (main, Aug 25 2022, 23:26:10)                                                                                                                                                
+[GCC 11.2.0] :: Anaconda, Inc. on linux                                                                                                                                                    
+Type "help", "copyright", "credits" or "license" for more information.                                                                                                                     
+26/04/23 09:03:10 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable                                             
+Setting default log level to "WARN".                                                                                                                                                       
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).                                                                                               
+26/04/23 09:03:11 WARN Utils: Service 'SparkUI' could not bind on port 4040. Attempting port 4041.                                                                                         
+26/04/23 09:03:11 WARN Utils: Service 'SparkUI' could not bind on port 4041. Attempting port 4042.                                                                                         
+26/04/23 09:03:11 WARN Utils: Service 'SparkUI' could not bind on port 4042. Attempting port 4043.                                                                                         
+26/04/23 09:03:12 WARN Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME.                                                
+Welcome to                                                                                                                                                                                 
+      ____              __                                                                                                                                                                 
+     / __/__  ___ _____/ /__                                                                                                                                                               
+    _\ \/ _ \/ _ `/ __/  '_/                                                                                                                                                               
+   /__ / .__/\_,_/_/ /_/\_\   version 3.1.2                                                                                                                                                
+      /_/                                                                                                                                                                                  
+                                                                                                                                                                                           
+Using Python version 3.9.13 (main, Aug 25 2022 23:26:10)                                                                                                                                   
+Spark context Web UI available at http://ip-172-31-16-98.ap-south-1.compute.internal:4043                                                                                                  
+Spark context available as 'sc' (master = yarn, app id = application_1776055345521_3418).                                                                                                  
+SparkSession available as 'spark'.                                                                                                                                                         
+>>>                                                                                                                                                                                        
+>>>                                                                                                                                                                                        
+>>> rdd = sc.parallelize([1])                                                                                                                                                              
+
+>>> rdd.map(lambda x: __import__("sys").version).collect()                                                                                                                                 
+['3.9.13 (main, Aug 25 2022, 23:26:10) \n[GCC 11.2.0]']
+>>>                                                                                                                                                                                        
+                                                                                                                         >>>                                                                                                                                                                                                                                                                                                                                                                 
+>>> rdd1 = sc.textFile("/user/cddacmaylab407/new_data")                                                                                                                                    
+>>> rdd1.count()                                                                                                                                                                           
+8
+>>>                                                                                                                                                                                        
+>>> rdd1.getNumPartitions()                                                                                                                                                                
+3                                                                                                                                                                                          
+>>>                                                                                                                                                                                        
+                                                                                                                                                      
+>>> sc.defaultParallelism                                                                                                                                                                  
+2                                                                                                                                                                                          
+>>>                                                                                                                                                                                                                                                                                                                                                                             
+>>> sc.defaultParallelism                                                                                                                                                                  
+2                                                                                                                                                                                          
+>>>                                                                                                                                                                                        
+>>> rdd2= rdd1.repartition(2)                                                                                                                                                              
+>>> rdd2.getNumPartitions()                                                                                                                                                                
+2                                                                                                                                                                                          
+>>>                                 
+                                                                                                                                                       
+ >>> rdd3 = rdd2.flatMap(lambda a : a.split(" "))                                                                               
+>>> for line in rdd3.collect():                                                                                                
+... print(line)                                                                                                                
+  File "<stdin>", line 2                                                                                                       
+    print(line)                                                                                                                
+    ^                                                                                                                          
+IndentationError: expected an indented block                                                                                   
+>>> for line in rdd3.collect():                                                                                                
+...     print(line)                                                                                                            
+...                                                                                                                            
+car
+river                                                                                                                          
+dear                                                                                                                           
+bear                                                                                                                           
+river                                                                                                                          
+car                                                                                                                            
+car                                                                                                                            
+bear                                                                                                                           
+bear                                                                                                                           
+river                                                                                                                          
+river                                                                                                                          
+car                                                                                                                            
+car                                                                                                                            
+car                                                                                                                            
+river                                                                                                                          
+river                                                                                                                          
+bear                                                                                                                           
+river                                                                                                                          
+car                                                                                                                            
+river                                                                                                                          
+river                                                                                                                          
+bear                                                                                                                           
+bear                                                                                                                           
+>>>                                                                                                                            
+
+ >>> 
+>>>                                                                                                                            
+>>> rdd4 = rdd3.map(lambda a: (a,1))                                                                                           
+>>> for line in rdd4.collect():                                                                                                
+...     print(line)                                                                                                            
+...                                                                                                                            
+('car', 1)                                                                                                                     
+('river', 1)                                                                                                                   
+('dear', 1)                                                                                                                    
+('bear', 1)                                                                                                                    
+('river', 1)                                                                                                                   
+('car', 1)                                                                                                                     
+('car', 1)                                                                                                                     
+('bear', 1)                                                                                                                    
+('bear', 1)                                                                                                                    
+('river', 1)                                                                                                                   
+('river', 1)                                                                                                                   
+('car', 1)                                                                                                                     
+('car', 1)                                                                                                                     
+('car', 1)                                                                                                                     
+('river', 1)                                                                                                                   
+('river', 1)                                                                                                                   
+('bear', 1)                                                                                                                    
+('river', 1)                                                                                                                   
+('car', 1)                                                                                                                     
+('river', 1)                                                                                                                   
+('river', 1)                                                                                                                   
+('bear', 1)                                                                                                                    
+('bear', 1)                                                                                                                    
+>>>      
+
+>>> 
+>>>                                                                                                                            
+>>> rdd5 = rdd4.reduceByKey(lambda a,b : (a+b))                                                                                
+>>> for line in rdd5.collect():                                                                                                
+...     print(line)                                                                                                            
+...                                                                                                                            
+('bear', 6)                                                                                                                    
+('car', 7)                                                                                                                     
+('river', 9)                                                                                                                   
+('dear', 1)                                                                                                                    
+>>>
+
+                                                                                                                               
+>>> rdd5.saveAsTextFile("/user/cddacmaylab407/spark1")                                                                         
+>>>                                                                                                                            
+
+##----------------------------------------------------------------------------------------------------------------------------------
+ip-172-31-16-60 login: cddacmaylab407                                                                                          
+Password:                                                                                                                      
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.15.0-1084-aws x86_64)                                                               
+                                                                                                                               
+  System information as of Thu Apr 23 12:18:27 UTC 2026                                                                        
+                                                                                                                               
+  System load:  1.0                Processes:             216                                                                  
+  Usage of /:   48.3% of 61.84GB   Users logged in:       2                                                                    
+  Memory usage: 21%                IPv4 address for ens5: 172.31.16.60                                                         
+  Swap usage:   0%                                                                                                             
+                                                                                                                               
+  => There is 1 zombie process.                                                                                                
+                                                                                                                               
+Last login: Thu Apr 23 07:05:25 UTC 2026 from 127.0.0.1, 14.139.112.69 on pts/49                                               
+cddacmaylab407@ip-172-31-16-60:~$ export PYSPARK_PYTHON=/opt/anaconda3/bin/python                                              
+cddacmaylab407@ip-172-31-16-60:~$ export PYSPARK_DRIVER_PYTHON=/opt/anaconda3/bin/python                                       
+cddacmaylab407@ip-172-31-16-60:~$ pyspark                                                                                      
+Python 3.9.13 (main, Aug 25 2022, 23:26:10)                                                                                    
+[GCC 11.2.0] :: Anaconda, Inc. on linux                                                                                        
+Type "help", "copyright", "credits" or "license" for more information.                                                         
+26/04/23 12:19:57 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes w
+here applicable                                                                                                                
+Setting default log level to "WARN".                                                                                           
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).                                   
+26/04/23 12:19:59 WARN Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under
+ SPARK_HOME.                                                                                                                   
+Welcome to                                                                                                                     
+      ____              __                                                                                                     
+     / __/__  ___ _____/ /__                                                                                                   
+    _\ \/ _ \/ _ `/ __/  '_/                                                                                                   
+   /__ / .__/\_,_/_/ /_/\_\   version 3.1.2                                                                                    
+      /_/                                                                                                                      
+                                                                                                                               
+Using Python version 3.9.13 (main, Aug 25 2022 23:26:10)                                                                       
+Spark context Web UI available at http://ip-172-31-16-60.ap-south-1.compute.internal:4040                                      
+Spark context available as 'sc' (master = yarn, app id = application_1776055345521_3602).                                      
+SparkSession available as 'spark'.                                                                                             
+>>> rdd = sc.parallelize([1])                                                                                                  
+>>> rdd.map(lambda x: __import__("sys").version).collect()                                                                     
+['3.9.13 (main, Aug 25 2022, 23:26:10) \n[GCC 11.2.0]']
+                                                                      
+##--------------------------------------                                                                                                                               
+>>> rdd1 = sc.textFile("/user/cddacmaylab407/txns1.txt")                                                                       
+>>>                                                                                                                            
+>>> rdd2 = rdd1.map(lambda a : (a.split(",")[5], float(a.split(",")[3] ) ))                                                    
+>>> for line in rdd2.take(5):                                                                                                  
+...     print(line)                                                                                                            
+...                                                                                                                            
+('Cardio Machine Accessories', 40.33)
+('Weightlifting Gloves', 198.44)                                                                                               
+('Weightlifting Machine Accessories', 5.58)                                                                                    
+('Gymnastics Rings',
+                                                                                                                                                                                                                                                                                                                                            

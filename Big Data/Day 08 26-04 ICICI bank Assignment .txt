@@ -1,0 +1,140 @@
+cddacmaylab407@ip-172-31-14-185:~$ export PYSPARK_PYTHON=/opt/anaconda3/bin/python
+cddacmaylab407@ip-172-31-14-185:~$ export PYSPARK_DRIVER_PYTHON=/opt/anaconda3/bin/python
+
+cddacmaylab407@ip-172-31-14-185:~$
+cddacmaylab407@ip-172-31-14-185:~$ pyspark
+
+>>> import sys
+>>>                                                                                                          
+>>> rdd = sc.parallelize([1])                                                                                
+>>> rdd.map(lambda x: __import__("sys").version).collect()
+['3.9.13 (main, Aug 25 2022, 23:26:10) \n[GCC 11.2.0]']
+>>>
+
+
+>>> rdd1 = sc.textFile("/user/cddacmaylab407/ICICIBANK.csv")                                                                                                                               
+>>> rdd1.count()                                                                                                                                                                           
+5558
+
+>>> rdd1 = sc.textFile("/user/cddacmaylab407/ICICIBANK.csv")                                                                                                                               
+>>>                                                                                                                                                                                        
+>>> for line in rdd1.take(10):                                                                                                                                                             
+...     print(line)                                                                                                                                                                        
+...                                                                                                                                                                                        
+Date,Adj Close,Close,High,Low,Open,Volume                                                                                                                                                  
+2002-07-01 00:00:00+00:00,17.83141708,25.12727165,25.81818008,24.81818008,25.41818047,2047540                                                                                              
+2002-07-02 00:00:00+00:00,18.97974968,26.74545479,27.63636208,25.23636246,25.45454407,5546354                                                                                              
+2002-07-03 00:00:00+00:00,19.9345417,28.09090805,28.18181801,26.64545441,26.72727203,5745267                                                                                               
+2002-07-04 00:00:00+00:00,19.43779373,27.39090919,28.79999924,27.0363636,28.18181801,3896601
+
+
+>>> header = rdd1.first()                                                                                                                                                                  
+>>> rdd2 = rdd1.filter(lambda row: row != header)                                                                                                                                          
+>>> for line in rdd2.take(10):                                                                                                                                                             
+...     print(line)                                                                                                                                                                        
+...                                                                                                                                                                                        
+2002-07-01 00:00:00+00:00,17.83141708,25.12727165,25.81818008,24.81818008,25.41818047,2047540                                                                                              
+2002-07-02 00:00:00+00:00,18.97974968,26.74545479,27.63636208,25.23636246,25.45454407,5546354                                                                                              
+2002-07-03 00:00:00+00:00,19.9345417,28.09090805,28.18181801,26.64545441,26.72727203,5745267                                                                                               
+2002-07-04 00:00:00+00:00,19.43779373,27.39090919,28.79999924,27.0363636,28.18181801,3896601   
+
+
+>>> rdd3 = rdd2.map(lambda a : (a.split("+")[0],a.split(",")[2]))                                                                                                                          
+>>> for line in rdd3.take(5):                                                                                                                                                              
+...     print(line)                                                                                                                                                                        
+...                                                                                                                                                                                        
+('2002-07-01 00:00:00+00:00', '25.12727165')                                                                                                                                               
+('2002-07-02 00:00:00+00:00', '26.74545479')                                                                                                                                               
+('2002-07-03 00:00:00+00:00', '28.09090805')                                                                                                                                               
+('2002-07-04 00:00:00+00:00', '27.39090919')                                                                                                                                               
+('2002-07-05 00:00:00+00:00', '27.67272758')  
+
+
+>>> from datetime import datetime
+>>> from_date = "%Y-%m-%d %H:%M:%S"                                                                                                                                                        
+>>> rdd4 = rdd3.map(lambda a: (datetime.strptime(a[0],from_date).strftime("%B") , float(a[1])  ))                                                                                          
+>>> for line in rdd4.take(5):                                                                                                                                                              
+...     print(line)                                                                                                                                                                        
+...                                                                                                                                                                                        
+('July', 25.12727165)                                                                                                                                                                      
+('July', 26.74545479)                                                                                                                                                                      
+('July', 28.09090805)                                                                                                                                                                      
+('July', 27.39090919)                                                                                                                                                                      
+('July', 27.67272758)  
+
+
+>>> rdd5 = rdd4.mapValues(lambda x: (x, 1))                                                                                                                                            
+>>> for line in rdd5.take(5):                                                                                           
+...     print(line)                                                                                                                                                                        
+...                                                                                                                                                                                        
+('July', (25.12727165, 1))                                                                                                                                                                 
+('July', (26.74545479, 1))                                                                                                                                                                 
+('July', (28.09090805, 1))                                                                                                                                                                 
+('July', (27.39090919, 1))                                                                                                                                                                 
+('July', (27.67272758, 1))          
+
+rdd6 = rdd5.reduceByKey( lambda a, b: (a[0] + b[0], a[1] + b[1] ))  
+>>> for line in rdd6.collect():                                                                                                                                                              
+...     print(line)                                                                                                                                                                        
+...                                                                                                                                                                                        
+('July', (155529.95345322005, 505))                                                                                                                                                        
+('January', (144715.87244548002, 464))                                                                                                                                                     
+('March', (133468.74035204004, 452))                                                                                                                                                       
+('May', (144981.98586925998, 467))                                                                                                                                                         
+('August', (152449.66351307998, 485))                                                                                                                                                      
+('September', (154358.78607911002, 475))                                                                                                                                                   
+('October', (153045.29515058, 465))                                                                                                                                                        
+('November', (144601.96314119996, 451))                                                                                                                                                    
+('December', (143432.74087295998, 469))                                                                                                                                                    
+('February', (135728.84024979, 433))                                                                                                                                                       
+('April', (126763.97715155008, 421))                                                                                                                                                       
+('June', (144668.04075709998, 468)) 
+
+>>> rdd7 = rdd6.map(lambda a: (a[0],a[1][0]/a[1][1] ))                                                                                                                                     
+>>> for line in rdd7.collect():                                                                                                                                                            
+...     print(line)                                                                                                                                                                        
+...                                                                                                                                                                                        
+('July', 307.9801058479605)                                                                                                                                                                
+('January', 311.88765613250007)                                                                                                                                                            
+('March', 295.2848237876992)                                                                                                                                                               
+('May', 310.45393119755886)                                                                                                                                                                
+('August', 314.32920311975255)                                                                                                                                                             
+('September', 324.96586542970533)                                                                                                                                                          
+('October', 329.1296669904946)                                                                                                                                                             
+('November', 320.62519543503316)                                                                                                                                                           
+('December', 305.826739601194)                                                                                                                                                             
+('February', 313.46152482630487)                                                                                                                                                           
+('April', 301.10208349536833)                                                                                                                                                              
+('June', 309.1197452074786)    
+
+>>> month_order = {
+    'January': 1, 'February': 2, 'March': 3, 'April': 4,
+    'May': 5, 'June': 6, 'July': 7, 'August': 8,
+    'September': 9, 'October': 10, 'November': 11, 'December': 12}
+
+>>> rdd8 = rdd7.sortBy(lambda x: month_order[x[0]])                                                                                                                                        
+>>> for line in rdd8.collect():                                                                                                                                                            
+...     print(line)                                                                                                                                                                        
+... 
+('January', 311.88765613250007)                                                                                                                                                            
+('February', 313.46152482630487)                                                                                                                                                           
+('March', 295.2848237876992)                                                                                                                                                               
+('April', 301.10208349536833)                                                                                                                                                              
+('May', 310.45393119755886)                                                                                                                                                                
+('June', 309.1197452074786)                                                                                                                                                                
+('July', 307.9801058479605)                                                                                                                                                                
+('August', 314.32920311975255)                                                                                                                                                             
+('September', 324.96586542970533)                                                                                                                                                          
+('October', 329.1296669904946)                                                                                                                                                             
+('November', 320.62519543503316)                                                                                                                                                           
+('December', 305.826739601194) 
+
+
+>>> rdd14 = rdd3.map(lambda a: (datetime.strptime(a[0].split("+")[0], from_date).strftime("%Y-%m"),float(a[1]) ))   
+
+>>> rdd_max = rdd14.reduceByKey(lambda a, b: max(a, b))                                                                                                                                    
+
+>>> rdd_sorted = rdd_max.sortByKey()                                                                                                                                                       
+>>>                                                                                                                                                                                        
+>>> for line in rdd_sorted.collect():                                                                                                                                                      
+...     print(line)  

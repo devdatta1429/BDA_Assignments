@@ -1,0 +1,122 @@
+>>> cityDF=df1.select(col("City"),col("Total_Sales"))                                                                                                                                                              
+>>> cityDF.show(5)                                                                                                                                                                                                 
++--------+-----------+                                                                                                                                                                                             
+|    City|Total_Sales|                                                                                                                                                                                             
++--------+-----------+                                                                                                                                                                                             
+|New York|      60000|                                                                                                                                                                                             
+|New York|      50000|                                                                                                                                                                                             
+|New York|      40000|                                                                                                                                                                                             
+|New York|      38250|                                                                                                                                                                                             
+|New York|      54000|                                                                                                                                                                                             
++--------+-----------+                                                                                                                                                                                             
+only showing top 5 rows                                                                                                                                                                                            
+                                                                                                                                                                                                                   
+>>>   
+
+>>> df1= spark.read.format("csv").option("header","True").option("inferschema","True").load("/user/cddacmaylab407/usa_new/us_sales.csv")                                                                                                                                                                                                        
+>>> df1.show(5)                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                    
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+------+-----------------+              
+|   Retailer|Retailer_ID|Invoice_Date|   Region|   State|    City|             Product|Price_per_Unit|Units_Sold|Total_Sales|Operating_Profit|Operating_Margin|Sales_Method|Gender|         Category|              
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+------+-----------------+              
+|Foot Locker|    1185732|  2020-01-01|Northeast|New York|New York|Men's Street Foot...|            50|      1200|      60000|         30000.0|            50.0|    In-store|   Men|  Street Footwear|              
+|Foot Locker|    1185732|  2020-01-02|Northeast|New York|New York|Men's Athletic Fo...|            50|      1000|      50000|         15000.0|            30.0|    In-store|   Men|Athletic Footwear|              
+|Foot Locker|    1185732|  2020-01-03|Northeast|New York|New York|Women's Street Fo...|            40|      1000|      40000|         14000.0|            35.0|    In-store| Women|  Street Footwear|              
+|Foot Locker|    1185732|  2020-01-04|Northeast|New York|New York|Women's Athletic ...|            45|       850|      38250|         13387.5|            35.0|    In-store| Women|Athletic Footwear|              
+|Foot Locker|    1185732|  2020-01-05|Northeast|New York|New York|       Men's Apparel|            60|       900|      54000|         16200.0|            30.0|    In-store|   Men|          Apparel|              
++-----------+-----------+------------+---------+--------+--------+--------------------+--------------+----------+-----------+----------------+----------------+------------+------+-----------------+              
+only showing top 5 rows                                                                                                                                                                                            
+                                                                                                                                                                                                                   
+>>> cityDF=df1.select(col("City"),col("Total_Sales"))                                                                                                                                                              
+>>> cityDF.show(5)                                                                                                                                                                                                 
++--------+-----------+                                                                                                                                                                                             
+|    City|Total_Sales|                                                                                                                                                                                             
++--------+-----------+                                                                                                                                                                                             
+|New York|      60000|                                                                                                                                                                                             
+|New York|      50000|                                                                                                                                                                                             
+|New York|      40000|                                                                                                                                                                                             
+|New York|      38250|                                                                                                                                                                                             
+|New York|      54000|                                                                                                                                                                                             
++--------+-----------+                                                                                                                                                                                             
+only showing top 5 rows                                                                                                                                                                                            
+                                                                                                                                                                                                                   
+>>>                                                                                                                                                                                                                                                                                                                                                                                                                           
+>>> from pyspark.sql.functions import *                                                                                                                                                                            
+>>> randomVal=rand()                                                                                                                                                                                               
+>>>                                                                                                                                                                                                                
+>>>                                                                                                                                                                                                                
+>>> saltedDF=cityDF.withColumn("salted_key",randomVal)                                                                                                                                                             
+>>> saltedDF.show(5)                                                                                                                                                                                               
++--------+-----------+------------------+                                                                                                                                                                          
+|    City|Total_Sales|        salted_key|                                                                                                                                                                          
++--------+-----------+------------------+                                                                                                                                                                          
+|New York|      60000|0.3258522378842983|                                                                                                                                                                          
+|New York|      50000|0.9813279786755891|                                                                                                                                                                          
+|New York|      40000| 0.374632346261932|                                                                                                                                                                          
+|New York|      38250|0.3066264909630989|                                                                                                                                                                          
+|New York|      54000| 0.805718113264416|                                                                                                                                                                          
++--------+-----------+------------------+                                                                                                                                                                          
+only showing top 5 rows                                                                                                                                                                                            
+                                                                                                                                                                                                                   
+>>> citrandomVal=rand()    
+>>>                                                                                                                                                                                        
+>>> randomVal=round(rand()*3)                                                                                                                                                                                                                                                                                                                                                                      
+>>>
+>>> saltedDF=cityDF.withColumn("salted_key",randomVal)  
+>>>                                                                                                                                                           
+>>> saltedDF.show(5)                                                                                                                                                                                               
++--------+-----------+----------+                                                                                                                                                                                  
+|    City|Total_Sales|salted_key|                                                                                                                                                                                  
++--------+-----------+----------+                                                                                                                                                                                  
+|New York|      60000|       1.0|                                                                                                                                                                                  
+|New York|      50000|       3.0|                                                                                                                                                                                  
+|New York|      40000|       3.0|                                                                                                                                                                                  
+|New York|      38250|       1.0|                                                                                                                                                                                  
+|New York|      54000|       2.0|                                                                                                                                                                                  
++--------+-----------+----------+                                                                                                                                                                                  
+only showing top 5 rows                                                                                                                                                                                            
+                                                                                                                                                                                                                   
+>>>                                                                                                                                                                                
+>>> randomVal=round(rand()*3)                                                                                                                                                                                      
+>>>
+>>> saltedDF=cityDF.withColumn("salted_key",randomVal)                                                                                                                                                             
+>>>
+>>> saltedDF.show(5)                                                                                                                                                                                               
++--------+-----------+----------+                                                                                                                                                                                  
+|    City|Total_Sales|salted_key|                                                                                                                                                                                  
++--------+-----------+----------+                                                                                                                                                                                  
+|New York|      60000|       1.0|                                                                                                                                                                                  
+|New York|      50000|       0.0|                                                                                                                                                                                  
+|New York|      40000|       3.0|                                                                                                                                                                                  
+|New York|      38250|       2.0|                                                                                                                                                                                  
+|New York|      54000|       2.0|                                                                                                                                                                                  
++--------+-----------+----------+                                                                                                                                                                                  
+only showing top 5 rows                                                                                                                                                                                            
+
+>>>                                                                                                                                                                                                                   
+>>> saltedDF.createOrReplaceTempView("salted_table")                                                                                                                                                               
+>>>
+>>> out1=spark.sql("select city,salted_key,sum(Total_Sales) as gr_total from salted_table where city='New York' group by city,salted_key")                                                                         
+>>> out1.show()                                                                                                                                                                                                    
++--------+----------+--------+
+|    city|salted_key|gr_total|                                                                                                                                                                                     
++--------+----------+--------+                                                                                                                                                                                     
+|New York|       1.0| 1736708|                                                                                                                                                                                     
+|New York|       2.0| 2232929|                                                                                                                                                                                     
+|New York|       3.0|  731445|                                                                                                                                                                                     
+|New York|       0.0|  975078|                                                                                                                                                                                     
++--------+----------+--------+                                                                                                                                                                                     
+                                                                                                                                                                                                                   
+>>>                                                                                                                                                                                                                                                                                                                                                                                             
+>>> out1.createOrReplaceTempView("final_table")   
+>>>                                                                                                                                                                 
+>>> final = spark.sql("select city,sum(gr_total) from final_table group by city")                                                                                                                                  
+>>>
+>>> final.show()                                                                                                                                                                                                   
++--------+-------------+
+|    city|sum(gr_total)|                                                                                                                                                                                           
++--------+-------------+                                                                                                                                                                                           
+|New York|      5676160|                                                                                                                                                                                           
++--------+-------------+                                                                                                                                                                                           
+                                                                                                                                                                                                                   
+>>>  
